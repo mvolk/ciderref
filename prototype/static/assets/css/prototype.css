@@ -1,0 +1,120 @@
+body {
+    background-color: #FFFFDD;
+}
+.enter-btn {
+    margin: 1px 10px;
+    padding: 4px 0;
+    background-color: gold;
+}
+.enter-btn:hover {
+    background-color: #ffed6f;
+}
+.enter-btn:active {
+    background-color: orange;
+}
+a, a:hover, a:active {
+    text-decoration: none;
+    color: black;
+}
+.page-head {
+    padding: 0.2em 0.1em 0 0.15em;
+    margin: 0;
+}
+.logo-icon {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 0.2em;
+    margin-bottom: 0.1em;
+    height: 1.0em;
+    width: 1.0em;
+}
+.nav-icon {
+    vertical-align: middle;
+    margin-left: 0.2em;
+    height: 0.7em;
+    width: 0.7em;
+    margin-top: 0.2em;
+}
+.nav-header, .wizard-header {
+    border: 0.05em solid white;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0.4em 0.2em;
+    background-color: darkslategray;
+    color: white;
+}
+.nav-back {
+    border-left: 0.05em solid white;
+    border-right: 0.05em solid white;
+    border-top: 0.05em solid slategray;
+    border-bottom: 0.05em solid slategray;
+    border-collapse: collapse;
+    margin-top: 3em;
+    padding: 0.4em 0.2em 0.35em 1.0em;
+    background-color: gold;
+    background-image: url("../images/icon-arrow-left-b-128.png");
+    background-repeat: no-repeat;
+    background-position: center left;
+    background-size: auto 1.0em;
+}
+.nav-item {
+    border: 0.05em solid white;
+    border-collapse: collapse;
+    padding: 0.6em 0.2em;
+    background-color: gold;
+    background-image: url("../images/icon-arrow-right-b-128.png");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: auto 1.5em;
+}
+.nav-item:hover, .nav-back:hover {
+    background-color: #ffed6f;
+}
+.nav-item:active, .nav-back:active {
+    background-color: orange;
+}
+.wizard-body {
+    border: 0.05em solid white;
+    padding: 3em 2em 1em 2em;
+}
+.wizard-body p {
+    font-weight: bold;
+}
+.wizard-nav {
+    border: 0.05em solid white;
+    padding: 0 2em;
+}
+.wizard-progress-so-far {
+    border-left: 0.05em solid white;
+    border-collapse: collapse;
+    margin: 0;
+    padding-left: 0.2em;
+    background-color: gold;
+    height: 1.5em;
+    color: darkslategray;
+}
+.wizard-progress-remaining {
+    border-right: 0.05em solid white;
+    margin: 0;
+    background-color: #e6ebeb;
+    height: 1.5em;
+}
+.wizard-progress-not-done {
+    background-image: url("../images/wizard-next.png");
+    background-repeat: no-repeat;
+    background-position: center right;
+    background-size: auto 1.5em;
+}
+.wizard-progress-done {
+    border-right: 0.05em solid white;
+}
+.footer {
+    text-align: center;
+}
+.footer p {
+    font-size: 0.7em;
+    color: lightslategray;
+}
+.margin-top-1 {
+    margin-top: 1em;
+}

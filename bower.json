@@ -1,0 +1,21 @@
+{
+  "name": "ciderref",
+  "homepage": "https://github.com/mvolk/ciderref",
+  "authors": [
+    "Michael Volk <michael@volksys.com>"
+  ],
+  "description": "Hard cider made easy!",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-css": "^3.3.6"
+  }
+}

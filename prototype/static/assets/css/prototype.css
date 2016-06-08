@@ -28,7 +28,8 @@ a, a:hover, a:active {
     height: 1.0em;
     width: 1.0em;
 }
-.nav-icon {
+.settings-icon {
+    float: right;
     vertical-align: middle;
     margin-left: 0.2em;
     height: 0.7em;

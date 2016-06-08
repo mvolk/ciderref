@@ -92,7 +92,7 @@ var WizardProgressBar = React.createClass({
         );
     },
     getProgressElement: function() {
-        var className = this.props.progressRender == 12 ? 'wizard-progress-done' : 'wizard-progress-remaining';
+        var className = this.props.progressRender === 12 ? 'wizard-progress-done' : 'wizard-progress-not-done';
         return (
             <div className={'col-xs-' + this.props.progressRender + ' wizard-progress-so-far ' + className}>{this.props.progressPercent}%</div>
         );

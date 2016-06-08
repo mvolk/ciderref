@@ -57,6 +57,7 @@ a, a:hover, a:active {
     background-repeat: no-repeat;
     background-position: center left;
     background-size: auto 1.0em;
+    cursor: pointer;
 }
 .nav-item {
     border: 0.05em solid white;

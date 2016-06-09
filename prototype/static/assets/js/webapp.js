@@ -2,7 +2,10 @@
 var HydrometerCorrectionWizard = React.createClass({
     getInitialState: function () {
         return {
-            step: 1
+            step: 1,
+            measuredSpecificGravity: 1.045,
+            measuredTemperature: 15,
+            calibrationTemperature: 15
         };
     },
     render: function() {
@@ -35,26 +38,40 @@ var HydrometerCorrectionWizard = React.createClass({
     getChild: function() {
         var step = this.state.step;
         if (step === 1) {
-            return <SpecificGravityInput />;
+            return <SpecificGravityInput value={this.state.measuredSpecificGravity} onChange={this.setMeasuredSpecificGravity} />;
         } else if (step === 2) {
-            return <TemperatureInput />;
+            return <TemperatureInput value={this.state.measuredTemperature} onChange={this.setMeasuredTemperature} />;
         } else if (step === 3) {
-            return <TemperatureInput />;
+            return <TemperatureInput value={this.state.calibrationTemperature} onChange={this.setCalibrationTemperature} />;
         } else if (step == 4) {
-            return <ValueResult value="1.048" />;
+            return <ValueResult value={this.getCorrectedSpecificGravity()} />;
         }
     },
     getContinueLabel: function() {
         return this.state.step === 4 ? 'Done' : 'Continue';
+    },
+    getCorrectedSpecificGravity: function() {
+        return 'Not Implemented';
+    },
+    setMeasuredSpecificGravity: function(value) {
+        this.state.measuredSpecificGravity = value;
+        this.setState(this.state);
+    },
+    setMeasuredTemperature: function(value) {
+        this.state.measuredTemperature = value;
+        this.setState(this.state);
+    },
+    setCalibrationTemperature: function(value) {
+        this.state.calibrationTemperature = value;
+        this.setState(this.state);
     },
     handleContinue: function() {
         var nextStep = this.state.step + 1;
         if (nextStep == 5) {
             this.props.onExit();
         } else {
-            this.setState({
-                step: nextStep
-            });
+            this.state.step = this.state.step + 1;
+            this.setState(this.state);
         }
     }
 });
@@ -124,20 +141,44 @@ var HydrometerCorrectionWizardBody = React.createClass({
 });
 
 var SpecificGravityInput = React.createClass({
+    getInitialState: function () {
+        var value = this.props.defaultValue || '1.049';
+        return {
+            value: value
+        };
+    },
     render: function() {
         return (
-            <input type="number" defaultValue="1.049" min="0.990" max="1.099" step="0.001" />
+            <input type="number" value={this.state.value} onChange={this.handleChange} min="0.990" max="1.099" step="0.001" />
         );
+    },
+    handleChange: function (event) {
+        this.setState({
+            value: event.target.value
+        });
+        this.props.onChange(event.target.value);
     }
 });
 
 var TemperatureInput = React.createClass({
+    getInitialState: function () {
+        var value = this.props.defaultValue || '15';
+        return {
+            value: value
+        };
+    },
     render: function() {
         return (
             <div>
-                <input type="number" defaultValue="15" min="0" max="100" step="1" /> &deg;C
+                <input type="number" value={this.state.value} onChange={this.handleChange} min="0" max="100" step="1" /> &deg;C
             </div>
         );
+    },
+    handleChange: function (event) {
+        this.setState({
+            value: event.target.value
+        });
+        this.props.onChange(event.target.value);
     }
 });
 

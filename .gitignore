@@ -47,3 +47,6 @@ crashlytics-build.properties
 
 # Bower
 bower_components
+
+# npm
+node_modules

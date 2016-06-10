@@ -1,0 +1,15 @@
+{
+  "name": "cider-ref",
+  "version": "0.1.0",
+  "description": "Hard cider made easy! Calculators and reference materials for cider makers.",
+  "homepage": "https://github.com/mvolk/ciderref",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mvolk/ciderref.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "~15.1.0",
+    "react-dom": "~15.1.0"
+  }
+}

@@ -16,7 +16,7 @@ a, a:hover, a:active {
     text-decoration: none;
     color: black;
 }
-.page-head {
+.page-header {
     padding: 0.2em 0.1em 0 0.15em;
     margin: 0;
 }
@@ -43,6 +43,7 @@ a, a:hover, a:active {
     padding: 0.4em 0.2em;
     background-color: darkslategray;
     color: white;
+    cursor: pointer;
 }
 .nav-back {
     border-left: 0.05em solid white;
@@ -62,6 +63,7 @@ a, a:hover, a:active {
 .nav-item {
     border: 0.05em solid white;
     border-collapse: collapse;
+    margin: 0;
     padding: 0.6em 0.2em;
     background-color: gold;
     background-image: url("../images/icon-arrow-right-b-128.png");
@@ -110,10 +112,11 @@ a, a:hover, a:active {
 .wizard-progress-done {
     border-right: 0.05em solid white;
 }
-.footer {
+.page-footer {
+    margin-top: 0.5em;
     text-align: center;
 }
-.footer p {
+.page-footer p {
     font-size: 0.7em;
     color: lightslategray;
 }

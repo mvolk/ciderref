@@ -12,6 +12,7 @@ class App extends React.Component {
       currentView: 'SignIn'
     };
 
+    this.handleOpenSettings = this.handleOpenSettings.bind(this);
     this.handleRequestGuestMenu = this.handleRequestGuestMenu.bind(this);
     this.handleRequestHydrometerCorrection = this.handleRequestHydrometerCorrection.bind(this);
   }
@@ -19,7 +20,7 @@ class App extends React.Component {
   render() {
     if (this.state.currentView === 'HydrometerCorrectionWizard') {
       return (
-        <HydrometerCorrectionWizard refererName="Back to Main Menu" onExit={this.handleRequestGuestMenu} onRequestHome={this.handleRequestGuestMenu} />
+        <HydrometerCorrectionWizard refererName="Back to Main Menu" onExit={this.handleRequestGuestMenu} onRequestHome={this.handleRequestGuestMenu} onOpenSettings={this.handleOpenSettings} />
       );
     } else if (this.state.currentView === 'SignIn') {
       return (
@@ -27,9 +28,13 @@ class App extends React.Component {
       );
     } else {
       return (
-        <GuestMenu onHydrometerCorrectionClick={this.handleRequestHydrometerCorrection} onRequestHome={() => {}} />
+        <GuestMenu onHydrometerCorrectionClick={this.handleRequestHydrometerCorrection} onRequestHome={() => {}} onOpenSettings={this.handleOpenSettings} />
       );
     }
+  }
+
+  handleOpenSettings() {
+    window.alert('not implemented');
   }
 
   handleRequestGuestMenu() {

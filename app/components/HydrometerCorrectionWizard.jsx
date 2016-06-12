@@ -29,7 +29,7 @@ export default class HydrometerCorrectionWizard extends React.Component {
   render() {
     return (
       <div className="container">
-        <PageHeader onRequestHome={this.props.onRequestHome} />
+        <PageHeader onRequestHome={this.props.onRequestHome} onOpenSettings={this.props.onOpenSettings} />
         <WizardHeader name="Hydrometer Correction"/>
         <WizardProgressBar progressPercent={25 * this.state.step} progressRender={3 * this.state.step}/>
         <div className="row">

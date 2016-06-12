@@ -5,7 +5,7 @@ export default class PageHeader extends React.Component {
     return (
       <div className="row">
         <div className="col-xs-12 h3 page-header">
-          <a href=""><img src="images/icon-gear-48.png" className="settings-icon"/></a>
+          <img src="images/icon-gear-48.png" className="settings-icon link" onClick={this.props.onOpenSettings} />
           <div className="link" onClick={this.props.onRequestHome}><img src="images/apple.png" className="logo-icon"/>CiderRef</div>
         </div>
       </div>

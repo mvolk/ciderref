@@ -8,7 +8,7 @@ export default class GuestMenu extends React.Component {
   render() {
     return (
       <div className="container">
-        <PageHeader onRequestHome={this.props.onRequestHome} />
+        <PageHeader onRequestHome={this.props.onRequestHome} onOpenSettings={this.props.onOpenSettings} />
         <NavigationHeader label="Calculators:"/>
         <NavigationItem label="Hydrometer Correction" onClick={this.props.onHydrometerCorrectionClick}/>
         <NavigationItem label="Sulphite Treatment" onClick={this.handleClickNoOp}/>

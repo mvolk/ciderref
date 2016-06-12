@@ -1,3 +1,4 @@
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 body {
     background-color: #FFFFDD;
 }
@@ -5,6 +6,7 @@ body {
     margin: 1px 10px;
     padding: 4px 0;
     background-color: gold;
+    cursor: pointer;
 }
 .enter-btn:hover {
     background-color: #ffed6f;
@@ -16,7 +18,7 @@ a, a:hover, a:active {
     text-decoration: none;
     color: black;
 }
-.page-head {
+.page-header {
     padding: 0.2em 0.1em 0 0.15em;
     margin: 0;
 }
@@ -28,7 +30,8 @@ a, a:hover, a:active {
     height: 1.0em;
     width: 1.0em;
 }
-.nav-icon {
+.settings-icon {
+    float: right;
     vertical-align: middle;
     margin-left: 0.2em;
     height: 0.7em;
@@ -44,28 +47,24 @@ a, a:hover, a:active {
     color: white;
 }
 .nav-back {
-    border-left: 0.05em solid white;
-    border-right: 0.05em solid white;
-    border-top: 0.05em solid slategray;
-    border-bottom: 0.05em solid slategray;
+    border: 0.05em solid slategray;
+    border-right-color: white;
+    border-left-color: white;
     border-collapse: collapse;
     margin-top: 3em;
     padding: 0.4em 0.2em 0.35em 1.0em;
-    background-color: gold;
-    background-image: url("../images/icon-arrow-left-b-128.png");
-    background-repeat: no-repeat;
-    background-position: center left;
+    background: gold url("../images/icon-arrow-left-b-128.png") no-repeat center left;
     background-size: auto 1.0em;
+    cursor: pointer;
 }
 .nav-item {
     border: 0.05em solid white;
     border-collapse: collapse;
+    margin: 0;
     padding: 0.6em 0.2em;
-    background-color: gold;
-    background-image: url("../images/icon-arrow-right-b-128.png");
-    background-repeat: no-repeat;
-    background-position: center right;
+    background: gold url("../images/icon-arrow-right-b-128.png") no-repeat center right;
     background-size: auto 1.5em;
+    cursor: pointer;
 }
 .nav-item:hover, .nav-back:hover {
     background-color: #ffed6f;
@@ -100,21 +99,24 @@ a, a:hover, a:active {
     height: 1.5em;
 }
 .wizard-progress-not-done {
-    background-image: url("../images/wizard-next.png");
-    background-repeat: no-repeat;
-    background-position: center right;
+    background: gold url("../images/wizard-next.png") no-repeat center right;
     background-size: auto 1.5em;
 }
 .wizard-progress-done {
+    background-color: gold;
     border-right: 0.05em solid white;
 }
-.footer {
+.page-footer {
+    margin-top: 0.5em;
     text-align: center;
 }
-.footer p {
+.page-footer p {
     font-size: 0.7em;
     color: lightslategray;
 }
 .margin-top-1 {
     margin-top: 1em;
+}
+.link {
+    cursor: pointer;
 }

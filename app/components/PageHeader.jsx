@@ -22,6 +22,5 @@ export default class PageHeader extends React.Component {
     } else {
       return <div><img src="images/apple.png" className="logo-icon"/>CiderRef</div>
     }
-
   }
 }

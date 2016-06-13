@@ -14,8 +14,12 @@ export default class SpecificGravityInput extends React.Component {
 
   render() {
     return (
-      <input type="number" value={this.state.value} onChange={this.handleChange} min="0.990" max="1.099" step="0.001"/>
+      <input type="number" value={this.state.value} onChange={this.handleChange} autoFocus={this.isAutoFocusEnabled()} min="0.990" max="1.099" step="0.001"/>
     );
+  }
+  
+  isAutoFocusEnabled() {
+    return this.props.autoFocus || false;
   }
 
   handleChange(event) {

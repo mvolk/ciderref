@@ -62,11 +62,12 @@ export default class HydrometerCorrectionWizard extends React.Component {
     var step = this.state.step;
     if (step === 1) {
       return <SpecificGravityInput value={this.state.measuredSpecificGravity}
+                                   autoFocus={true}
                                    onChange={this.setMeasuredSpecificGravity}/>;
     } else if (step === 2) {
-      return <TemperatureInput value={this.state.measuredTemperature} onChange={this.setMeasuredTemperature}/>;
+      return <TemperatureInput value={this.state.measuredTemperature} autoFocus={true} onChange={this.setMeasuredTemperature}/>;
     } else if (step === 3) {
-      return <TemperatureInput value={this.state.calibrationTemperature} onChange={this.setCalibrationTemperature}/>;
+      return <TemperatureInput value={this.state.calibrationTemperature} autoFocus={true} onChange={this.setCalibrationTemperature}/>;
     } else if (step == 4) {
       return <ResultValue value={this.getCorrectedSpecificGravity()}/>;
     }

@@ -9,7 +9,13 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      currentView: 'SignIn'
+      currentView: 'SignIn',
+      preferences: {
+        temperatureUnits: {
+          name: 'Celsius',
+          label: String.fromCharCode(176) + 'C'
+        }
+      }
     };
 
     this.handleOpenSettings = this.handleOpenSettings.bind(this);
@@ -20,7 +26,7 @@ class App extends React.Component {
   render() {
     if (this.state.currentView === 'HydrometerCorrectionWizard') {
       return (
-        <HydrometerCorrectionWizard refererName="Back to Main Menu" onExit={this.handleRequestGuestMenu} onRequestHome={this.handleRequestGuestMenu} onOpenSettings={this.handleOpenSettings} />
+        <HydrometerCorrectionWizard refererName="Back to Main Menu" preferences={this.state.preferences} onExit={this.handleRequestGuestMenu} onRequestHome={this.handleRequestGuestMenu} onOpenSettings={this.handleOpenSettings} />
       );
     } else if (this.state.currentView === 'SignIn') {
       return (

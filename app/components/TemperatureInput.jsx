@@ -15,7 +15,15 @@ export default class TemperatureInput extends React.Component {
   render() {
     return (
       <div>
-        <input type="number" value={this.state.value} autoFocus={this.isAutoFocusEnabled()} onChange={this.handleChange} min="0" max="100" step="1"/> &deg;C
+        <input type="number"
+               value={this.state.value}
+               autoFocus={this.isAutoFocusEnabled()}
+               onChange={this.handleChange}
+               min="0"
+               max="100"
+               step="1"
+        />
+        {this.props.unitsLabel}
       </div>
     );
   }

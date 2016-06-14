@@ -1,5 +1,4 @@
 import React from 'react';
-import PageHeader from './PageHeader.jsx';
 import WizardHeader from './WizardHeader.jsx';
 import WizardProgressBar from './WizardProgressBar.jsx';
 import SpecificGravityInput from './SpecificGravityInput.jsx';
@@ -7,7 +6,6 @@ import TemperatureInput from './TemperatureInput.jsx';
 import ResultValue from './ResultValue.jsx';
 import WizardContinue from './WizardContinue.jsx';
 import BackNavigation from './BackNavigation.jsx';
-import PageFooter from './PageFooter.jsx';
 
 export default class HydrometerCorrectionWizard extends React.Component {
   constructor(props) {
@@ -28,8 +26,7 @@ export default class HydrometerCorrectionWizard extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <PageHeader onRequestHome={this.props.onRequestHome} onOpenSettings={this.props.onOpenSettings} />
+      <div className="wrapper">
         <WizardHeader name="Hydrometer Correction"/>
         <WizardProgressBar progressPercent={25 * this.state.step} progressRender={3 * this.state.step}/>
         <div className="row">
@@ -40,7 +37,6 @@ export default class HydrometerCorrectionWizard extends React.Component {
         </div>
         <WizardContinue label={this.getContinueLabel()} onContinue={this.handleContinue}/>
         <BackNavigation label={this.props.refererName} onRequestBack={this.props.onExit}/>
-        <PageFooter />
       </div>
     );
   }

@@ -6,6 +6,7 @@ import HydrometerCorrectionWizard from './components/HydrometerCorrectionWizard.
 import PageHeader from './components/PageHeader.jsx';
 import PageFooter from './components/PageFooter.jsx';
 import PreferencesDialog from './components/PreferencesDialog.jsx';
+import {temperature} from './units';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,12 +14,9 @@ class App extends React.Component {
 
     this.state = {
       currentView: 'SignIn',
+      preferencesDialogOpen: false,
       preferences: {
-        dialogOpen: false,
-        temperatureUnits: {
-          name: 'Celsius',
-          label: String.fromCharCode(176) + 'C'
-        }
+        temperature: temperature.celsius
       }
     };
 
@@ -39,7 +37,11 @@ class App extends React.Component {
           <PageHeader onOpenSettings={this.handleOpenPreferences} />
           {this.getBody()}
           <PageFooter />
-          <PreferencesDialog display={this.state.preferences.dialogOpen} onClosePreferences={this.handleClosePreferences} />
+          <PreferencesDialog 
+            open={this.state.preferencesDialogOpen} 
+            preferences={this.state.preferences} 
+            onClose={this.handleClosePreferences} 
+          />
         </div>
       )
     }
@@ -67,13 +69,12 @@ class App extends React.Component {
   }
 
   handleOpenPreferences() {
-    const preferences = Object.assign({}, this.state.preferences, {dialogOpen: true});
-    this.setState({preferences});
+    this.setState({preferencesDialogOpen: true});
   }
   
   handleClosePreferences(newPrefs) {
-    const preferences = Object.assign({}, newPrefs ? newPrefs : this.state.preferences, {dialogOpen: false});
-    this.setState({preferences});
+    const preferences = Object.assign({}, newPrefs ? newPrefs : this.state.preferences);
+    this.setState({preferences, preferencesDialogOpen: false});
   }
 
   handleRequestGuestMenu() {

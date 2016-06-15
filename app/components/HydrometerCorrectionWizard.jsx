@@ -64,13 +64,13 @@ export default class HydrometerCorrectionWizard extends React.Component {
     } else if (step === 2) {
       return <TemperatureInput value={this.state.measuredTemperature}
                                autoFocus={true}
-                               unitsLabel={this.props.preferences.temperatureUnits.label}
+                               unitsLabel={this.props.preferences.temperature.label}
                                onChange={this.setMeasuredTemperature}
       />;
     } else if (step === 3) {
       return <TemperatureInput value={this.state.calibrationTemperature}
                                autoFocus={true}
-                               unitsLabel={this.props.preferences.temperatureUnits.label}
+                               unitsLabel={this.props.preferences.temperature.label}
                                onChange={this.setCalibrationTemperature}
       />;
     } else if (step == 4) {

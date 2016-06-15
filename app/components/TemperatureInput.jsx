@@ -3,12 +3,6 @@ import React from 'react';
 export default class TemperatureInput extends React.Component {
   constructor(props) {
     super(props);
-
-    var value = this.props.defaultValue || '15';
-    this.state = {
-      value: value
-    };
-
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -16,26 +10,19 @@ export default class TemperatureInput extends React.Component {
     return (
       <div>
         <input type="number"
-               value={this.state.value}
-               autoFocus={this.isAutoFocusEnabled()}
+               value={this.props.value}
+               autoFocus={this.props.autoFocus || false}
                onChange={this.handleChange}
-               min="0"
-               max="100"
-               step="1"
+               min={this.props.minValue || this.props.units.minValue}
+               max={this.props.maxValue || this.props.units.maxValue}
+               step={this.props.step || this.props.units.step}
         />
-        {this.props.unitsLabel}
+        {this.props.units.label}
       </div>
     );
   }
 
-  isAutoFocusEnabled() {
-    return this.props.autoFocus || false;
-  }
-
   handleChange(event) {
-    this.setState({
-      value: event.target.value
-    });
     this.props.onChange(event.target.value);
   }
 }

@@ -7,7 +7,7 @@ export default class GuestMenu extends React.Component {
     return (
       <div className="wrapper">
         <NavigationHeader label="Calculators:"/>
-        <NavigationItem label="Hydrometer Correction" onClick={this.props.onHydrometerCorrectionClick}/>
+        <NavigationItem label="Hydrometer Correction" onClick={this.props.controller.onOpenHydrometerCorrection}/>
         <NavigationItem label="Sulphite Treatment" onClick={this.handleClickNoOp}/>
         <NavigationItem label="Chaptalization" onClick={this.handleClickNoOp}/>
         <NavigationItem label="Backsweetening" onClick={this.handleClickNoOp}/>

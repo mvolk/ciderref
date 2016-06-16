@@ -17,7 +17,7 @@
     "build": "webpack",
     "test": "npm run test:lint",
     "test:tdd": "npm run test -- --auto-watch --no-single-run",
-    "test:lint": "eslint ./prototype/app ./prototype/tests --ext .js --ext .jsx --ignore-path .gitignore --ignore-pattern dist --cache"
+    "test:lint": "eslint ./app ./tests --ext .js --ext .jsx --ignore-path .gitignore --ignore-pattern dist --cache"
   },
   "devDependencies": {
     "babel-core": "^6.9.0",

@@ -1,5 +1,4 @@
 import React from 'react';
-import PageHeader from './PageHeader.jsx';
 import WizardHeader from './WizardHeader.jsx';
 import WizardProgressBar from './WizardProgressBar.jsx';
 import SpecificGravityInput from './SpecificGravityInput.jsx';
@@ -7,97 +6,74 @@ import TemperatureInput from './TemperatureInput.jsx';
 import ResultValue from './ResultValue.jsx';
 import WizardContinue from './WizardContinue.jsx';
 import BackNavigation from './BackNavigation.jsx';
-import PageFooter from './PageFooter.jsx';
 
 export default class HydrometerCorrectionWizard extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      step: 1,
-      measuredSpecificGravity: 1.045,
-      measuredTemperature: 15,
-      calibrationTemperature: 15
-    };
-
-    this.handleContinue = this.handleContinue.bind(this);
-    this.setMeasuredSpecificGravity = this.setMeasuredSpecificGravity.bind(this);
-    this.setMeasuredTemperature = this.setMeasuredTemperature.bind(this);
-    this.setCalibrationTemperature = this.setCalibrationTemperature.bind(this);
+    this.prompts = [
+      'What is the specific gravity indicated by your hydrometer?',
+      'What is the temperature of your juice?',
+      'What is the calibration temperature of your hydrometer?',
+      'The actual specific gravity of your juice is:'
+    ];
+    this.renderChild = [
+      (() => {
+        return <SpecificGravityInput value={this.props.model.measuredSpecificGravity}
+                                     autoFocus={true}
+                                     onChange={this.handleMeasuredSpecificGravityChange}
+        />;
+      }).bind(this),
+      (() => {
+        return <TemperatureInput value={this.props.model.measuredTemperature}
+                                 autoFocus={true}
+                                 units={this.props.preferences.temperature}
+                                 onChange={this.handleMeasuredTemperatureChange}
+        />;
+      }).bind(this),
+      (() => {
+        return <TemperatureInput value={this.props.model.calibrationTemperature}
+                                 autoFocus={true}
+                                 units={this.props.preferences.temperature}
+                                 onChange={this.handleCalibrationTemperatureChange}
+        />;
+      }).bind(this),
+      (() => {
+        return <ResultValue value={this.props.model.correctedSpecificGravity} />;
+      }).bind(this)
+    ];
+    this.handleMeasuredSpecificGravityChange = this.handleMeasuredSpecificGravityChange.bind(this);
+    this.handleMeasuredTemperatureChange = this.handleMeasuredTemperatureChange.bind(this);
+    this.handleCalibrationTemperatureChange = this.handleCalibrationTemperatureChange.bind(this);
   }
 
   render() {
+    const model = this.props.model;
+    const controller = this.props.controller;
     return (
-      <div className="container">
-        <PageHeader onRequestHome={this.props.onRequestHome} onOpenSettings={this.props.onOpenSettings} />
+      <div className="wrapper">
         <WizardHeader name="Hydrometer Correction"/>
-        <WizardProgressBar progressPercent={25 * this.state.step} progressRender={3 * this.state.step}/>
+        <WizardProgressBar progressPercent={25 * model.currentStep} progressRender={3 * model.currentStep}/>
         <div className="row">
           <div className="col-xs-12 wizard-body">
-            <p>{this.getPrompt()}</p>
-            {this.getChild()}
+            <p>{this.prompts[model.currentStep - 1]}</p>
+            {this.renderChild[model.currentStep - 1]()}
           </div>
         </div>
-        <WizardContinue label={this.getContinueLabel()} onContinue={this.handleContinue}/>
-        <BackNavigation label={this.props.refererName} onRequestBack={this.props.onExit}/>
-        <PageFooter />
+        <WizardContinue label={model.currentStep == 4 ? model.exitLabel : 'Continue'} onContinue={controller.onContinue}/>
+        <BackNavigation label={model.exitLabel} onGoBack={controller.onExit}/>
       </div>
     );
   }
 
-  getPrompt() {
-    var step = this.state.step;
-    if (step === 1) {
-      return 'What is the specific gravity indicated by your hydrometer?';
-    } else if (step === 2) {
-      return 'What is the temperature of your juice?';
-    } else if (step === 3) {
-      return 'What is the calibration temperature of your hydrometer?';
-    } else if (step == 4) {
-      return 'The actual specific gravity of your juice is:';
-    }
+  handleMeasuredSpecificGravityChange(value) {
+    this.props.controller.onChange({measuredSpecificGravity: value});
   }
 
-  getChild() {
-    var step = this.state.step;
-    if (step === 1) {
-      return <SpecificGravityInput value={this.state.measuredSpecificGravity}
-                                   onChange={this.setMeasuredSpecificGravity}/>;
-    } else if (step === 2) {
-      return <TemperatureInput value={this.state.measuredTemperature} onChange={this.setMeasuredTemperature}/>;
-    } else if (step === 3) {
-      return <TemperatureInput value={this.state.calibrationTemperature} onChange={this.setCalibrationTemperature}/>;
-    } else if (step == 4) {
-      return <ResultValue value={this.getCorrectedSpecificGravity()}/>;
-    }
+  handleMeasuredTemperatureChange(value) {
+    this.props.controller.onChange({measuredTemperature: value});
   }
 
-  getContinueLabel() {
-    return this.state.step === 4 ? 'Done' : 'Continue';
-  }
-
-  getCorrectedSpecificGravity() {
-    return 'Not Implemented';
-  }
-
-  setMeasuredSpecificGravity(value) {
-    this.setState(Object.assign({}, this.state, {measuredSpecificGravity: value}));
-  }
-
-  setMeasuredTemperature(value) {
-    this.setState(Object.assign({}, this.state, {measuredTemperature: value}));
-  }
-
-  setCalibrationTemperature(value) {
-    this.setState(Object.assign({}, this.state, {calibrationTemperature: value}));
-  }
-
-  handleContinue() {
-    var nextStep = this.state.step + 1;
-    if (nextStep == 5) {
-      this.props.onExit();
-    } else {
-      this.setState(Object.assign({}, this.state, {step: this.state.step + 1}));
-    }
+  handleCalibrationTemperatureChange(value) {
+    this.props.controller.onChange({calibrationTemperature: value});
   }
 }

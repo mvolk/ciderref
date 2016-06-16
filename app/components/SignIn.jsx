@@ -26,7 +26,7 @@ export default class SignIn extends React.Component {
         </div>
         <div className="row">
           <div className="col-md-1"></div>
-          <div className="col-md-10 text-center h4 enter-btn" onClick={this.props.onRequestGuest}>Guest</div>
+          <div className="col-md-10 text-center h4 enter-btn" onClick={this.props.controller.onGuestSignIn}>Guest</div>
           <div className="col-md-1"></div>
         </div>
       </div>

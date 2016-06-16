@@ -72,6 +72,16 @@ export default class App extends React.Component {
             currentView: this.defaultViewStates.guestMenu,
             currentController: this.controllers.guestMenu
           });
+        },
+        onPreferencesChange: (newPreferences) => {
+          if (newPreferences.temperature !== this.state.preferences.temperature) {
+            const oldT = this.state.preferences.temperature;
+            const newT = newPreferences.temperature;
+            const measuredTemperature = newT.fromReference(oldT.toReference(this.state.currentView.measuredTemperature));
+            const calibrationTemperature = newT.fromReference(oldT.toReference(this.state.currentView.calibrationTemperature));
+            return Object.assign({}, this.state.currentView, {measuredTemperature, calibrationTemperature});
+          }
+          return this.state.currentView;
         }
       }
     };
@@ -145,6 +155,11 @@ export default class App extends React.Component {
 
   handleClosePreferences(newPrefs) {
     const preferences = Object.assign({}, newPrefs ? newPrefs : this.state.preferences, {open: false});
-    this.setState({preferences});
+    if (this.state.currentController.onPreferencesChange) {
+      const currentView = this.state.currentController.onPreferencesChange(preferences, this.state.currentView);
+      this.setState({preferences, currentView});
+    } else {
+      this.setState({preferences});
+    }
   }
 }

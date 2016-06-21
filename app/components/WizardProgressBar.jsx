@@ -24,8 +24,10 @@
 
 import React from 'react';
 
+const columnCount = 12;
+
 export default class WizardProgressBar extends React.Component {
-  render() {
+  render () {
     return (
       <div className="row">
         {this.getProgressElement()}
@@ -34,24 +36,24 @@ export default class WizardProgressBar extends React.Component {
     );
   }
 
-  getProgressElement() {
-    var className = this.props.progressRender === 12 ? 'wizard-progress-done' : 'wizard-progress-not-done';
+  getProgressElement () {
+    const className =
+      this.props.progressRender === columnCount ? 'wizard-progress-done' : 'wizard-progress-not-done';
     return (
-      <div className={'col-xs-' + this.props.progressRender + ' wizard-progress-so-far ' + className}>
+      <div className={`col-xs-${this.props.progressRender} wizard-progress-so-far ${className}`}>
         {this.props.progressPercent}%
       </div>
     );
   }
 
-  getProgressRemainingElement() {
-    if (this.props.progressRender == 12) {
+  getProgressRemainingElement () {
+    if (this.props.progressRender === columnCount) {
       return (
         <div />
       );
-    } else {
-      return (
-        <div className={'col-xs-' + (12 - this.props.progressRender) + ' wizard-progress-remaining'}></div>
-      );
     }
+    return (
+      <div className={`col-xs-${columnCount - this.props.progressRender} wizard-progress-remaining`}></div>
+    );
   }
 }

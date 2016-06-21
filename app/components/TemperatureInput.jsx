@@ -25,12 +25,12 @@
 import React from 'react';
 
 export default class TemperatureInput extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  render() {
+  render () {
     return (
       <div>
         <input type="number"
@@ -46,7 +46,7 @@ export default class TemperatureInput extends React.Component {
     );
   }
 
-  handleChange(event) {
+  handleChange (event) {
     this.props.onChange(event.target.value);
   }
 }

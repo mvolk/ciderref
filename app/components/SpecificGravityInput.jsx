@@ -25,17 +25,17 @@
 import React from 'react';
 
 export default class SpecificGravityInput extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  render() {
+  render () {
     return (
-      <input 
+      <input
         type="number"
-        value={this.props.value} 
-        onChange={this.handleChange} 
+        value={this.props.value}
+        onChange={this.handleChange}
         autoFocus={this.props.autoFocus || false}
         min={this.props.minValue || '0.990'}
         max={this.props.maxValue || '1.100'}
@@ -44,7 +44,7 @@ export default class SpecificGravityInput extends React.Component {
     );
   }
 
-  handleChange(event) {
+  handleChange (event) {
     this.props.onChange(event.target.value);
   }
 }

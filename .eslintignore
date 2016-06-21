@@ -1,0 +1,6 @@
+build/
+images/
+node_modules/
+original-artwork/
+.idea/
+style/

@@ -26,13 +26,14 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackTemplate = require('html-webpack-template');
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
-exports.indexTemplate = function (options) {
+exports.indexTemplate = function indexTemplate (options) {
   return {
     plugins: [
       new HtmlWebpackPlugin({
-        template: require('html-webpack-template'),
+        template: HtmlWebpackTemplate,
         title: options.title,
         appMountId: options.appMountId,
         inject: false
@@ -41,7 +42,7 @@ exports.indexTemplate = function (options) {
   };
 };
 
-exports.loadImages = function (include) {
+exports.loadImages = function loadImages (include) {
   return {
     module: {
       loaders: [
@@ -57,10 +58,10 @@ exports.loadImages = function (include) {
         }
       ]
     }
-  }
+  };
 };
 
-exports.loadJSX = function (include) {
+exports.loadJSX = function loadJSX (include) {
   return {
     module: {
       loaders: [
@@ -75,18 +76,24 @@ exports.loadJSX = function (include) {
   };
 };
 
-exports.loadFonts = function () {
+exports.loadFonts = function loadFonts () {
   return {
     module: {
       loaders: [
-        { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff' },
-        { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: 'file-loader' }
+        {
+          test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        },
+        {
+          test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+          loader: 'file-loader'
+        }
       ]
     }
   };
 };
 
-exports.loadIsparta = function (include) {
+exports.loadIsparta = function loadIsparta (include) {
   return {
     module: {
       preLoaders: [
@@ -100,7 +107,7 @@ exports.loadIsparta = function (include) {
   };
 };
 
-exports.lintJSX = function (include) {
+exports.lintJSX = function lintJSX (include) {
   return {
     module: {
       preLoaders: [
@@ -114,7 +121,7 @@ exports.lintJSX = function (include) {
   };
 };
 
-exports.enableReactPerformanceTools = function () {
+exports.enableReactPerformanceTools = function enableReactPerformanceTools () {
   return {
     module: {
       loaders: [
@@ -127,7 +134,7 @@ exports.enableReactPerformanceTools = function () {
   };
 };
 
-exports.devServer = function (options) {
+exports.devServer = function devServer (options) {
   const ret = {
     devServer: {
       // Enable history API fallback so HTML5 History API based
@@ -156,9 +163,7 @@ exports.devServer = function (options) {
     plugins: [
       // Enable multi-pass compilation for enhanced performance
       // in larger projects. Good default.
-      new webpack.HotModuleReplacementPlugin({
-        multiStep: true
-      })
+      new webpack.HotModuleReplacementPlugin({multiStep: true})
     ]
   };
 
@@ -174,7 +179,7 @@ exports.devServer = function (options) {
   return ret;
 };
 
-exports.setupCSS = function (paths) {
+exports.setupCSS = function setupCSS (paths) {
   return {
     module: {
       loaders: [
@@ -188,19 +193,15 @@ exports.setupCSS = function (paths) {
   };
 };
 
-exports.minify = function () {
+exports.minify = function minify () {
   return {
     plugins: [
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false
-        }
-      })
+      new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
     ]
   };
 };
 
-exports.setFreeVariable = function (key, value) {
+exports.setFreeVariable = function setFreeVariable (key, value) {
   const env = {};
   env[key] = JSON.stringify(value);
 
@@ -211,7 +212,7 @@ exports.setFreeVariable = function (key, value) {
   };
 };
 
-exports.extractBundle = function (options) {
+exports.extractBundle = function extractBundle (options) {
   const entry = {};
   entry[options.name] = options.entries;
 
@@ -231,17 +232,15 @@ exports.extractBundle = function (options) {
   };
 };
 
-exports.clean = function (path) {
+exports.clean = function clean (path) {
   return {
     plugins: [
-      new CleanWebpackPlugin([path], {
-        root: process.cwd()
-      })
+      new CleanWebpackPlugin([path], {root: process.cwd()})
     ]
   };
 };
 
-exports.extractCSS = function (paths) {
+exports.extractCSS = function extractCSS (paths) {
   return {
     module: {
       loaders: [
@@ -260,12 +259,10 @@ exports.extractCSS = function (paths) {
   };
 };
 
-exports.npmInstall = function (options) {
-  options = options || {};
-
+exports.npmInstall = function npmInstall (options) {
   return {
     plugins: [
-      new NpmInstallPlugin(options)
+      new NpmInstallPlugin(options || {})
     ]
   };
 };

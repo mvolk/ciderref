@@ -33,3 +33,5 @@ export default class WizardHeader extends React.Component {
     );
   }
 }
+
+WizardHeader.propTypes = {name: React.PropTypes.string.isRequired};

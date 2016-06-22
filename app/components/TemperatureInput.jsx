@@ -47,6 +47,21 @@ export default class TemperatureInput extends React.Component {
   }
 
   handleChange (event) {
-    this.props.onChange(event.target.value);
+    this.props.onChange(Number(event.target.value));
   }
 }
+
+TemperatureInput.propTypes = {
+  value: React.PropTypes.number.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  minValue: React.PropTypes.number,
+  maxValue: React.PropTypes.number,
+  step: React.PropTypes.number,
+  units: React.PropTypes.shape({
+    label: React.PropTypes.string.isRequired,
+    minValue: React.PropTypes.number.isRequired,
+    maxValue: React.PropTypes.number.isRequired,
+    step: React.PropTypes.number.isRequired
+  }).isRequired,
+  autoFocus: React.PropTypes.bool
+};

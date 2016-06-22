@@ -45,6 +45,15 @@ export default class SpecificGravityInput extends React.Component {
   }
 
   handleChange (event) {
-    this.props.onChange(event.target.value);
+    this.props.onChange(Number(event.target.value));
   }
 }
+
+SpecificGravityInput.propTypes = {
+  value: React.PropTypes.number.isRequired,
+  onChange: React.PropTypes.func.isRequired,
+  autoFocus: React.PropTypes.bool,
+  minValue: React.PropTypes.number,
+  maxValue: React.PropTypes.number,
+  step: React.PropTypes.number
+};

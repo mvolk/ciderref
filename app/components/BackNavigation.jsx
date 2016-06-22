@@ -33,3 +33,8 @@ export default class BackNavigation extends React.Component {
     );
   }
 }
+
+BackNavigation.propTypes = {
+  onGoBack: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string.isRequired
+};

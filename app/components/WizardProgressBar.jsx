@@ -57,3 +57,8 @@ export default class WizardProgressBar extends React.Component {
     );
   }
 }
+
+WizardProgressBar.propTypes = {
+  progressRender: React.PropTypes.number.isRequired,
+  progressPercent: React.PropTypes.number.isRequired
+};

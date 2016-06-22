@@ -35,3 +35,8 @@ export default class WizardContinue extends React.Component {
     );
   }
 }
+
+WizardContinue.propTypes = {
+  label: React.PropTypes.string.isRequired,
+  onContinue: React.PropTypes.func.isRequired
+};

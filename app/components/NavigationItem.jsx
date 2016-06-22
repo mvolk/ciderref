@@ -33,3 +33,8 @@ export default class NavigationItem extends React.Component {
     );
   }
 }
+
+NavigationItem.propTypes = {
+  onClick: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string.isRequired
+};

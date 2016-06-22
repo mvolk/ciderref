@@ -31,3 +31,5 @@ export default class ResultValue extends React.Component {
     );
   }
 }
+
+ResultValue.propTypes = {value: React.PropTypes.number.isRequired};

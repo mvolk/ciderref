@@ -33,3 +33,5 @@ export default class NavigationHeader extends React.Component {
     );
   }
 }
+
+NavigationHeader.propTypes = {label: React.PropTypes.string.isRequired};

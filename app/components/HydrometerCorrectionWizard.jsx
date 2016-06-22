@@ -107,3 +107,24 @@ export default class HydrometerCorrectionWizard extends React.Component {
     this.props.controller.onChange({calibrationTemperature: value});
   }
 }
+
+HydrometerCorrectionWizard.propTypes = {
+  controller: React.PropTypes.shape({
+    onChange: React.PropTypes.func.isRequired,
+    onExit: React.PropTypes.func.isRequired
+  }).isRequired,
+  model: React.PropTypes.shape({
+    currentStep: React.PropTypes.number.isRequired,
+    exitLabel: React.PropTypes.string.isRequired,
+    measuredSpecificGravity: React.PropTypes.number.isRequired,
+    measuredTemperature: React.PropTypes.number.isRequired,
+    calibrationTemperature: React.PropTypes.number.isRequired,
+    // eslint-disable-next-line consistent-return
+    correctedSpecificGravity: (props, propName, componentName) => {
+      if (props.currentStep === numberOfSteps && !props[propName]) {
+        return new Error(`Invalid prop '${propName}' supplied to '${componentName}'. Validation failed.`);
+      }
+    }
+  }).isRequired,
+  preferences: React.PropTypes.shape({temperature: React.PropTypes.object.isRequired}).isRequired
+};

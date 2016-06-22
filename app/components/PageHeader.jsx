@@ -47,3 +47,8 @@ export default class PageHeader extends React.Component {
     return <div><img src="images/apple.png" className="logo-icon"/>CiderRef</div>;
   }
 }
+
+PageHeader.propTypes = {
+  onOpenHome: React.PropTypes.func,
+  onOpenPreferences: React.PropTypes.func.isRequired
+};

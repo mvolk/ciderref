@@ -45,3 +45,8 @@ export default class GuestMenu extends React.Component {
     window.alert('not implemented');
   }
 }
+
+GuestMenu.propTypes = {
+  controller: React.PropTypes.shape(
+    {onOpenHydrometerCorrection: React.PropTypes.func.isRequired}).isRequired
+};

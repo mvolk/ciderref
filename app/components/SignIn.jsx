@@ -62,3 +62,5 @@ export default class SignIn extends React.Component {
     );
   }
 }
+
+SignIn.propTypes = {controller: React.PropTypes.shape({onGuestSignIn: React.PropTypes.func.isRequired})};

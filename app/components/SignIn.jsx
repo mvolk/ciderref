@@ -25,7 +25,7 @@
 import React from 'react';
 
 export default class SignIn extends React.Component {
-  render() {
+  render () {
     return (
       <div className="container">
         <div className="row">
@@ -34,7 +34,12 @@ export default class SignIn extends React.Component {
         <div className="row">
           <div className="col-md-12" style={{height: '300px'}}>
             <h1 className="text-center">CiderRef</h1>
-            <img src="images/apple.png" width="125" height="125" style={{marginLeft: 'auto', marginRight: 'auto', display: 'block'}} />
+            <img
+              src="images/apple.png"
+              width="125"
+              height="125"
+              style={{marginLeft: 'auto', marginRight: 'auto', display: 'block'}}
+            />
               <h4 className="text-center"><em>Hard cider made easy</em></h4>
           </div>
         </div>
@@ -57,3 +62,5 @@ export default class SignIn extends React.Component {
     );
   }
 }
+
+SignIn.propTypes = {controller: React.PropTypes.shape({onGuestSignIn: React.PropTypes.func.isRequired})};

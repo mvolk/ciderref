@@ -31,73 +31,100 @@ import ResultValue from './ResultValue.jsx';
 import WizardContinue from './WizardContinue.jsx';
 import BackNavigation from './BackNavigation.jsx';
 
+const numberOfSteps = 4;
+const numberOfColumns = 12;
+const columnsPerStep = numberOfColumns / numberOfSteps;
+const progressTotal = 100;
+const progressPerStep = progressTotal / numberOfSteps;
+
 export default class HydrometerCorrectionWizard extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
     this.prompts = [
+      '',
       'What is the specific gravity indicated by your hydrometer?',
       'What is the temperature of your juice?',
       'What is the calibration temperature of your hydrometer?',
       'The actual specific gravity of your juice is:'
     ];
     this.renderChild = [
-      (() => {
-        return <SpecificGravityInput value={this.props.model.measuredSpecificGravity}
-                                     autoFocus={true}
-                                     onChange={this.handleMeasuredSpecificGravityChange}
-        />;
-      }).bind(this),
-      (() => {
-        return <TemperatureInput value={this.props.model.measuredTemperature}
-                                 autoFocus={true}
-                                 units={this.props.preferences.temperature}
-                                 onChange={this.handleMeasuredTemperatureChange}
-        />;
-      }).bind(this),
-      (() => {
-        return <TemperatureInput value={this.props.model.calibrationTemperature}
-                                 autoFocus={true}
-                                 units={this.props.preferences.temperature}
-                                 onChange={this.handleCalibrationTemperatureChange}
-        />;
-      }).bind(this),
-      (() => {
-        return <ResultValue value={this.props.model.correctedSpecificGravity} />;
-      }).bind(this)
+      () => null,
+      () => <SpecificGravityInput value={this.props.model.measuredSpecificGravity}
+                                  autoFocus={true}
+                                  onChange={this.handleMeasuredSpecificGravityChange}
+            />,
+      () => <TemperatureInput value={this.props.model.measuredTemperature}
+                              autoFocus={true}
+                              units={this.props.preferences.temperature}
+                              onChange={this.handleMeasuredTemperatureChange}
+            />,
+      () => <TemperatureInput value={this.props.model.calibrationTemperature}
+                              autoFocus={true}
+                              units={this.props.preferences.temperature}
+                              onChange={this.handleCalibrationTemperatureChange}
+            />,
+      () => <ResultValue value={this.props.model.correctedSpecificGravity} />
     ];
     this.handleMeasuredSpecificGravityChange = this.handleMeasuredSpecificGravityChange.bind(this);
     this.handleMeasuredTemperatureChange = this.handleMeasuredTemperatureChange.bind(this);
     this.handleCalibrationTemperatureChange = this.handleCalibrationTemperatureChange.bind(this);
   }
 
-  render() {
+  render () {
     const model = this.props.model;
     const controller = this.props.controller;
     return (
       <div className="wrapper">
         <WizardHeader name="Hydrometer Correction"/>
-        <WizardProgressBar progressPercent={25 * model.currentStep} progressRender={3 * model.currentStep}/>
+        <WizardProgressBar
+          progressPercent={progressPerStep * model.currentStep}
+          progressRender={columnsPerStep * model.currentStep}
+        />
         <div className="row">
           <div className="col-xs-12 wizard-body">
-            <p>{this.prompts[model.currentStep - 1]}</p>
-            {this.renderChild[model.currentStep - 1]()}
+            <p>{this.prompts[model.currentStep]}</p>
+            {this.renderChild[model.currentStep].bind(this)()}
           </div>
         </div>
-        <WizardContinue label={model.currentStep == 4 ? model.exitLabel : 'Continue'} onContinue={controller.onContinue}/>
+        <WizardContinue
+          label={model.currentStep === numberOfSteps ? model.exitLabel : 'Continue'}
+          onContinue={controller.onContinue}
+        />
         <BackNavigation label={model.exitLabel} onGoBack={controller.onExit}/>
       </div>
     );
   }
 
-  handleMeasuredSpecificGravityChange(value) {
+  handleMeasuredSpecificGravityChange (value) {
     this.props.controller.onChange({measuredSpecificGravity: value});
   }
 
-  handleMeasuredTemperatureChange(value) {
+  handleMeasuredTemperatureChange (value) {
     this.props.controller.onChange({measuredTemperature: value});
   }
 
-  handleCalibrationTemperatureChange(value) {
+  handleCalibrationTemperatureChange (value) {
     this.props.controller.onChange({calibrationTemperature: value});
   }
 }
+
+HydrometerCorrectionWizard.propTypes = {
+  controller: React.PropTypes.shape({
+    onChange: React.PropTypes.func.isRequired,
+    onExit: React.PropTypes.func.isRequired
+  }).isRequired,
+  model: React.PropTypes.shape({
+    currentStep: React.PropTypes.number.isRequired,
+    exitLabel: React.PropTypes.string.isRequired,
+    measuredSpecificGravity: React.PropTypes.number.isRequired,
+    measuredTemperature: React.PropTypes.number.isRequired,
+    calibrationTemperature: React.PropTypes.number.isRequired,
+    // eslint-disable-next-line consistent-return
+    correctedSpecificGravity: (props, propName, componentName) => {
+      if (props.currentStep === numberOfSteps && !props[propName]) {
+        return new Error(`Invalid prop '${propName}' supplied to '${componentName}'. Validation failed.`);
+      }
+    }
+  }).isRequired,
+  preferences: React.PropTypes.shape({temperature: React.PropTypes.object.isRequired}).isRequired
+};

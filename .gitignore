@@ -8,3 +8,5 @@ coverage/
 
 # JetBrains IntelliJ IDEA
 .idea/
+
+npm-debug.log

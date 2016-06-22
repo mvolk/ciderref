@@ -1,5 +1,7 @@
+const webpackConfig = require('./webpack.config');
+
 // Reference: http://karma-runner.github.io/0.13/config/configuration-file.html
-module.exports = function karmaConfig(config) {
+module.exports = function karmaConfig (config) {
   config.set({
     frameworks: [
       // Reference: https://github.com/karma-runner/karma-mocha
@@ -47,12 +49,10 @@ module.exports = function karmaConfig(config) {
     },
 
     // Test webpack config
-    webpack: require('./webpack.config'),
+    webpack: webpackConfig,
 
     // Hide webpack build information from output
-    webpackMiddleware: {
-      noInfo: true
-    }
+    webpackMiddleware: {noInfo: true}
   });
 };
 

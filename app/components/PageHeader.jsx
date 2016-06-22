@@ -25,7 +25,7 @@
 import React from 'react';
 
 export default class PageHeader extends React.Component {
-  render() {
+  render () {
     return (
       <div className="row">
         <div className="col-xs-12 h3 page-header">
@@ -36,15 +36,19 @@ export default class PageHeader extends React.Component {
     );
   }
 
-  getLogo() {
+  getLogo () {
     if (this.props.onOpenHome) {
       return (
         <div className="link" onClick={this.props.onOpenHome}>
           <img src="images/apple.png" className="logo-icon"/>CiderRef
         </div>
       );
-    } else {
-      return <div><img src="images/apple.png" className="logo-icon"/>CiderRef</div>
     }
+    return <div><img src="images/apple.png" className="logo-icon"/>CiderRef</div>;
   }
 }
+
+PageHeader.propTypes = {
+  onOpenHome: React.PropTypes.func,
+  onOpenPreferences: React.PropTypes.func.isRequired
+};

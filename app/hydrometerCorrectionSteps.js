@@ -22,16 +22,14 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+const measuredSpecificGravity = 1;
+const measuredTemperature = 2;
+const calibrationTemperature = 3;
+const result = 4;
 
-export default class PageFooter extends React.Component {
-  render () {
-    return (
-      <div className="row">
-        <div className="col-xs-12 page-footer">
-          <p>Copyright &copy; 2016 Michael Volk</p>
-        </div>
-      </div>
-    );
-  }
-}
+export default {
+  measuredSpecificGravity,
+  measuredTemperature,
+  calibrationTemperature,
+  result
+};

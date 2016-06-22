@@ -27,7 +27,7 @@ import NavigationHeader from './NavigationHeader.jsx';
 import NavigationItem from './NavigationItem.jsx';
 
 export default class GuestMenu extends React.Component {
-  render() {
+  render () {
     return (
       <div className="wrapper">
         <NavigationHeader label="Calculators:"/>
@@ -41,7 +41,12 @@ export default class GuestMenu extends React.Component {
     );
   }
 
-  handleClickNoOp() {
+  handleClickNoOp () {
     window.alert('not implemented');
   }
 }
+
+GuestMenu.propTypes = {
+  controller: React.PropTypes.shape(
+    {onOpenHydrometerCorrection: React.PropTypes.func.isRequired}).isRequired
+};

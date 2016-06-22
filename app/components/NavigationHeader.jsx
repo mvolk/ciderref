@@ -25,7 +25,7 @@
 import React from 'react';
 
 export default class NavigationHeader extends React.Component {
-  render() {
+  render () {
     return (
       <div className="row">
         <div className="col-md-12 h4 nav-header">{this.props.label}</div>
@@ -33,3 +33,5 @@ export default class NavigationHeader extends React.Component {
     );
   }
 }
+
+NavigationHeader.propTypes = {label: React.PropTypes.string.isRequired};

@@ -30,22 +30,19 @@ import PageHeader from './components/PageHeader.jsx';
 import PageFooter from './components/PageFooter.jsx';
 import PreferencesDialog from './components/PreferencesDialog.jsx';
 import {temperature} from './units';
+import step from './hydrometerCorrectionSteps';
 
 export default class App extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.defaultViewStates = {
-      signIn: {
-        name: 'SignIn'
-      },
-      guestMenu: {
-        name: 'GuestMenu'
-      },
+      signIn: {name: 'SignIn'},
+      guestMenu: {name: 'GuestMenu'},
       hydrometerCorrection: {
         name: 'HydrometerCorrection',
         exitLabel: 'Back to Main Menu',
-        currentStep: 1,
+        currentStep: step.measuredSpecificGravity,
         measuredSpecificGravity: 1.050,
         measuredTemperature: 15,
         calibrationTemperature: 15,
@@ -81,13 +78,14 @@ export default class App extends React.Component {
           this.setState({currentView: Object.assign({}, this.state.currentView, delta)});
         },
         onContinue: () => {
-          if (this.state.currentView.currentStep === 4) {
+          if (this.state.currentView.currentStep === step.result) {
             this.setState({
               currentView: this.defaultViewStates.guestMenu,
               currentController: this.controllers.guestMenu
             });
           } else {
-            const currentStep = this.state.currentView.currentStep + 1;
+            let currentStep = this.state.currentView.currentStep;
+            currentStep++;
             this.setState({currentView: Object.assign({}, this.state.currentView, {currentStep})});
           }
         },
@@ -101,8 +99,10 @@ export default class App extends React.Component {
           if (newPreferences.temperature !== this.state.preferences.temperature) {
             const oldT = this.state.preferences.temperature;
             const newT = newPreferences.temperature;
-            const measuredTemperature = newT.fromReference(oldT.toReference(this.state.currentView.measuredTemperature));
-            const calibrationTemperature = newT.fromReference(oldT.toReference(this.state.currentView.calibrationTemperature));
+            const measuredTemperature =
+              newT.fromReference(oldT.toReference(this.state.currentView.measuredTemperature));
+            const calibrationTemperature =
+              newT.fromReference(oldT.toReference(this.state.currentView.calibrationTemperature));
             return Object.assign({}, this.state.currentView, {measuredTemperature, calibrationTemperature});
           }
           return this.state.currentView;
@@ -131,39 +131,38 @@ export default class App extends React.Component {
     this.handleClosePreferences = this.handleClosePreferences.bind(this);
   }
 
-  render() {
+  render () {
     if (this.state.currentView.name === 'SignIn') {
       return <SignIn
         model={this.state.currentView}
         controller={this.state.currentController}
       />;
-    } else {
-      return (
-        <div className="container">
-          <PageHeader
-            onOpenPreferences={this.handleOpenPreferences}
-            onOpenHome={this.state.currentController.onOpenHome}
-          />
-          {this.getBody()}
-          <PageFooter />
-          <PreferencesDialog
-            open={this.state.preferences.open}
-            preferences={this.state.preferences}
-            onClose={this.handleClosePreferences}
-          />
-        </div>
-      )
     }
+    return (
+      <div className="container">
+        <PageHeader
+          onOpenPreferences={this.handleOpenPreferences}
+          onOpenHome={this.state.currentController.onOpenHome}
+        />
+        {this.getBody()}
+        <PageFooter />
+        <PreferencesDialog
+          open={this.state.preferences.open}
+          preferences={this.state.preferences}
+          onClose={this.handleClosePreferences}
+        />
+      </div>
+    );
   }
 
-  getBody() {
+  getBody () {
     if (this.state.currentView.name === 'GuestMenu') {
       return <GuestMenu
         model={this.state.currentView}
         controller={this.state.currentController}
       />;
     } else if (this.state.currentView.name === 'HydrometerCorrection') {
-      return  <HydrometerCorrectionWizard
+      return <HydrometerCorrectionWizard
         model={this.state.currentView}
         controller={this.state.currentController}
         preferences={this.state.preferences}
@@ -172,12 +171,12 @@ export default class App extends React.Component {
     return null;
   }
 
-  handleOpenPreferences() {
+  handleOpenPreferences () {
     const preferences = Object.assign({}, this.state.preferences, {open: true});
     this.setState({preferences});
   }
 
-  handleClosePreferences(newPrefs) {
+  handleClosePreferences (newPrefs) {
     const preferences = Object.assign({}, newPrefs ? newPrefs : this.state.preferences, {open: false});
     if (this.state.currentController.onPreferencesChange) {
       const currentView = this.state.currentController.onPreferencesChange(preferences, this.state.currentView);

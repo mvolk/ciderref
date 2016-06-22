@@ -25,7 +25,7 @@
 import React from 'react';
 
 export default class WizardContinue extends React.Component {
-  render() {
+  render () {
     return (
       <div className="row">
         <div className="col-xs-12 wizard-nav">
@@ -35,3 +35,8 @@ export default class WizardContinue extends React.Component {
     );
   }
 }
+
+WizardContinue.propTypes = {
+  label: React.PropTypes.string.isRequired,
+  onContinue: React.PropTypes.func.isRequired
+};

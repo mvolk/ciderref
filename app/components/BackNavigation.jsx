@@ -25,7 +25,7 @@
 import React from 'react';
 
 export default class BackNavigation extends React.Component {
-  render() {
+  render () {
     return (
       <div className="row">
         <div className="col-md-12 h5 nav-back" onClick={this.props.onGoBack}>{this.props.label}</div>
@@ -33,3 +33,8 @@ export default class BackNavigation extends React.Component {
     );
   }
 }
+
+BackNavigation.propTypes = {
+  onGoBack: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string.isRequired
+};

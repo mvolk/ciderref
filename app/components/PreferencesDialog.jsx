@@ -26,16 +26,15 @@ import React from 'react';
 import {temperature} from '../units';
 
 export default class PreferencesDialog extends React.Component {
-  constructor(props) {
+  constructor (props) {
     super(props);
 
     this.state = props.preferences;
 
-    this.isSelectedTemperatureUofM = this.isSelectedTemperatureUofM.bind(this);
     this.handleTemperatureUofMChange = this.handleTemperatureUofMChange.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  render() {
+  render () {
     const celsius = temperature.celsius;
     const fahrenheit = temperature.fahrenheit;
 
@@ -45,9 +44,9 @@ export default class PreferencesDialog extends React.Component {
           <div className="prefs">
             <span className="prefs-close" onClick={this.handleClose}>x</span>
             <label>Temperature Units:</label>
-            <select onChange={this.handleTemperatureUofMChange}>
-              <option value={celsius.key} selected={this.isSelectedTemperatureUofM(celsius)}>{celsius.label}</option>
-              <option value={fahrenheit.key} selected={this.isSelectedTemperatureUofM(fahrenheit)}>{fahrenheit.label}</option>
+            <select value={this.state.temperature.key} onChange={this.handleTemperatureUofMChange}>
+              <option value={celsius.key}> {celsius.label}</option>
+              <option value={fahrenheit.key}>{fahrenheit.label}</option>
             </select>
           </div>
         </div>
@@ -56,15 +55,17 @@ export default class PreferencesDialog extends React.Component {
     return null;
   }
 
-  isSelectedTemperatureUofM(uom) {
-    return uom === this.state.temperature;
-  }
-
-  handleTemperatureUofMChange(e) {
+  handleTemperatureUofMChange (e) {
     this.setState({temperature: temperature[e.target.value]});
   }
 
-  handleClose(e) {
+  handleClose () {
     this.props.onClose(this.state);
   }
 }
+
+PreferencesDialog.propTypes = {
+  open: React.PropTypes.bool.isRequired,
+  onClose: React.PropTypes.func.isRequired,
+  preferences: React.PropTypes.shape({temperature: React.PropTypes.object.isRequired}).isRequired
+};

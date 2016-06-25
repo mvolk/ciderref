@@ -29,7 +29,7 @@ import HydrometerCorrectionWizard from './components/HydrometerCorrection.jsx';
 import PageHeader from './components/PageHeader.jsx';
 import PageFooter from './components/PageFooter.jsx';
 import PreferencesDialog from './components/PreferencesDialog.jsx';
-import {temperature} from './units';
+import Temperature from './Temperature';
 import step from './hydrometerCorrectionSteps';
 
 export default class App extends React.Component {
@@ -123,7 +123,7 @@ export default class App extends React.Component {
       currentController: this.controllers.signIn,
       preferences: {
         open: false,
-        temperature: temperature.celsius
+        temperature: Temperature.units.celsius
       }
     };
 

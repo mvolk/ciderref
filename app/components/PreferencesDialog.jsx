@@ -23,7 +23,7 @@
  */
 
 import React from 'react';
-import {temperature} from '../units';
+import Temperature from '../Temperature';
 
 export default class PreferencesDialog extends React.Component {
   constructor (props) {
@@ -35,8 +35,8 @@ export default class PreferencesDialog extends React.Component {
     this.handleClose = this.handleClose.bind(this);
   }
   render () {
-    const celsius = temperature.celsius;
-    const fahrenheit = temperature.fahrenheit;
+    const celsius = Temperature.units.celsius;
+    const fahrenheit = Temperature.units.fahrenheit;
 
     if (this.props.open) {
       return (
@@ -56,7 +56,7 @@ export default class PreferencesDialog extends React.Component {
   }
 
   handleTemperatureUofMChange (e) {
-    this.setState({temperature: temperature[e.target.value]});
+    this.setState({temperature: Temperature.units[e.target.value]});
   }
 
   handleClose () {

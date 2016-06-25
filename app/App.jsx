@@ -23,12 +23,12 @@
  */
 
 import React from 'react';
-import SignIn from './components/SignIn.jsx';
-import GuestMenu from './components/GuestMenu.jsx';
-import HydrometerCorrectionWizard from './components/HydrometerCorrection.jsx';
-import PageHeader from './components/PageHeader.jsx';
-import PageFooter from './components/PageFooter.jsx';
-import PreferencesDialog from './components/PreferencesDialog.jsx';
+import SignIn from './components/SignIn';
+import GuestMenu from './components/GuestMenu';
+import HydrometerCorrectionWizard from './components/HydrometerCorrection';
+import PageHeader from './components/PageHeader';
+import PageFooter from './components/PageFooter';
+import PreferencesDialog from './components/PreferencesDialog';
 import NotImplemented from './components/NotImplemented';
 import Temperature from './Temperature';
 import step from './hydrometerCorrectionSteps';

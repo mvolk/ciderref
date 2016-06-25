@@ -23,8 +23,8 @@
  */
 
 import React from 'react';
-import NavigationHeader from './NavigationHeader.jsx';
-import NavigationItem from './NavigationItem.jsx';
+import NavigationHeader from './NavigationHeader';
+import NavigationItem from './NavigationItem';
 
 export default class GuestMenu extends React.Component {
   render () {

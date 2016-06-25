@@ -23,13 +23,13 @@
  */
 
 import React from 'react';
-import WizardHeader from './WizardHeader.jsx';
-import WizardProgressBar from './WizardProgressBar.jsx';
-import SpecificGravityInput from './SpecificGravityInput.jsx';
-import TemperatureInput from './TemperatureInput.jsx';
-import ResultValue from './ResultValue.jsx';
-import WizardContinue from './WizardContinue.jsx';
-import BackNavigation from './BackNavigation.jsx';
+import WizardHeader from './WizardHeader';
+import WizardProgressBar from './WizardProgressBar';
+import SpecificGravityInput from './SpecificGravityInput';
+import TemperatureInput from './TemperatureInput';
+import ResultValue from './ResultValue';
+import WizardContinue from './WizardContinue';
+import BackNavigation from './BackNavigation';
 
 const numberOfSteps = 4;
 const numberOfColumns = 12;

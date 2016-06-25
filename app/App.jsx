@@ -29,6 +29,7 @@ import HydrometerCorrectionWizard from './components/HydrometerCorrection.jsx';
 import PageHeader from './components/PageHeader.jsx';
 import PageFooter from './components/PageFooter.jsx';
 import PreferencesDialog from './components/PreferencesDialog.jsx';
+import NotImplemented from './components/NotImplemented';
 import Temperature from './Temperature';
 import step from './hydrometerCorrectionSteps';
 
@@ -47,6 +48,10 @@ export default class App extends React.Component {
         measuredTemperature: 15,
         calibrationTemperature: 15,
         correctedSpecificGravity: null
+      },
+      notImplemented: {
+        name: 'NotImplemented',
+        exitLabel: 'Back to Main Menu'
       }
     };
 
@@ -64,6 +69,26 @@ export default class App extends React.Component {
           this.setState({
             currentView: this.defaultViewStates.hydrometerCorrection,
             currentController: this.controllers.hydrometerCorrection
+          });
+        },
+        onOpenNotImplemented: () => {
+          this.setState({
+            currentView: this.defaultViewStates.notImplemented,
+            currentController: this.controllers.notImplemented
+          });
+        }
+      },
+      notImplemented: {
+        onOpenHome: () => {
+          this.setState({
+            currentView: this.defaultViewStates.guestMenu,
+            currentController: this.controllers.guestMenu
+          });
+        },
+        onExit: () => {
+          this.setState({
+            currentView: this.defaultViewStates.guestMenu,
+            currentController: this.controllers.guestMenu
           });
         }
       },
@@ -167,6 +192,8 @@ export default class App extends React.Component {
         controller={this.state.currentController}
         preferences={this.state.preferences}
       />;
+    } else if (this.state.currentView.name === 'NotImplemented') {
+      return <NotImplemented />;
     }
     return null;
   }

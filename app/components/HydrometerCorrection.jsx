@@ -53,12 +53,14 @@ export default class HydrometerCorrectionWizard extends React.Component {
                                   autoFocus={true}
                                   onChange={this.handleMeasuredSpecificGravityChange}
             />,
-      () => <TemperatureInput value={this.props.model.measuredTemperature}
+      () => <TemperatureInput value={this.props.model.measuredTemperature
+                                .getValue(this.props.preferences.temperature)}
                               autoFocus={true}
                               units={this.props.preferences.temperature}
                               onChange={this.handleMeasuredTemperatureChange}
             />,
-      () => <TemperatureInput value={this.props.model.calibrationTemperature}
+      () => <TemperatureInput value={this.props.model.calibrationTemperature
+                                .getValue(this.props.preferences.temperature)}
                               autoFocus={true}
                               units={this.props.preferences.temperature}
                               onChange={this.handleCalibrationTemperatureChange}
@@ -117,8 +119,8 @@ HydrometerCorrectionWizard.propTypes = {
     currentStep: React.PropTypes.number.isRequired,
     exitLabel: React.PropTypes.string.isRequired,
     measuredSpecificGravity: React.PropTypes.number.isRequired,
-    measuredTemperature: React.PropTypes.number.isRequired,
-    calibrationTemperature: React.PropTypes.number.isRequired,
+    measuredTemperature: React.PropTypes.shape().isRequired,
+    calibrationTemperature: React.PropTypes.shape().isRequired,
     // eslint-disable-next-line consistent-return
     correctedSpecificGravity: (props, propName, componentName) => {
       if (props.currentStep === numberOfSteps && !props[propName]) {

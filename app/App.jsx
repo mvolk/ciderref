@@ -45,8 +45,8 @@ export default class App extends React.Component {
         exitLabel: 'Back to Main Menu',
         currentStep: step.measuredSpecificGravity,
         measuredSpecificGravity: 1.050,
-        measuredTemperature: 15,
-        calibrationTemperature: 15,
+        measuredTemperature: new Temperature(15, Temperature.units.celsius),
+        calibrationTemperature: new Temperature(15, Temperature.units.celsius),
         correctedSpecificGravity: null
       },
       notImplemented: {
@@ -119,18 +119,6 @@ export default class App extends React.Component {
             currentView: this.defaultViewStates.guestMenu,
             currentController: this.controllers.guestMenu
           });
-        },
-        onPreferencesChange: (newPreferences) => {
-          if (newPreferences.temperature !== this.state.preferences.temperature) {
-            const oldT = this.state.preferences.temperature;
-            const newT = newPreferences.temperature;
-            const measuredTemperature =
-              newT.fromReference(oldT.toReference(this.state.currentView.measuredTemperature));
-            const calibrationTemperature =
-              newT.fromReference(oldT.toReference(this.state.currentView.calibrationTemperature));
-            return Object.assign({}, this.state.currentView, {measuredTemperature, calibrationTemperature});
-          }
-          return this.state.currentView;
         }
       }
     };

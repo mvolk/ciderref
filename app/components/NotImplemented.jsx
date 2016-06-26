@@ -23,29 +23,11 @@
  */
 
 import React from 'react';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
 
-export default class GuestMenu extends React.Component {
-  render () {
-    return (
-      <div className="wrapper">
-        <NavigationHeader label="Calculators:"/>
-        <NavigationItem label="Hydrometer Correction" onClick={this.props.controller.onOpenHydrometerCorrection}/>
-        <NavigationItem label="Sulphite Treatment" onClick={this.props.controller.onOpenNotImplemented}/>
-        <NavigationItem label="Chaptalization" onClick={this.props.controller.onOpenNotImplemented}/>
-        <NavigationItem label="Backsweetening" onClick={this.props.controller.onOpenNotImplemented}/>
-        <NavigationHeader label="Recipes:"/>
-        <NavigationItem label="5% Sulphite Solution" onClick={this.props.controller.onOpenNotImplemented}/>
-      </div>
-    );
-  }
+/**
+ * Placeholder component for content that has not been implemented yet.
+ * @returns {XML} DOM
+ */
+export default function NotImplemented () {
+  return <h1>Not Implemented</h1>;
 }
-
-GuestMenu.propTypes = {
-  controller: React.PropTypes.shape(
-    {
-      onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-      onOpenNotImplemented: React.PropTypes.func.isRequired
-    }).isRequired
-};

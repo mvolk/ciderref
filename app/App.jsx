@@ -23,13 +23,14 @@
  */
 
 import React from 'react';
-import SignIn from './components/SignIn.jsx';
-import GuestMenu from './components/GuestMenu.jsx';
-import HydrometerCorrectionWizard from './components/HydrometerCorrectionWizard.jsx';
-import PageHeader from './components/PageHeader.jsx';
-import PageFooter from './components/PageFooter.jsx';
-import PreferencesDialog from './components/PreferencesDialog.jsx';
-import {temperature} from './units';
+import SignIn from './components/SignIn';
+import GuestMenu from './components/GuestMenu';
+import HydrometerCorrectionWizard from './components/HydrometerCorrection';
+import PageHeader from './components/PageHeader';
+import PageFooter from './components/PageFooter';
+import PreferencesDialog from './components/PreferencesDialog';
+import NotImplemented from './components/NotImplemented';
+import Temperature from './Temperature';
 import step from './hydrometerCorrectionSteps';
 
 export default class App extends React.Component {
@@ -44,9 +45,13 @@ export default class App extends React.Component {
         exitLabel: 'Back to Main Menu',
         currentStep: step.measuredSpecificGravity,
         measuredSpecificGravity: 1.050,
-        measuredTemperature: 15,
-        calibrationTemperature: 15,
+        measuredTemperature: new Temperature(15, Temperature.units.celsius),
+        calibrationTemperature: new Temperature(15, Temperature.units.celsius),
         correctedSpecificGravity: null
+      },
+      notImplemented: {
+        name: 'NotImplemented',
+        exitLabel: 'Back to Main Menu'
       }
     };
 
@@ -64,6 +69,26 @@ export default class App extends React.Component {
           this.setState({
             currentView: this.defaultViewStates.hydrometerCorrection,
             currentController: this.controllers.hydrometerCorrection
+          });
+        },
+        onOpenNotImplemented: () => {
+          this.setState({
+            currentView: this.defaultViewStates.notImplemented,
+            currentController: this.controllers.notImplemented
+          });
+        }
+      },
+      notImplemented: {
+        onOpenHome: () => {
+          this.setState({
+            currentView: this.defaultViewStates.guestMenu,
+            currentController: this.controllers.guestMenu
+          });
+        },
+        onExit: () => {
+          this.setState({
+            currentView: this.defaultViewStates.guestMenu,
+            currentController: this.controllers.guestMenu
           });
         }
       },
@@ -94,18 +119,6 @@ export default class App extends React.Component {
             currentView: this.defaultViewStates.guestMenu,
             currentController: this.controllers.guestMenu
           });
-        },
-        onPreferencesChange: (newPreferences) => {
-          if (newPreferences.temperature !== this.state.preferences.temperature) {
-            const oldT = this.state.preferences.temperature;
-            const newT = newPreferences.temperature;
-            const measuredTemperature =
-              newT.fromReference(oldT.toReference(this.state.currentView.measuredTemperature));
-            const calibrationTemperature =
-              newT.fromReference(oldT.toReference(this.state.currentView.calibrationTemperature));
-            return Object.assign({}, this.state.currentView, {measuredTemperature, calibrationTemperature});
-          }
-          return this.state.currentView;
         }
       }
     };
@@ -123,7 +136,7 @@ export default class App extends React.Component {
       currentController: this.controllers.signIn,
       preferences: {
         open: false,
-        temperature: temperature.celsius
+        temperature: Temperature.units.celsius
       }
     };
 
@@ -167,6 +180,8 @@ export default class App extends React.Component {
         controller={this.state.currentController}
         preferences={this.state.preferences}
       />;
+    } else if (this.state.currentView.name === 'NotImplemented') {
+      return <NotImplemented />;
     }
     return null;
   }

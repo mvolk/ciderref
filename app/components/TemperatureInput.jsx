@@ -23,6 +23,7 @@
  */
 
 import React from 'react';
+import Temperature from '../Temperature';
 
 export default class TemperatureInput extends React.Component {
   constructor (props) {
@@ -47,7 +48,7 @@ export default class TemperatureInput extends React.Component {
   }
 
   handleChange (event) {
-    this.props.onChange(Number(event.target.value));
+    this.props.onChange(new Temperature(Number(event.target.value), this.props.units));
   }
 }
 

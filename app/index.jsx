@@ -24,7 +24,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App.jsx';
+import App from './App';
 
 // if (process.env.NODE_ENV !== 'production') {
 //   React.Perf = require('react-addons-perf');

@@ -26,12 +26,26 @@ const boilingInCelsius = 100;
 const freezingInCelsius = 0;
 const boilingInFahrenheit = 212;
 const freezingInFahrenheit = 32;
-const nearestTenthRoundingFactor = 10;
-const celsiusToFahrenheitFactor = 9 / 5;        // eslint-disable-line no-magic-numbers
-const fahrenheitToCelsiusFactor = 5 / 9;        // eslint-disable-line no-magic-numbers
-const degreesSymbol = String.fromCharCode(176); // eslint-disable-line no-magic-numbers
 
-const temperature = {
+const degreesSymbol = String.fromCharCode(176);
+
+class Temperature {
+  constructor (value, unitsOfMeasurement) {
+    this.value = value;
+    this.unitsOfMeasurement = unitsOfMeasurement;
+  }
+  getValue (unitsOfMeasurement) {
+    if (unitsOfMeasurement) {
+      return unitsOfMeasurement.fromReference(this.unitsOfMeasurement.toReference(this.value));
+    }
+    return this.value;
+  }
+  getUnitsOfMeasurement () {
+    return this.unitsOfMeasurement;
+  }
+}
+
+Temperature.units = {
   celsius: {
     key: 'celsius',
     name: 'Celsius',
@@ -48,18 +62,18 @@ const temperature = {
     label: `${degreesSymbol}F`,
     minValue: freezingInFahrenheit,
     maxValue: boilingInFahrenheit,
-    step: 1,
+    step: 1.0,
     toReference: (f) => {
-      const c = (f - freezingInFahrenheit) * fahrenheitToCelsiusFactor;
+      const c = (f - 32.0) * 5.0 / 9.0;
       // round to nearest tenth of degree C
-      return Math.round(c * nearestTenthRoundingFactor) / nearestTenthRoundingFactor;
+      return Math.round(c * 10.0) / 10.0;
     },
     fromReference: (c) => {
-      const f = (c * celsiusToFahrenheitFactor) + freezingInFahrenheit;
+      const f = (c * 9.0 / 5.0) + 32.0;
       // round to nearest degree F
       return Math.round(f);
     }
   }
 };
 
-export {temperature};
+export default Temperature;

@@ -23,13 +23,13 @@
  */
 
 import React from 'react';
-import WizardHeader from './WizardHeader.jsx';
-import WizardProgressBar from './WizardProgressBar.jsx';
-import SpecificGravityInput from './SpecificGravityInput.jsx';
-import TemperatureInput from './TemperatureInput.jsx';
-import ResultValue from './ResultValue.jsx';
-import WizardContinue from './WizardContinue.jsx';
-import BackNavigation from './BackNavigation.jsx';
+import WizardHeader from './WizardHeader';
+import WizardProgressBar from './WizardProgressBar';
+import SpecificGravityInput from './SpecificGravityInput';
+import TemperatureInput from './TemperatureInput';
+import ResultValue from './ResultValue';
+import WizardContinue from './WizardContinue';
+import BackNavigation from './BackNavigation';
 
 const numberOfSteps = 4;
 const numberOfColumns = 12;
@@ -53,12 +53,14 @@ export default class HydrometerCorrectionWizard extends React.Component {
                                   autoFocus={true}
                                   onChange={this.handleMeasuredSpecificGravityChange}
             />,
-      () => <TemperatureInput value={this.props.model.measuredTemperature}
+      () => <TemperatureInput value={this.props.model.measuredTemperature
+                                .getValue(this.props.preferences.temperature)}
                               autoFocus={true}
                               units={this.props.preferences.temperature}
                               onChange={this.handleMeasuredTemperatureChange}
             />,
-      () => <TemperatureInput value={this.props.model.calibrationTemperature}
+      () => <TemperatureInput value={this.props.model.calibrationTemperature
+                                .getValue(this.props.preferences.temperature)}
                               autoFocus={true}
                               units={this.props.preferences.temperature}
                               onChange={this.handleCalibrationTemperatureChange}
@@ -117,8 +119,8 @@ HydrometerCorrectionWizard.propTypes = {
     currentStep: React.PropTypes.number.isRequired,
     exitLabel: React.PropTypes.string.isRequired,
     measuredSpecificGravity: React.PropTypes.number.isRequired,
-    measuredTemperature: React.PropTypes.number.isRequired,
-    calibrationTemperature: React.PropTypes.number.isRequired,
+    measuredTemperature: React.PropTypes.shape().isRequired,
+    calibrationTemperature: React.PropTypes.shape().isRequired,
     // eslint-disable-next-line consistent-return
     correctedSpecificGravity: (props, propName, componentName) => {
       if (props.currentStep === numberOfSteps && !props[propName]) {

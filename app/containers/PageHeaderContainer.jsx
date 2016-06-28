@@ -22,29 +22,27 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
-import PageFooter from './PageFooter';
+import {connect} from 'react-redux';
+import PageHeader from '../components/PageHeader';
+import actions from '../actions';
+import places from '../places';
 
-const GuestMenu = ({onOpenHydrometerCorrection, onOpenNotImplemented}) => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <NavigationHeader label="Calculators:"/>
-    <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection}/>
-    <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented}/>
-    <NavigationHeader label="Recipes:"/>
-    <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented}/>
-    <PageFooter />
-  </div>
-);
+const mapStateToProps = (state) => ({
+  linkToHome: state.place.name !== places.GUEST_MENU
+});
 
-GuestMenu.propTypes = {
-  onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-  onOpenNotImplemented: React.PropTypes.func.isRequired
-};
+const mapDispatchToProps = (dispatch) => ({
+  onOpenHome: () => {
+    dispatch({type: actions.HOME});
+  },
+  onOpenPreferences: () => {
+    dispatch({type: actions.OPEN_PREFERENCES});
+  }
+});
 
-export default GuestMenu;
+const PageHeaderContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PageHeader);
+
+export default PageHeaderContainer;

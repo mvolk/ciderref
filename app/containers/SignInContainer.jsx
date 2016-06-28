@@ -22,29 +22,25 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
-import PageFooter from './PageFooter';
+import {connect} from 'react-redux';
+import SignIn from '../components/SignIn';
+import actions from '../actions';
+import places from '../places';
 
-const GuestMenu = ({onOpenHydrometerCorrection, onOpenNotImplemented}) => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <NavigationHeader label="Calculators:"/>
-    <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection}/>
-    <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented}/>
-    <NavigationHeader label="Recipes:"/>
-    <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented}/>
-    <PageFooter />
-  </div>
-);
+const mapStateToProps = () => ({});
 
-GuestMenu.propTypes = {
-  onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-  onOpenNotImplemented: React.PropTypes.func.isRequired
-};
+const mapDispatchToProps = (dispatch) => ({
+  onGuestSignIn: () => {
+    dispatch({
+      type: actions.FORWARD,
+      destination: places.GUEST_MENU
+    });
+  }
+});
 
-export default GuestMenu;
+const SignInContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignIn);
+
+export default SignInContainer;

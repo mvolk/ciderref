@@ -23,11 +23,15 @@
  */
 
 import React from 'react';
+import PageHeaderContainer from '../containers/PageHeaderContainer';
+import PageFooter from './PageFooter';
 
-/**
- * Placeholder component for content that has not been implemented yet.
- * @returns {XML} DOM
- */
-export default function NotImplemented () {
-  return <h1>Not Implemented</h1>;
-}
+const NotImplemented = () => (
+  <div className="wrapper">
+    <PageHeaderContainer />
+    <h1>Not Implemented</h1>
+    <PageFooter />
+  </div>
+);
+
+export default NotImplemented;

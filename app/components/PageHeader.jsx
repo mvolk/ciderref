@@ -24,31 +24,28 @@
 
 import React from 'react';
 
-export default class PageHeader extends React.Component {
-  render () {
-    return (
-      <div className="row">
-        <div className="col-xs-12 h3 page-header">
-          <img src="images/icon-gear-48.png" className="settings-icon link" onClick={this.props.onOpenPreferences} />
-          {this.getLogo()}
-        </div>
-      </div>
-    );
-  }
-
-  getLogo () {
-    if (this.props.onOpenHome) {
-      return (
-        <div className="link" onClick={this.props.onOpenHome}>
-          <img src="images/apple.png" className="logo-icon"/>CiderRef
-        </div>
-      );
-    }
-    return <div><img src="images/apple.png" className="logo-icon"/>CiderRef</div>;
-  }
-}
+const PageHeader = ({linkToHome, onOpenHome, onOpenPreferences}) => (
+  <div className="row">
+    <div className="col-xs-12 h3 page-header">
+      <img src="images/icon-gear-48.png" className="settings-icon link" onClick={onOpenPreferences} />
+      {(() => {
+        if (linkToHome) {
+          return (
+            <div className="link" onClick={onOpenHome}>
+              <img src="images/apple.png" className="logo-icon"/>CiderRef
+            </div>
+          );
+        }
+        return <div><img src="images/apple.png" className="logo-icon"/>CiderRef</div>;
+      })()}
+    </div>
+  </div>
+);
 
 PageHeader.propTypes = {
-  onOpenHome: React.PropTypes.func,
+  linkToHome: React.PropTypes.bool.isRequired,
+  onOpenHome: React.PropTypes.func.isRequired,
   onOpenPreferences: React.PropTypes.func.isRequired
 };
+
+export default PageHeader;

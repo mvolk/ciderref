@@ -22,29 +22,31 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
-import PageFooter from './PageFooter';
+import {connect} from 'react-redux';
+import GuestMenu from '../components/GuestMenu';
+import actions from '../actions';
+import places from '../places';
 
-const GuestMenu = ({onOpenHydrometerCorrection, onOpenNotImplemented}) => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <NavigationHeader label="Calculators:"/>
-    <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection}/>
-    <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented}/>
-    <NavigationHeader label="Recipes:"/>
-    <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented}/>
-    <PageFooter />
-  </div>
-);
+const mapStateToProps = () => ({});
 
-GuestMenu.propTypes = {
-  onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-  onOpenNotImplemented: React.PropTypes.func.isRequired
-};
+const mapDispatchToProps = (dispatch) => ({
+  onOpenHydrometerCorrection: () => {
+    dispatch({
+      type: actions.FORWARD,
+      destination: places.HYDROMETER_CORRECTION
+    });
+  },
+  onOpenNotImplemented: () => {
+    dispatch({
+      type: actions.FORWARD,
+      destination: places.NOT_IMPLEMENTED
+    });
+  }
+});
 
-export default GuestMenu;
+const GuestMenuContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GuestMenu);
+
+export default GuestMenuContainer;

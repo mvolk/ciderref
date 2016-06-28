@@ -25,47 +25,34 @@
 import React from 'react';
 import Temperature from '../Temperature';
 
-export default class PreferencesDialog extends React.Component {
-  constructor (props) {
-    super(props);
-
-    this.state = props.preferences;
-
-    this.handleTemperatureUofMChange = this.handleTemperatureUofMChange.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-  }
-  render () {
+const PreferencesDialog = ({isOpen, temperatureUnits, onTemperatureUnitsChange, onClose}) => {
+  if (isOpen) {
     const celsius = Temperature.units.celsius;
     const fahrenheit = Temperature.units.fahrenheit;
-
-    if (this.props.open) {
-      return (
-        <div className="modal-backdrop">
-          <div className="prefs">
-            <span className="prefs-close" onClick={this.handleClose}>x</span>
-            <label>Temperature Units:</label>
-            <select value={this.state.temperature.key} onChange={this.handleTemperatureUofMChange}>
-              <option value={celsius.key}> {celsius.label}</option>
-              <option value={fahrenheit.key}>{fahrenheit.label}</option>
-            </select>
-          </div>
+    return (
+      <div className="modal-backdrop">
+        <div className="prefs">
+          <span className="prefs-close" onClick={onClose}>x</span>
+          <label>Temperature Units:</label>
+          <select value={temperatureUnits.key} onChange={(e) => {
+            e.stopPropagation();
+            onTemperatureUnitsChange(Temperature.units[e.target.value]);
+          }}>
+            <option value={celsius.key}> {celsius.label}</option>
+            <option value={fahrenheit.key}>{fahrenheit.label}</option>
+          </select>
         </div>
-      );
-    }
-    return null;
+      </div>
+    );
   }
-
-  handleTemperatureUofMChange (e) {
-    this.setState({temperature: Temperature.units[e.target.value]});
-  }
-
-  handleClose () {
-    this.props.onClose(this.state);
-  }
-}
+  return <span />;
+};
 
 PreferencesDialog.propTypes = {
-  open: React.PropTypes.bool.isRequired,
-  onClose: React.PropTypes.func.isRequired,
-  preferences: React.PropTypes.shape({temperature: React.PropTypes.object.isRequired}).isRequired
+  isOpen: React.PropTypes.bool.isRequired,
+  temperatureUnits: React.PropTypes.shape().isRequired,
+  onTemperatureUnitsChange: React.PropTypes.func.isRequired,
+  onClose: React.PropTypes.func.isRequired
 };
+
+export default PreferencesDialog;

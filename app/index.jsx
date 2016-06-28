@@ -23,11 +23,17 @@
  */
 
 import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+import {render} from 'react-dom';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+import app from './app';
+import AppContainer from './containers/AppContainer';
 
-// if (process.env.NODE_ENV !== 'production') {
-//   React.Perf = require('react-addons-perf');
-// }
+let store = createStore(app);
 
-ReactDOM.render(<App />, document.getElementById('app'));
+render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('app')
+);

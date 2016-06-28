@@ -23,28 +23,33 @@
  */
 
 import React from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
-import PageFooter from './PageFooter';
+import places from '../places';
+import SignInContainer from '../containers/SignInContainer';
+import GuestMenuContainer from '../containers/GuestMenuContainer';
+import HydrometerCorrectionContainer from '../containers/HydrometerCorrectionContainer';
+import PreferencesDialogContainer from '../containers/PreferencesDialogContainer';
+import NotImplemented from './NotImplemented';
 
-const GuestMenu = ({onOpenHydrometerCorrection, onOpenNotImplemented}) => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <NavigationHeader label="Calculators:"/>
-    <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection}/>
-    <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented}/>
-    <NavigationHeader label="Recipes:"/>
-    <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented}/>
-    <PageFooter />
+const App = ({placeName}) => (
+  <div className="container">
+    {(() => {
+      switch (placeName) {
+        case places.GUEST_MENU:
+          return <GuestMenuContainer />;
+        case places.HYDROMETER_CORRECTION:
+          return <HydrometerCorrectionContainer />;
+        case places.NOT_IMPLEMENTED:
+          return <NotImplemented />;
+        default:
+          return <SignInContainer />;
+      }
+    })()}
+    <PreferencesDialogContainer />
   </div>
 );
 
-GuestMenu.propTypes = {
-  onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-  onOpenNotImplemented: React.PropTypes.func.isRequired
+App.propTypes = {
+  placeName: React.PropTypes.string.isRequired
 };
 
-export default GuestMenu;
+export default App;

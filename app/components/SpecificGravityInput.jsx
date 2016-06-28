@@ -32,7 +32,7 @@ export default class SpecificGravityInput extends React.Component {
         value={this.props.value}
         onChange={(e) => {
           e.stopPropagation();
-          this.props.onChange(Number(event.target.value));
+          this.props.onChange(Number(e.target.value));
         }}
         autoFocus={this.props.autoFocus || false}
         min={this.props.minValue || '0.990'}

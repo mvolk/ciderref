@@ -34,7 +34,7 @@ export default class TemperatureInput extends React.Component {
                autoFocus={this.props.autoFocus || false}
                onChange={(e) => {
                  e.stopPropagation();
-                 this.props.onChange(new Temperature(Number(event.target.value), this.props.units));
+                 this.props.onChange(new Temperature(Number(e.target.value), this.props.units));
                }}
                min={this.props.minValue || this.props.units.minValue}
                max={this.props.maxValue || this.props.units.maxValue}

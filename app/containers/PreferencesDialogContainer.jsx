@@ -22,29 +22,30 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
-import PageFooter from './PageFooter';
+import {connect} from 'react-redux';
+import PreferencesDialog from '../components/PreferencesDialog';
+import actions from '../actions';
 
-const GuestMenu = ({onOpenHydrometerCorrection, onOpenNotImplemented}) => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <NavigationHeader label="Calculators:"/>
-    <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection}/>
-    <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented}/>
-    <NavigationHeader label="Recipes:"/>
-    <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented}/>
-    <PageFooter />
-  </div>
-);
+const mapStateToProps = (state) => ({
+  isOpen: state.preferencesDialog,
+  temperatureUnits: state.preferences.units.temperature
+});
 
-GuestMenu.propTypes = {
-  onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-  onOpenNotImplemented: React.PropTypes.func.isRequired
-};
+const mapDispatchToProps = (dispatch) => ({
+  onTemperatureUnitsChange: (units) => {
+    dispatch({
+      type: actions.CHANGE_PREFERENCES,
+      preferences: {units: {temperature: units}}
+    });
+  },
+  onClose: () => {
+    dispatch({type: actions.CLOSE_PREFERENCES});
+  }
+});
 
-export default GuestMenu;
+const PreferencesDialogContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PreferencesDialog);
+
+export default PreferencesDialogContainer;

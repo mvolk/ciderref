@@ -22,29 +22,28 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
-import PageFooter from './PageFooter';
+const FORWARD = 'nav-forward';
+const NEXT = 'nav-next';
+const BACK = 'nav-back';
+const HOME = 'nav-home';
 
-const GuestMenu = ({onOpenHydrometerCorrection, onOpenNotImplemented}) => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <NavigationHeader label="Calculators:"/>
-    <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection}/>
-    <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented}/>
-    <NavigationHeader label="Recipes:"/>
-    <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented}/>
-    <PageFooter />
-  </div>
-);
+const OPEN_PREFERENCES = 'nav-open-preferences';
+const CLOSE_PREFERENCES = 'nav-close-preferences';
+const CHANGE_PREFERENCES = 'changePreferences';
 
-GuestMenu.propTypes = {
-  onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-  onOpenNotImplemented: React.PropTypes.func.isRequired
+const CHANGE_HYDROMETER_READING = 'changeHydrometerReading';
+const CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE = 'changeHydrometerCalibrationTemperature';
+const CHANGE_TEMPERATURE = 'changeTemperature';
+
+export default {
+  FORWARD,
+  NEXT,
+  BACK,
+  HOME,
+  OPEN_PREFERENCES,
+  CLOSE_PREFERENCES,
+  CHANGE_PREFERENCES,
+  CHANGE_HYDROMETER_READING,
+  CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE,
+  CHANGE_TEMPERATURE
 };
-
-export default GuestMenu;

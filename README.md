@@ -5,6 +5,8 @@ Calculators and more for cidermakers.
 
 Currently in concept and design phase with a prototype that is not (and is not intended to be) production-ready.
 
+[![Build Status](https://travis-ci.org/mvolk/ciderref.svg?branch=master)](https://travis-ci.org/mvolk/ciderref)
+
 ## How to review the prototype
 
 Assuming that you have a recent NodeJS version installed locally:
@@ -19,7 +21,6 @@ Assuming that you have a recent NodeJS version installed locally:
 * Establish testing framework and patterns
 * Establish code coverage standards and linting rules
 * Establish state management patterns
-* Establish continuous integration builds
 * Design setting UI
 * Design members UI (distant future)
 * Design remaining wizards

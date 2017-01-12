@@ -22,27 +22,27 @@
  * SOFTWARE.
  */
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import App from '../components/App';
 import actions from '../actions';
 import places from '../places';
 
-const mapStateToProps = (state) => ({
-  placeName: state.place.name
+const mapStateToProps = state => ({
+  placeName: state.place.name,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onGuestSignIn: () => {
     dispatch({
       type: actions.FORWARD,
-      destination: places.GUEST_MENU
+      destination: places.GUEST_MENU,
     });
-  }
+  },
 });
 
 const AppContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);
 
 export default AppContainer;

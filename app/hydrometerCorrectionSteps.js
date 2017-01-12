@@ -31,5 +31,5 @@ export default {
   measuredSpecificGravity,
   measuredTemperature,
   calibrationTemperature,
-  result
+  result,
 };

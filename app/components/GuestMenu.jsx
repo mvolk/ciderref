@@ -22,29 +22,33 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import PageHeaderContainer from '../containers/PageHeaderContainer';
 import NavigationHeader from './NavigationHeader';
 import NavigationItem from './NavigationItem';
 import PageFooter from './PageFooter';
 
-const GuestMenu = ({onOpenHydrometerCorrection, onOpenNotImplemented}) => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <NavigationHeader label="Calculators:"/>
-    <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection}/>
-    <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented}/>
-    <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented}/>
-    <NavigationHeader label="Recipes:"/>
-    <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented}/>
-    <PageFooter />
-  </div>
-);
-
-GuestMenu.propTypes = {
-  onOpenHydrometerCorrection: React.PropTypes.func.isRequired,
-  onOpenNotImplemented: React.PropTypes.func.isRequired
+const propTypes = {
+  onOpenHydrometerCorrection: PropTypes.func.isRequired,
+  onOpenNotImplemented: PropTypes.func.isRequired,
 };
+
+function GuestMenu({ onOpenHydrometerCorrection, onOpenNotImplemented }) {
+  return (
+    <div className="wrapper">
+      <PageHeaderContainer />
+      <NavigationHeader label="Calculators:" />
+      <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection} />
+      <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented} />
+      <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented} />
+      <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented} />
+      <NavigationHeader label="Recipes:" />
+      <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented} />
+      <PageFooter />
+    </div>
+  );
+}
+
+GuestMenu.propTypes = propTypes;
 
 export default GuestMenu;

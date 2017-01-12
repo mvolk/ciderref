@@ -26,12 +26,14 @@ import React from 'react';
 import PageHeaderContainer from '../containers/PageHeaderContainer';
 import PageFooter from './PageFooter';
 
-const NotImplemented = () => (
-  <div className="wrapper">
-    <PageHeaderContainer />
-    <h1>Not Implemented</h1>
-    <PageFooter />
-  </div>
-);
+function NotImplemented() {
+  return (
+    <div className="wrapper">
+      <PageHeaderContainer />
+      <h1>Not Implemented</h1>
+      <PageFooter />
+    </div>
+  );
+}
 
 export default NotImplemented;

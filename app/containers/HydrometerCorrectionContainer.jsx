@@ -22,54 +22,54 @@
  * SOFTWARE.
  */
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import HydrometerCorrection from '../components/HydrometerCorrection';
 import actions from '../actions';
 import places from '../places';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   currentStep: state.place.step,
   exitLabel: 'Guest Menu',
   reading: state.hydrometerCorrection.reading,
   temperature: state.hydrometerCorrection.temperature,
   calibrationTemperature: state.hydrometerCorrection.calibrationTemperature,
   correctedReading: state.hydrometerCorrection.correctedReading,
-  preferredTemperatureUnits: state.preferences.units.temperature
+  preferredTemperatureUnits: state.preferences.units.temperature,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onChangeReading: (sg) => {
     dispatch({
       type: actions.CHANGE_HYDROMETER_READING,
-      specificGravity: sg
+      specificGravity: sg,
     });
   },
   onChangeTemperature: (t) => {
     dispatch({
       type: actions.CHANGE_TEMPERATURE,
-      temperature: t
+      temperature: t,
     });
   },
   onChangeCalibrationTemperature: (t) => {
     dispatch({
       type: actions.CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE,
-      temperature: t
+      temperature: t,
     });
   },
   onContinue: () => {
-    dispatch({type: actions.NEXT});
+    dispatch({ type: actions.NEXT });
   },
   onExit: () => {
     dispatch({
       type: actions.BACK,
-      destination: places.GUEST_MENU
+      destination: places.GUEST_MENU,
     });
-  }
+  },
 });
 
 const HydrometerCorrectionContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(HydrometerCorrection);
 
 export default HydrometerCorrectionContainer;

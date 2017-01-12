@@ -22,25 +22,25 @@
  * SOFTWARE.
  */
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import SignIn from '../components/SignIn';
 import actions from '../actions';
 import places from '../places';
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onGuestSignIn: () => {
     dispatch({
       type: actions.FORWARD,
-      destination: places.GUEST_MENU
+      destination: places.GUEST_MENU,
     });
-  }
+  },
 });
 
 const SignInContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(SignIn);
 
 export default SignInContainer;

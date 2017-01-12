@@ -28,11 +28,11 @@ import Temperature from './Temperature';
 
 const initialAppState = {
   place: {
-    name: places.SIGN_IN
+    name: places.SIGN_IN,
   },
   preferencesDialog: false,
-  preferences: {units: {temperature: Temperature.units.fahrenheit}},
-  hydrometerCorrection: {}
+  preferences: { units: { temperature: Temperature.units.fahrenheit } },
+  hydrometerCorrection: {},
 };
 
 const initialHydrometerCorrectionState = {
@@ -40,8 +40,8 @@ const initialHydrometerCorrectionState = {
     reading: 1.055,
     temperature: new Temperature(68, Temperature.units.fahrenheit),
     calibrationTemperature: new Temperature(68, Temperature.units.fahrenheit),
-    correctedReading: 1.055
-  }
+    correctedReading: 1.055,
+  },
 };
 
 /**
@@ -50,8 +50,8 @@ const initialHydrometerCorrectionState = {
  * @param {number} step - (optional) the step number
  * @returns {*} place shape
  */
-function generatePlaceModel (name, step) {
-  return step ? {place: {name, step}} : {place: {name}};
+function generatePlaceModel(name, step) {
+  return step ? { place: { name, step } } : { place: { name } };
 }
 
 /**
@@ -60,14 +60,18 @@ function generatePlaceModel (name, step) {
  * @param {string} destination - the place name to navigate to
  * @returns {*} the state after the navigation action
  */
-function forward (state, {destination}) {
+function forward(state, { destination }) {
   switch (destination) {
     case places.GUEST_MENU:
       return Object.assign({}, state, generatePlaceModel(destination));
     case places.NOT_IMPLEMENTED:
       return Object.assign({}, state, generatePlaceModel(destination));
     case places.HYDROMETER_CORRECTION:
-      return Object.assign({}, state, generatePlaceModel(destination, 1), initialHydrometerCorrectionState);
+      return Object.assign(
+        {},
+        state,
+        generatePlaceModel(destination, 1), initialHydrometerCorrectionState,
+      );
     default:
       return state;
   }
@@ -78,10 +82,10 @@ function forward (state, {destination}) {
  * @param {*} state - the state prior to the navigation action
  * @returns {*} the state after the navigation action
  */
-function next (state) {
+function next(state) {
   if (state.place.step) {
-    const place = Object.assign({}, state.place, {step: state.place.step + 1});
-    return Object.assign({}, state, {place});
+    const place = Object.assign({}, state.place, { step: state.place.step + 1 });
+    return Object.assign({}, state, { place });
   }
   return state;
 }
@@ -92,7 +96,7 @@ function next (state) {
  * @param {string} destination - the place name to navigate (back) to
  * @returns {*} the state after the navigation action
  */
-function back (state, {destination}) {
+function back(state, { destination }) {
   switch (destination) {
     case places.GUEST_MENU:
       return Object.assign({}, state, generatePlaceModel(destination));
@@ -106,7 +110,7 @@ function back (state, {destination}) {
  * @param {*} state - the state prior to the navigation action
  * @returns {*} the state after the navigation action
  */
-function home (state) {
+function home(state) {
   return Object.assign({}, state, generatePlaceModel(places.GUEST_MENU));
 }
 
@@ -115,8 +119,8 @@ function home (state) {
  * @param {*} state - the state prior to the navigation action
  * @returns {*} the state after the navigation action
  */
-function openPreferences (state) {
-  return Object.assign({}, state, {preferencesDialog: true});
+function openPreferences(state) {
+  return Object.assign({}, state, { preferencesDialog: true });
 }
 
 /**
@@ -124,8 +128,8 @@ function openPreferences (state) {
  * @param {*} state - the state prior to the navigation action
  * @returns {*} the state after the navigation action
  */
-function closePreferences (state) {
-  return Object.assign({}, state, {preferencesDialog: false});
+function closePreferences(state) {
+  return Object.assign({}, state, { preferencesDialog: false });
 }
 
 /**
@@ -134,15 +138,15 @@ function closePreferences (state) {
  * @param {*} preferences - the new preferences state
  * @returns {*} the state after the state change action
  */
-function changePreferences (state, {preferences}) {
-  return Object.assign({}, state, {preferences});
+function changePreferences(state, { preferences }) {
+  return Object.assign({}, state, { preferences });
 }
 
 /**
  * Placeholder for future hydrometer correction function.
  * @returns {string} 'Not Implemented'
  */
-function calculateCorrectedHydrometerReading () {
+function calculateCorrectedHydrometerReading() {
   return 'Not Implemented';
 }
 
@@ -152,12 +156,13 @@ function calculateCorrectedHydrometerReading () {
  * @param {number} specificGravity - the new hydrometer reading
  * @returns {object} the state after the state change action
  */
-function changeHydrometerReading (state, {specificGravity}) {
+function changeHydrometerReading(state, { specificGravity }) {
   if (state.place.name === places.HYDROMETER_CORRECTION) {
     const hydrometerCorrection = Object.assign({}, state.hydrometerCorrection);
     hydrometerCorrection.reading = specificGravity;
-    hydrometerCorrection.correctedReading = calculateCorrectedHydrometerReading(hydrometerCorrection);
-    return Object.assign({}, state, {hydrometerCorrection});
+    hydrometerCorrection.correctedReading =
+      calculateCorrectedHydrometerReading(hydrometerCorrection);
+    return Object.assign({}, state, { hydrometerCorrection });
   }
   return state;
 }
@@ -168,12 +173,13 @@ function changeHydrometerReading (state, {specificGravity}) {
  * @param {number} temperature - the new hydrometer calibration temperature
  * @returns {object} the state after the state change action
  */
-function changeHydrometerCalibrationTemperature (state, {temperature}) {
+function changeHydrometerCalibrationTemperature(state, { temperature }) {
   if (state.place.name === places.HYDROMETER_CORRECTION) {
     const hydrometerCorrection = Object.assign({}, state.hydrometerCorrection);
     hydrometerCorrection.calibrationTemperature = temperature;
-    hydrometerCorrection.correctedReading = calculateCorrectedHydrometerReading(hydrometerCorrection);
-    return Object.assign({}, state, {hydrometerCorrection});
+    hydrometerCorrection.correctedReading =
+      calculateCorrectedHydrometerReading(hydrometerCorrection);
+    return Object.assign({}, state, { hydrometerCorrection });
   }
   return state;
 }
@@ -184,12 +190,13 @@ function changeHydrometerCalibrationTemperature (state, {temperature}) {
  * @param {number} temperature - the new temperature
  * @returns {object} the state after the state change action
  */
-function changeTemperature (state, {temperature}) {
+function changeTemperature(state, { temperature }) {
   if (state.place.name === places.HYDROMETER_CORRECTION) {
     const hydrometerCorrection = Object.assign({}, state.hydrometerCorrection);
     hydrometerCorrection.temperature = temperature;
-    hydrometerCorrection.correctedReading = calculateCorrectedHydrometerReading(hydrometerCorrection);
-    return Object.assign({}, state, {hydrometerCorrection});
+    hydrometerCorrection.correctedReading =
+      calculateCorrectedHydrometerReading(hydrometerCorrection);
+    return Object.assign({}, state, { hydrometerCorrection });
   }
   return state;
 }
@@ -203,7 +210,8 @@ reducerMap[actions.OPEN_PREFERENCES] = openPreferences;
 reducerMap[actions.CLOSE_PREFERENCES] = closePreferences;
 reducerMap[actions.CHANGE_PREFERENCES] = changePreferences;
 reducerMap[actions.CHANGE_HYDROMETER_READING] = changeHydrometerReading;
-reducerMap[actions.CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE] = changeHydrometerCalibrationTemperature;
+reducerMap[actions.CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE] =
+  changeHydrometerCalibrationTemperature;
 reducerMap[actions.CHANGE_TEMPERATURE] = changeTemperature;
 
 const app = (state = initialAppState, action) => {

@@ -4,3 +4,6 @@ node_modules/
 original-artwork/
 .idea/
 style/
+libs/
+webpack.config.js
+karma.conf.js

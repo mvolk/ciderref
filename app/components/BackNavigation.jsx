@@ -22,19 +22,21 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default class BackNavigation extends React.Component {
-  render () {
-    return (
-      <div className="row">
-        <div className="col-md-12 h5 nav-back" onClick={this.props.onGoBack}>Back to {this.props.label}</div>
-      </div>
-    );
-  }
+const propTypes = {
+  label: PropTypes.string.isRequired,
+  onGoBack: PropTypes.func.isRequired,
+};
+
+function BackNavigation({ label, onGoBack }) {
+  return (
+    <div className="row">
+      <div className="col-md-12 h5 nav-back" onClick={onGoBack}>Back to {label}</div>
+    </div>
+  );
 }
 
-BackNavigation.propTypes = {
-  onGoBack: React.PropTypes.func.isRequired,
-  label: React.PropTypes.string.isRequired
-};
+BackNavigation.propTypes = propTypes;
+
+export default BackNavigation;

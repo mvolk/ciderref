@@ -22,16 +22,20 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default class NavigationHeader extends React.Component {
-  render () {
-    return (
-      <div className="row">
-        <div className="col-md-12 h4 nav-header">{this.props.label}</div>
-      </div>
-    );
-  }
+const propTypes = {
+  label: PropTypes.string.isRequired,
+};
+
+function NavigationHeader({ label }) {
+  return (
+    <div className="row">
+      <div className="col-md-12 h4 nav-header">{label}</div>
+    </div>
+  );
 }
 
-NavigationHeader.propTypes = {label: React.PropTypes.string.isRequired};
+NavigationHeader.propTypes = propTypes;
+
+export default NavigationHeader;

@@ -22,21 +22,23 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default class WizardContinue extends React.Component {
-  render () {
-    return (
-      <div className="row">
-        <div className="col-xs-12 wizard-nav">
-          <input type="submit" value={this.props.label} onClick={this.props.onContinue}/>
-        </div>
+const propTypes = {
+  label: PropTypes.string.isRequired,
+  onContinue: PropTypes.func.isRequired,
+};
+
+function WizardContinue({ label, onContinue }) {
+  return (
+    <div className="row">
+      <div className="col-xs-12 wizard-nav">
+        <input type="submit" value={label} onClick={onContinue} />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-WizardContinue.propTypes = {
-  label: React.PropTypes.string.isRequired,
-  onContinue: React.PropTypes.func.isRequired
-};
+WizardContinue.propTypes = propTypes;
+
+export default WizardContinue;

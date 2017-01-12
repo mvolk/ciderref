@@ -22,27 +22,27 @@
  * SOFTWARE.
  */
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PageHeader from '../components/PageHeader';
 import actions from '../actions';
 import places from '../places';
 
-const mapStateToProps = (state) => ({
-  linkToHome: state.place.name !== places.GUEST_MENU
+const mapStateToProps = state => ({
+  linkToHome: state.place.name !== places.GUEST_MENU,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onOpenHome: () => {
-    dispatch({type: actions.HOME});
+    dispatch({ type: actions.HOME });
   },
   onOpenPreferences: () => {
-    dispatch({type: actions.OPEN_PREFERENCES});
-  }
+    dispatch({ type: actions.OPEN_PREFERENCES });
+  },
 });
 
 const PageHeaderContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PageHeader);
 
 export default PageHeaderContainer;

@@ -22,30 +22,30 @@
  * SOFTWARE.
  */
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PreferencesDialog from '../components/PreferencesDialog';
 import actions from '../actions';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isOpen: state.preferencesDialog,
-  temperatureUnits: state.preferences.units.temperature
+  temperatureUnits: state.preferences.units.temperature,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onTemperatureUnitsChange: (units) => {
     dispatch({
       type: actions.CHANGE_PREFERENCES,
-      preferences: {units: {temperature: units}}
+      preferences: { units: { temperature: units } },
     });
   },
   onClose: () => {
-    dispatch({type: actions.CLOSE_PREFERENCES});
-  }
+    dispatch({ type: actions.CLOSE_PREFERENCES });
+  },
 });
 
 const PreferencesDialogContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(PreferencesDialog);
 
 export default PreferencesDialogContainer;

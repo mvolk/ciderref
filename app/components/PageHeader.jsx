@@ -22,30 +22,37 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const PageHeader = ({linkToHome, onOpenHome, onOpenPreferences}) => (
-  <div className="row">
-    <div className="col-xs-12 h3 page-header">
-      <img src="images/icon-gear-48.png" className="settings-icon link" onClick={onOpenPreferences} />
-      {(() => {
-        if (linkToHome) {
-          return (
-            <div className="link" onClick={onOpenHome}>
-              <img src="images/apple.png" className="logo-icon"/>CiderRef
-            </div>
-          );
-        }
-        return <div><img src="images/apple.png" className="logo-icon"/>CiderRef</div>;
-      })()}
-    </div>
-  </div>
-);
-
-PageHeader.propTypes = {
-  linkToHome: React.PropTypes.bool.isRequired,
-  onOpenHome: React.PropTypes.func.isRequired,
-  onOpenPreferences: React.PropTypes.func.isRequired
+const propTypes = {
+  linkToHome: PropTypes.bool.isRequired,
+  onOpenHome: PropTypes.func.isRequired,
+  onOpenPreferences: PropTypes.func.isRequired,
 };
+
+function PageHeader({ linkToHome, onOpenHome, onOpenPreferences }) {
+  return (
+    <div className="row">
+      <div className="col-xs-12 h3 page-header">
+        <img
+          src="images/icon-gear-48.png"
+          className="settings-icon link"
+          onClick={onOpenPreferences}
+        />
+        {linkToHome ? (
+          <div className="link" onClick={onOpenHome}>
+            <img src="images/apple.png" className="logo-icon" />CiderRef
+          </div>
+        ) : (
+          <div>
+            <img src="images/apple.png" className="logo-icon" />CiderRef
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+PageHeader.propTypes = propTypes;
 
 export default PageHeader;

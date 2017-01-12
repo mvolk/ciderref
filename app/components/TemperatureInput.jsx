@@ -22,41 +22,46 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Temperature from '../Temperature';
 
-export default class TemperatureInput extends React.Component {
-  render () {
-    return (
-      <div>
-        <input type="number"
-               value={this.props.value}
-               autoFocus={this.props.autoFocus || false}
-               onChange={(e) => {
-                 e.stopPropagation();
-                 this.props.onChange(new Temperature(Number(e.target.value), this.props.units));
-               }}
-               min={this.props.minValue || this.props.units.minValue}
-               max={this.props.maxValue || this.props.units.maxValue}
-               step={this.props.step || this.props.units.step}
-        />
-        {this.props.units.label}
-      </div>
-    );
-  }
+const propTypes = {
+  value: PropTypes.number.isRequired,
+  units: PropTypes.shape({
+    label: PropTypes.string.isRequired,
+    minValue: PropTypes.number.isRequired,
+    maxValue: PropTypes.number.isRequired,
+    step: PropTypes.number.isRequired,
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  autoFocus: PropTypes.bool,
+};
+
+const defaultProps = {
+  autoFocus: false,
+};
+
+function TemperatureInput({ value, units, onChange, autoFocus }) {
+  return (
+    <div>
+      <input
+        type="number"
+        value={value}
+        autoFocus={autoFocus}
+        onChange={(e) => {
+          e.stopPropagation();
+          onChange(new Temperature(Number(e.target.value), units));
+        }}
+        min={units.minValue}
+        max={units.maxValue}
+        step={units.step}
+      />
+      {units.label}
+    </div>
+  );
 }
 
-TemperatureInput.propTypes = {
-  value: React.PropTypes.number.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  minValue: React.PropTypes.number,
-  maxValue: React.PropTypes.number,
-  step: React.PropTypes.number,
-  units: React.PropTypes.shape({
-    label: React.PropTypes.string.isRequired,
-    minValue: React.PropTypes.number.isRequired,
-    maxValue: React.PropTypes.number.isRequired,
-    step: React.PropTypes.number.isRequired
-  }).isRequired,
-  autoFocus: React.PropTypes.bool
-};
+TemperatureInput.propTypes = propTypes;
+TemperatureInput.defaultProps = defaultProps;
+
+export default TemperatureInput;

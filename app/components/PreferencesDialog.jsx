@@ -22,22 +22,32 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Temperature from '../Temperature';
 
-const PreferencesDialog = ({isOpen, temperatureUnits, onTemperatureUnitsChange, onClose}) => {
+const propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  temperatureUnits: PropTypes.shape().isRequired,
+  onTemperatureUnitsChange: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+};
+
+function PreferencesDialog({ isOpen, temperatureUnits, onTemperatureUnitsChange, onClose }) {
   if (isOpen) {
     const celsius = Temperature.units.celsius;
     const fahrenheit = Temperature.units.fahrenheit;
+
     return (
       <div className="modal-backdrop">
         <div className="prefs">
           <span className="prefs-close" onClick={onClose}>x</span>
           <label>Temperature Units:</label>
-          <select value={temperatureUnits.key} onChange={(e) => {
-            e.stopPropagation();
-            onTemperatureUnitsChange(Temperature.units[e.target.value]);
-          }}>
+          <select
+            value={temperatureUnits.key} onChange={(e) => {
+              e.stopPropagation();
+              onTemperatureUnitsChange(Temperature.units[e.target.value]);
+            }}
+          >
             <option value={celsius.key}> {celsius.label}</option>
             <option value={fahrenheit.key}>{fahrenheit.label}</option>
           </select>
@@ -45,14 +55,10 @@ const PreferencesDialog = ({isOpen, temperatureUnits, onTemperatureUnitsChange, 
       </div>
     );
   }
-  return <span />;
-};
 
-PreferencesDialog.propTypes = {
-  isOpen: React.PropTypes.bool.isRequired,
-  temperatureUnits: React.PropTypes.shape().isRequired,
-  onTemperatureUnitsChange: React.PropTypes.func.isRequired,
-  onClose: React.PropTypes.func.isRequired
-};
+  return <span />;
+}
+
+PreferencesDialog.propTypes = propTypes;
 
 export default PreferencesDialog;

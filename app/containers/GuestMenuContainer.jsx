@@ -22,31 +22,31 @@
  * SOFTWARE.
  */
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import GuestMenu from '../components/GuestMenu';
 import actions from '../actions';
 import places from '../places';
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   onOpenHydrometerCorrection: () => {
     dispatch({
       type: actions.FORWARD,
-      destination: places.HYDROMETER_CORRECTION
+      destination: places.HYDROMETER_CORRECTION,
     });
   },
   onOpenNotImplemented: () => {
     dispatch({
       type: actions.FORWARD,
-      destination: places.NOT_IMPLEMENTED
+      destination: places.NOT_IMPLEMENTED,
     });
-  }
+  },
 });
 
 const GuestMenuContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(GuestMenu);
 
 export default GuestMenuContainer;

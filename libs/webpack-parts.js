@@ -29,20 +29,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackTemplate = require('html-webpack-template');
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
-exports.indexTemplate = function indexTemplate (options) {
+exports.indexTemplate = function indexTemplate(options) {
   return {
     plugins: [
       new HtmlWebpackPlugin({
         template: HtmlWebpackTemplate,
         title: options.title,
         appMountId: options.appMountId,
-        inject: false
-      })
-    ]
+        inject: false,
+      }),
+    ],
   };
 };
 
-exports.loadImages = function loadImages (include) {
+exports.loadImages = function loadImages(include) {
   return {
     module: {
       loaders: [
@@ -54,14 +54,14 @@ exports.loadImages = function loadImages (include) {
         {
           test: /\.(jpg|png)$/,
           loader: 'file?name=[path][name].[hash].[ext]',
-          include: include
-        }
-      ]
-    }
+          include,
+        },
+      ],
+    },
   };
 };
 
-exports.loadJSX = function loadJSX (include) {
+exports.loadJSX = function loadJSX(include) {
   return {
     module: {
       loaders: [
@@ -69,72 +69,72 @@ exports.loadJSX = function loadJSX (include) {
           test: /\.(js|jsx)$/,
           // Enable caching for extra performance
           loaders: ['babel?cacheDirectory'],
-          include: include
-        }
-      ]
-    }
+          include,
+        },
+      ],
+    },
   };
 };
 
-exports.loadFonts = function loadFonts () {
+exports.loadFonts = function loadFonts() {
   return {
     module: {
       loaders: [
         {
           test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff',
         },
         {
           test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-          loader: 'file-loader'
-        }
-      ]
-    }
+          loader: 'file-loader',
+        },
+      ],
+    },
   };
 };
 
-exports.loadIsparta = function loadIsparta (include) {
+exports.loadIsparta = function loadIsparta(include) {
   return {
     module: {
       preLoaders: [
         {
           test: /\.(js|jsx)$/,
           loaders: ['isparta-instrumenter'],
-          include: include
-        }
-      ]
-    }
+          include,
+        },
+      ],
+    },
   };
 };
 
-exports.lintJSX = function lintJSX (include) {
+exports.lintJSX = function lintJSX(include) {
   return {
     module: {
       preLoaders: [
         {
           test: /\.(js|jsx)$/,
           loaders: ['eslint'],
-          include: include
-        }
-      ]
-    }
+          include,
+        },
+      ],
+    },
   };
 };
 
-exports.enableReactPerformanceTools = function enableReactPerformanceTools () {
+exports.enableReactPerformanceTools = function enableReactPerformanceTools() {
   return {
     module: {
       loaders: [
         {
           test: require.resolve('react'),
-          loader: 'expose?React'
-        }
-      ]
-    }
+          loader: 'expose?React',
+        },
+      ],
+    },
   };
 };
 
-exports.devServer = function devServer (options) {
+exports.devServer = function devServer(options) {
   const ret = {
     devServer: {
       // Enable history API fallback so HTML5 History API based
@@ -158,13 +158,13 @@ exports.devServer = function devServer (options) {
       // 0.0.0.0 is available to all network devices
       // unlike default `localhost`.
       host: options.host, // Defaults to `localhost`
-      port: options.port // Defaults to 8080
+      port: options.port, // Defaults to 8080
     },
     plugins: [
       // Enable multi-pass compilation for enhanced performance
       // in larger projects. Good default.
-      new webpack.HotModuleReplacementPlugin({multiStep: true})
-    ]
+      new webpack.HotModuleReplacementPlugin({ multiStep: true }),
+    ],
   };
 
   if (options.poll) {
@@ -172,53 +172,53 @@ exports.devServer = function devServer (options) {
       // Delay the rebuild after the first change
       aggregateTimeout: 300,
       // Poll using interval (in ms, accepts boolean too)
-      poll: 1000
+      poll: 1000,
     };
   }
 
   return ret;
 };
 
-exports.setupCSS = function setupCSS (paths) {
+exports.setupCSS = function setupCSS(paths) {
   return {
     module: {
       loaders: [
         {
           test: /\.css$/,
           loaders: ['style', 'css'],
-          include: paths
-        }
-      ]
-    }
+          include: paths,
+        },
+      ],
+    },
   };
 };
 
-exports.minify = function minify () {
+exports.minify = function minify() {
   return {
     plugins: [
-      new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}})
-    ]
+      new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false } }),
+    ],
   };
 };
 
-exports.setFreeVariable = function setFreeVariable (key, value) {
+exports.setFreeVariable = function setFreeVariable(key, value) {
   const env = {};
   env[key] = JSON.stringify(value);
 
   return {
     plugins: [
-      new webpack.DefinePlugin(env)
-    ]
+      new webpack.DefinePlugin(env),
+    ],
   };
 };
 
-exports.extractBundle = function extractBundle (options) {
+exports.extractBundle = function extractBundle(options) {
   const entry = {};
   entry[options.name] = options.entries;
 
   return {
     // Define an entry point needed for splitting.
-    entry: entry,
+    entry,
     plugins: [
       // Extract bundle and manifest files. Manifest is
       // needed for reliable caching.
@@ -226,21 +226,21 @@ exports.extractBundle = function extractBundle (options) {
         names: [options.name, 'manifest'],
 
         // options.name modules only
-        minChunks: Infinity
-      })
-    ]
+        minChunks: Infinity,
+      }),
+    ],
   };
 };
 
-exports.clean = function clean (path) {
+exports.clean = function clean(path) {
   return {
     plugins: [
-      new CleanWebpackPlugin([path], {root: process.cwd()})
-    ]
+      new CleanWebpackPlugin([path], { root: process.cwd() }),
+    ],
   };
 };
 
-exports.extractCSS = function extractCSS (paths) {
+exports.extractCSS = function extractCSS(paths) {
   return {
     module: {
       loaders: [
@@ -248,21 +248,21 @@ exports.extractCSS = function extractCSS (paths) {
         {
           test: /\.css$/,
           loader: ExtractTextPlugin.extract('style', 'css'),
-          include: paths
-        }
-      ]
+          include: paths,
+        },
+      ],
     },
     plugins: [
       // Output extracted CSS to a file
-      new ExtractTextPlugin('[name].[chunkhash].css')
-    ]
+      new ExtractTextPlugin('[name].[chunkhash].css'),
+    ],
   };
 };
 
-exports.npmInstall = function npmInstall (options) {
+exports.npmInstall = function npmInstall(options) {
   return {
     plugins: [
-      new NpmInstallPlugin(options || {})
-    ]
+      new NpmInstallPlugin(options || {}),
+    ],
   };
 };

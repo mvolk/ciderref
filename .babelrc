@@ -10,5 +10,8 @@
         "react-hmre"
       ]
     }
-  }
+  },
+  "plugins": [
+    "syntax-trailing-function-commas"
+  ]
 }

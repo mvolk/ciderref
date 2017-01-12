@@ -22,43 +22,51 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-const columnCount = 12;
+const COLUMN_COUNT = 12;
 
-export default class WizardProgressBar extends React.Component {
-  render () {
-    return (
-      <div className="row">
-        {this.getProgressElement()}
-        {this.getProgressRemainingElement()}
-      </div>
-    );
-  }
+const propTypes = {
+  progressRender: PropTypes.number.isRequired,
+  progressPercent: PropTypes.number.isRequired,
+};
 
-  getProgressElement () {
-    const className =
-      this.props.progressRender === columnCount ? 'wizard-progress-done' : 'wizard-progress-not-done';
-    return (
-      <div className={`col-xs-${this.props.progressRender} wizard-progress-so-far ${className}`}>
-        {this.props.progressPercent}%
-      </div>
-    );
-  }
+function ProgressElement({ progressRender, progressPercent }) {
+  const className =
+    progressRender === COLUMN_COUNT ? 'wizard-progress-done' : 'wizard-progress-not-done';
 
-  getProgressRemainingElement () {
-    if (this.props.progressRender === columnCount) {
-      return (
-        <div />
-      );
-    }
-    return (
-      <div className={`col-xs-${columnCount - this.props.progressRender} wizard-progress-remaining`}></div>
-    );
-  }
+  return (
+    <div className={`col-xs-${progressRender} wizard-progress-so-far ${className}`}>
+      {progressPercent}%
+    </div>
+  );
 }
 
-WizardProgressBar.propTypes = {
-  progressRender: React.PropTypes.number.isRequired,
-  progressPercent: React.PropTypes.number.isRequired
+ProgressElement.propTypes = propTypes;
+
+function ProgressRemainingElement({ progressRender }) {
+  const className = progressRender === COLUMN_COUNT
+    ? ''
+    : `col-xs-${COLUMN_COUNT - progressRender} wizard-progress-remaining`;
+
+  return (
+    <div className={className} />
+  );
+}
+
+ProgressRemainingElement.propTypes = {
+  progressRender: PropTypes.number.isRequired,
 };
+
+function WizardProgressBar({ progressRender, progressPercent }) {
+  return (
+    <div className="row">
+      <ProgressElement progressRender={progressRender} progressPercent={progressPercent} />
+      <ProgressRemainingElement progressRender={progressRender} />
+    </div>
+  );
+}
+
+WizardProgressBar.propTypes = propTypes;
+
+export default WizardProgressBar;

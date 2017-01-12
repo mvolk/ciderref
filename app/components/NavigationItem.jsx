@@ -24,17 +24,19 @@
 
 import React from 'react';
 
-export default class NavigationItem extends React.Component {
-  render () {
-    return (
-      <div className="row">
-        <div className="col-md-12 h4 nav-item" onClick={this.props.onClick}>{this.props.label}</div>
-      </div>
-    );
-  }
+const propTypes = {
+  onClick: React.PropTypes.func.isRequired,
+  label: React.PropTypes.string.isRequired,
+};
+
+function NavigationItem({ onClick, label }) {
+  return (
+    <div className="row">
+      <div className="col-md-12 h4 nav-item" onClick={onClick}>{label}</div>
+    </div>
+  );
 }
 
-NavigationItem.propTypes = {
-  onClick: React.PropTypes.func.isRequired,
-  label: React.PropTypes.string.isRequired
-};
+NavigationItem.propTypes = propTypes;
+
+export default NavigationItem;

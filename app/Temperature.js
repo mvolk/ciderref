@@ -30,17 +30,17 @@ const freezingInFahrenheit = 32;
 const degreesSymbol = String.fromCharCode(176);
 
 class Temperature {
-  constructor (value, unitsOfMeasurement) {
+  constructor(value, unitsOfMeasurement) {
     this.value = value;
     this.unitsOfMeasurement = unitsOfMeasurement;
   }
-  getValue (unitsOfMeasurement) {
+  getValue(unitsOfMeasurement) {
     if (unitsOfMeasurement) {
       return unitsOfMeasurement.fromReference(this.unitsOfMeasurement.toReference(this.value));
     }
     return this.value;
   }
-  getUnitsOfMeasurement () {
+  getUnitsOfMeasurement() {
     return this.unitsOfMeasurement;
   }
 }
@@ -53,8 +53,8 @@ Temperature.units = {
     minValue: freezingInCelsius,
     maxValue: boilingInCelsius,
     step: 0.1,
-    toReference: (c) => c,
-    fromReference: (c) => c
+    toReference: c => c,
+    fromReference: c => c,
   },
   fahrenheit: {
     key: 'fahrenheit',
@@ -64,16 +64,16 @@ Temperature.units = {
     maxValue: boilingInFahrenheit,
     step: 1.0,
     toReference: (f) => {
-      const c = (f - 32.0) * 5.0 / 9.0;
+      const c = ((f - 32.0) * 5.0) / 9.0;
       // round to nearest tenth of degree C
       return Math.round(c * 10.0) / 10.0;
     },
     fromReference: (c) => {
-      const f = (c * 9.0 / 5.0) + 32.0;
+      const f = ((c * 9.0) / 5.0) + 32.0;
       // round to nearest degree F
       return Math.round(f);
-    }
-  }
+    },
+  },
 };
 
 export default Temperature;

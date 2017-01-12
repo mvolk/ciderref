@@ -21,7 +21,7 @@ const common = merge(
     // Entry accepts a path or an object of entries.
     // We'll be using the latter form given it's
     // convenient with more complex configurations.
-    entry: {app: PATHS.app},
+    entry: { app: PATHS.app },
     output: {
       path: PATHS.build,
       filename: '[name].js'
@@ -29,9 +29,9 @@ const common = merge(
       // E.g., '/kanban-demo/'. Webpack will alter asset paths
       // based on this. You can even use an absolute path here
       // or even point to a CDN.
-      //publicPath: '/ciderref/'
+      // publicPath: '/ciderref/'
     },
-    resolve: {extensions: ['', '.js', '.jsx']}
+    resolve: { extensions: ['', '.js', '.jsx'] }
   },
   parts.indexTemplate({
     title: 'CiderRef',
@@ -53,7 +53,7 @@ switch (TARGET) {
       common,
       {
         devtool: 'source-map',
-        entry: {style: PATHS.style},
+        entry: { style: PATHS.style },
         output: {
           path: PATHS.build,
           filename: '[name].[chunkhash].js',
@@ -77,7 +77,7 @@ switch (TARGET) {
   case 'test:tdd':
     config = merge(
       common,
-      {devtool: 'inline-source-map'},
+      { devtool: 'inline-source-map' },
       parts.loadIsparta(PATHS.app),
       parts.loadJSX(PATHS.test)
     );
@@ -87,7 +87,7 @@ switch (TARGET) {
       common,
       {
         devtool: 'eval-source-map',
-        entry: {style: PATHS.style}
+        entry: { style: PATHS.style }
       },
       parts.setupCSS(PATHS.style),
       parts.devServer({
@@ -101,4 +101,4 @@ switch (TARGET) {
     );
 }
 
-module.exports = validate(config, {quiet: true});
+module.exports = validate(config, { quiet: true });

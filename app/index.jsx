@@ -23,17 +23,17 @@
  */
 
 import React from 'react';
-import {render} from 'react-dom';
-import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import app from './app';
 import AppContainer from './containers/AppContainer';
 
-let store = createStore(app);
+const store = createStore(app);
 
 render(
   <Provider store={store}>
     <AppContainer />
   </Provider>,
-  document.getElementById('app')
+  document.getElementById('app'),
 );

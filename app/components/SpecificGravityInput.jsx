@@ -22,32 +22,42 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default class SpecificGravityInput extends React.Component {
-  render () {
-    return (
-      <input
-        type="number"
-        value={this.props.value}
-        onChange={(e) => {
-          e.stopPropagation();
-          this.props.onChange(Number(e.target.value));
-        }}
-        autoFocus={this.props.autoFocus || false}
-        min={this.props.minValue || '0.990'}
-        max={this.props.maxValue || '1.100'}
-        step={this.props.step || '0.001'}
-      />
-    );
-  }
+const propTypes = {
+  value: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired,
+  autoFocus: PropTypes.bool,
+  minValue: PropTypes.number,
+  maxValue: PropTypes.number,
+  step: PropTypes.number,
+};
+
+const defaultProps = {
+  autoFocus: false,
+  minValue: 0.990,
+  maxValue: 1.100,
+  step: 0.001,
+};
+
+function SpecificGravityInput({ value, onChange, autoFocus, minValue, maxValue, step }) {
+  return (
+    <input
+      type="number"
+      value={value}
+      onChange={(e) => {
+        e.stopPropagation();
+        onChange(Number(e.target.value));
+      }}
+      autoFocus={autoFocus}
+      min={minValue}
+      max={maxValue}
+      step={step}
+    />
+  );
 }
 
-SpecificGravityInput.propTypes = {
-  value: React.PropTypes.number.isRequired,
-  onChange: React.PropTypes.func.isRequired,
-  autoFocus: React.PropTypes.bool,
-  minValue: React.PropTypes.number,
-  maxValue: React.PropTypes.number,
-  step: React.PropTypes.number
-};
+SpecificGravityInput.propTypes = propTypes;
+SpecificGravityInput.defaultProps = defaultProps;
+
+export default SpecificGravityInput;

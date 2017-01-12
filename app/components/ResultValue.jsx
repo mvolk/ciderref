@@ -22,14 +22,18 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default class ResultValue extends React.Component {
-  render () {
-    return (
-      <p className="h4">{this.props.value}</p>
-    );
-  }
+const propTypes = {
+  value: PropTypes.number.isRequired,
+};
+
+function ResultValue({ value }) {
+  return (
+    <p className="h4">{value}</p>
+  );
 }
 
-ResultValue.propTypes = {value: React.PropTypes.number.isRequired};
+ResultValue.propTypes = propTypes;
+
+export default ResultValue;

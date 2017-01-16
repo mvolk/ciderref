@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+import { Hydrometer } from 'ciderlib';
 import places from './places';
 import actions from './actions';
 import Temperature from './Temperature';
@@ -143,11 +144,16 @@ function changePreferences(state, { preferences }) {
 }
 
 /**
- * Placeholder for future hydrometer correction function.
- * @returns {string} 'Not Implemented'
+ * Correct a hydrometer reading for temperature.
+ * @returns {Number} corrected hydrometer reading
  */
-function calculateCorrectedHydrometerReading() {
-  return 'Not Implemented';
+function calculateCorrectedHydrometerReading({ reading, temperature, calibrationTemperature }) {
+  try {
+    const hydrometer = new Hydrometer(calibrationTemperature.getValue(Temperature.units.celsius));
+    return hydrometer.correctedReading(reading, temperature.getValue(Temperature.units.celsius));
+  } catch (err) {
+    return Number.NaN;
+  }
 }
 
 /**
@@ -159,7 +165,7 @@ function calculateCorrectedHydrometerReading() {
 function changeHydrometerReading(state, { specificGravity }) {
   if (state.place.name === places.HYDROMETER_CORRECTION) {
     const hydrometerCorrection = Object.assign({}, state.hydrometerCorrection);
-    hydrometerCorrection.reading = specificGravity;
+    hydrometerCorrection.reading = Number(specificGravity);
     hydrometerCorrection.correctedReading =
       calculateCorrectedHydrometerReading(hydrometerCorrection);
     return Object.assign({}, state, { hydrometerCorrection });

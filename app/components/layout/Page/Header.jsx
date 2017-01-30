@@ -23,30 +23,32 @@
  */
 
 import React, { PropTypes } from 'react';
+import withRouter from 'react-router/lib/withRouter';
+import { routerShape } from 'react-router/lib/PropTypes';
+import { HOME } from '../../../routes';
 import Row from '../Row';
 
 const propTypes = {
-  linkToHome: PropTypes.bool.isRequired,
-  onOpenHome: PropTypes.func.isRequired,
-  onOpenPreferences: PropTypes.func.isRequired,
+  onOpenPreferencesDialog: PropTypes.func.isRequired,
+  router: routerShape.isRequired,
 };
 
-function Header({ linkToHome, onOpenHome, onOpenPreferences }) {
+function Header({ onOpenPreferencesDialog, router }) {
   return (
     <Row>
       <div className="col-xs-12 h3 page-header">
         <img
-          src="images/icon-gear-48.png"
+          src="/images/icon-gear-48.png"
           className="settings-icon link"
-          onClick={onOpenPreferences}
+          onClick={onOpenPreferencesDialog}
         />
-        {linkToHome ? (
-          <div className="link" onClick={onOpenHome}>
-            <img src="images/apple.png" className="logo-icon" />CiderRef
+        {router.isActive(HOME, true) ? (
+          <div>
+            <img src="/images/apple.png" className="logo-icon" />CiderRef
           </div>
         ) : (
-          <div>
-            <img src="images/apple.png" className="logo-icon" />CiderRef
+          <div className="link" onClick={() => { router.push(HOME); }}>
+            <img src="/images/apple.png" className="logo-icon" />CiderRef
           </div>
         )}
       </div>
@@ -56,4 +58,4 @@ function Header({ linkToHome, onOpenHome, onOpenPreferences }) {
 
 Header.propTypes = propTypes;
 
-export default Header;
+export default withRouter(Header);

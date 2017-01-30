@@ -22,20 +22,11 @@
  * SOFTWARE.
  */
 
-const FORWARD = 'nav-forward';
-const BACK = 'nav-back';
-const HOME = 'nav-home';
+export const HOME = '/';
 
-const OPEN_PREFERENCES = 'nav-open-preferences';
-const CLOSE_PREFERENCES = 'nav-close-preferences';
+export const CALC_HYDROMETER = '/calc/hydrometer';
+export const CALC_SULPHITE = '/calc/sulphite';
+export const CALC_CHAPTALIZATION = '/calc/chaptalization';
+export const CALC_BACKSWEETENING = '/calc/backsweetening';
 
-const CHANGE_PREFERENCES = 'changePreferences';
-
-export default {
-  FORWARD,
-  BACK,
-  HOME,
-  OPEN_PREFERENCES,
-  CLOSE_PREFERENCES,
-  CHANGE_PREFERENCES,
-};
+export const RECIPE_5PCT_SULPHITE_SOLN = '/recipe/5pct_so2';

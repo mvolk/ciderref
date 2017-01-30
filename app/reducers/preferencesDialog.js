@@ -22,13 +22,13 @@
  * SOFTWARE.
  */
 
-import actions from '../actions/actions';
+import { OPEN_PREFERENCES_DIALOG, CLOSE_PREFERENCES_DIALOG } from '../actions/preferences';
 
 export default function preferencesDialog(state = false, action) {
-  if (action.type === actions.OPEN_PREFERENCES) {
+  if (action.type === OPEN_PREFERENCES_DIALOG) {
     return true;
   }
-  if (action.type === actions.OPEN_PREFERENCES) {
+  if (action.type === CLOSE_PREFERENCES_DIALOG) {
     return false;
   }
   return state;

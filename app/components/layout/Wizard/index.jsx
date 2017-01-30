@@ -24,12 +24,12 @@
 
 import React, { PropTypes } from 'react';
 import isRequiredIf from 'react-proptype-conditional-require';
-import PageHeaderContainer from '../../../containers/PageHeaderContainer';
+import PageHeader from '../Page/Header';
 import Header from './Header';
 import ProgressBar from './ProgressBar';
 import Continue from './Continue';
 import Exit from './Exit';
-import Footer from '../Page/Footer';
+import PageFooter from '../Page/Footer';
 import Wrapper from '../Wrapper';
 import Row from '../Row';
 import PreferencesDialogContainer from '../../../containers/PreferencesDialogContainer';
@@ -44,6 +44,7 @@ const propTypes = {
   canExit: PropTypes.bool,
   onExit: isRequiredIf(PropTypes.func, props => props.canExit),
   exitLabel: isRequiredIf(PropTypes.string, props => props.canExit),
+  onOpenPreferencesDialog: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
@@ -66,12 +67,13 @@ function Wizard({
   canExit,
   onExit,
   exitLabel,
+  onOpenPreferencesDialog,
   children,
 }) {
   return (
     <div className="container">
       <Wrapper>
-        <PageHeaderContainer />
+        <PageHeader onOpenPreferencesDialog={onOpenPreferencesDialog} />
         <Header name={name} />
         <ProgressBar progressPercent={(currentStep / numberOfSteps) * 100} />
         <Row>
@@ -85,7 +87,7 @@ function Wizard({
         {canExit && (
           <Exit label={exitLabel} onExit={onExit} />
         )}
-        <Footer />
+        <PageFooter />
       </Wrapper>
       <PreferencesDialogContainer />
     </div>

@@ -22,19 +22,21 @@
  * SOFTWARE.
  */
 
-import actions from '../actions/actions';
-import places from '../places';
+export const OPEN_PREFERENCES_DIALOG = 'preferences/open';
+export const CLOSE_PREFERENCES_DIALOG = 'preferences/close';
+export const CHANGE_PREFERENCES = 'preferences/change';
 
-const initialState = {
-  name: places.SIGN_IN,
-};
+export function openPreferencesDialog() {
+  return { type: OPEN_PREFERENCES_DIALOG };
+}
 
-export default function place(state = initialState, action) {
-  if (action.type === actions.BACK || action.type === actions.FORWARD) {
-    return { name: action.destination };
-  }
-  if (action.type === actions.HOME) {
-    return { name: places.GUEST_MENU };
-  }
-  return state;
+export function closePreferencesDialog() {
+  return { type: CLOSE_PREFERENCES_DIALOG };
+}
+
+export function changePreferences(newPreferences) {
+  return {
+    type: CHANGE_PREFERENCES,
+    preferences: newPreferences,
+  };
 }

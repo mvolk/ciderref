@@ -23,30 +23,12 @@
  */
 
 import { connect } from 'react-redux';
-import GuestMenu from '../components/views/GuestMenu';
-import actions from '../actions/actions';
-import places from '../places';
+import Page from '../components/layout/Page';
+import { openPreferencesDialog } from '../actions/preferences';
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = dispatch => ({
-  onOpenHydrometerCorrection: () => {
-    dispatch({
-      type: actions.FORWARD,
-      destination: places.HYDROMETER_CORRECTION,
-    });
+export default connect(
+  () => ({}),
+  {
+    openPreferencesDialog,
   },
-  onOpenNotImplemented: () => {
-    dispatch({
-      type: actions.FORWARD,
-      destination: places.NOT_IMPLEMENTED,
-    });
-  },
-});
-
-const GuestMenuContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(GuestMenu);
-
-export default GuestMenuContainer;
+)(Page);

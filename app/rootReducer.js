@@ -23,12 +23,10 @@
  */
 
 import { combineReducers } from 'redux';
-import place from './reducers/place';
 import preferences from './reducers/preferences';
 import preferencesDialog from './reducers/preferencesDialog';
 
 export default combineReducers({
-  place,
   preferences,
   preferencesDialog,
 });

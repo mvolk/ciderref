@@ -22,27 +22,49 @@
  * SOFTWARE.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
+import { routerShape } from 'react-router/lib/PropTypes';
+import {
+  CALC_HYDROMETER,
+  CALC_SULPHITE,
+  CALC_CHAPTALIZATION,
+  CALC_BACKSWEETENING,
+  RECIPE_5PCT_SULPHITE_SOLN,
+} from '../../routes';
 import NavigationHeaderRow from '../navigation/NavigationHeaderRow';
 import NavigationItemRow from '../navigation/NavigationItemRow';
-import Page from '../layout/Page';
+import PageContainer from '../../containers/PageContainer';
 
 const propTypes = {
-  onOpenHydrometerCorrection: PropTypes.func.isRequired,
-  onOpenNotImplemented: PropTypes.func.isRequired,
+  router: routerShape.isRequired,
 };
 
-function GuestMenu({ onOpenHydrometerCorrection, onOpenNotImplemented }) {
+function GuestMenu({ router }) {
   return (
-    <Page>
+    <PageContainer>
       <NavigationHeaderRow label="Calculators:" />
-      <NavigationItemRow label="Hydrometer Correction" onClick={onOpenHydrometerCorrection} />
-      <NavigationItemRow label="Sulphite Treatment" onClick={onOpenNotImplemented} />
-      <NavigationItemRow label="Chaptalization" onClick={onOpenNotImplemented} />
-      <NavigationItemRow label="Backsweetening" onClick={onOpenNotImplemented} />
+      <NavigationItemRow
+        label="Hydrometer Correction"
+        onClick={() => router.push(CALC_HYDROMETER)}
+      />
+      <NavigationItemRow
+        label="Sulphite Treatment"
+        onClick={() => router.push(CALC_SULPHITE)}
+      />
+      <NavigationItemRow
+        label="Chaptalization"
+        onClick={() => router.push(CALC_CHAPTALIZATION)}
+      />
+      <NavigationItemRow
+        label="Backsweetening"
+        onClick={() => router.push(CALC_BACKSWEETENING)}
+      />
       <NavigationHeaderRow label="Recipes:" />
-      <NavigationItemRow label="5% Sulphite Solution" onClick={onOpenNotImplemented} />
-    </Page>
+      <NavigationItemRow
+        label="5% Sulphite Solution"
+        onClick={() => router.push(RECIPE_5PCT_SULPHITE_SOLN)}
+      />
+    </PageContainer>
   );
 }
 

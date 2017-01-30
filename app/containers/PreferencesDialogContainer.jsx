@@ -24,28 +24,19 @@
 
 import { connect } from 'react-redux';
 import PreferencesDialog from '../components/dialogs/PreferencesDialog';
-import actions from '../actions/actions';
+import { closePreferencesDialog, changePreferences } from '../actions/preferences';
 
 const mapStateToProps = state => ({
   visible: state.preferencesDialog,
   preferences: state.preferences,
 });
 
-const mapDispatchToProps = dispatch => ({
-  onChange: (preferences) => {
-    dispatch({
-      type: actions.CHANGE_PREFERENCES,
-      preferences,
-    });
-  },
-  onClose: () => {
-    dispatch({ type: actions.CLOSE_PREFERENCES });
-  },
-});
-
 const PreferencesDialogContainer = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  {
+    closePreferencesDialog,
+    changePreferences,
+  },
 )(PreferencesDialog);
 
 export default PreferencesDialogContainer;

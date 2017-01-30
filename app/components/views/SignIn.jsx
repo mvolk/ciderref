@@ -23,12 +23,15 @@
  */
 
 import React from 'react';
+import withRouter from 'react-router/lib/withRouter';
+import { routerShape } from 'react-router/lib/PropTypes';
+import { HOME } from '../../routes';
 
 const propTypes = {
-  onGuestSignIn: React.PropTypes.func.isRequired,
+  router: routerShape.isRequired,
 };
 
-function SignIn({ onGuestSignIn }) {
+function SignIn({ router }) {
   return (
     <div className="container">
       <div className="row">
@@ -58,7 +61,9 @@ function SignIn({ onGuestSignIn }) {
       </div>
       <div className="row">
         <div className="col-md-1" />
-        <div className="col-md-10 text-center h4 enter-btn" onClick={onGuestSignIn}>Guest</div>
+        <div className="col-md-10 text-center h4 enter-btn" onClick={() => router.push(HOME)}>
+          Guest
+        </div>
         <div className="col-md-1" />
       </div>
     </div>
@@ -67,4 +72,4 @@ function SignIn({ onGuestSignIn }) {
 
 SignIn.propTypes = propTypes;
 
-export default SignIn;
+export default withRouter(SignIn);

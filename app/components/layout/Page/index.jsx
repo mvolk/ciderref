@@ -24,21 +24,22 @@
 
 import React, { PropTypes } from 'react';
 import Wrapper from '../Wrapper';
-import PageHeaderContainer from '../../../containers/PageHeaderContainer';
-import PageFooter from './Footer';
+import Header from './Header';
+import Footer from './Footer';
 import PreferencesDialogContainer from '../../../containers/PreferencesDialogContainer';
 
 const propTypes = {
+  openPreferencesDialog: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
-function Page({ children }) {
+function Page({ openPreferencesDialog, children }) {
   return (
     <div className="container">
       <Wrapper>
-        <PageHeaderContainer />
+        <Header onOpenPreferencesDialog={openPreferencesDialog} />
         {children}
-        <PageFooter />
+        <Footer />
       </Wrapper>
       <PreferencesDialogContainer />
     </div>

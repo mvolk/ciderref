@@ -29,15 +29,15 @@ import { PreferencesShape } from '../../shapes';
 const propTypes = {
   visible: PropTypes.bool.isRequired,
   preferences: PreferencesShape.isRequired,
-  onChange: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
+  changePreferences: PropTypes.func.isRequired,
+  closePreferencesDialog: PropTypes.func.isRequired,
 };
 
 class PreferencesDialog extends React.Component {
 
   handleTemperatureUnitsChange = (e) => {
     e.stopPropagation();
-    this.props.onChange({
+    this.props.changePreferences({
       ...this.props.preferences,
       units: {
         ...this.props.preferences.units,
@@ -47,12 +47,12 @@ class PreferencesDialog extends React.Component {
   };
 
   render() {
-    const { visible, preferences, onClose } = this.props;
+    const { visible, preferences, closePreferencesDialog } = this.props;
 
     return visible && (
       <div className="modal-backdrop">
         <div className="prefs">
-          <span className="prefs-close" onClick={onClose}>x</span>
+          <span className="prefs-close" onClick={closePreferencesDialog}>x</span>
           <h4>Units of Measurement:</h4>
           <label>Temperature:</label>
           <select

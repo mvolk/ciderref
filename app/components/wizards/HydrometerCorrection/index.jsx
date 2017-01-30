@@ -23,6 +23,8 @@
  */
 
 import React, { PropTypes } from 'react';
+import withRouter from 'react-router/lib/withRouter';
+import { routerShape } from 'react-router/lib/PropTypes';
 import { Hydrometer } from 'ciderlib';
 import units, { CELSIUS, FAHRENHEIT } from 'ciderlib/units';
 import { PreferencesShape } from '../../../shapes';
@@ -36,11 +38,11 @@ import SpecificGravityValue from '../../io/SpecificGravityValue';
 const NUMBER_OF_STEPS = 4;
 const LAST_STEP = NUMBER_OF_STEPS;
 
-export default class HydrometerCorrection extends React.Component {
+class HydrometerCorrection extends React.Component {
   static propTypes = {
     preferences: PreferencesShape.isRequired,
-    referrerName: PropTypes.string.isRequired,
-    onExit: PropTypes.func.isRequired,
+    openPreferencesDialog: PropTypes.func.isRequired,
+    router: routerShape.isRequired,
   };
 
   state = {
@@ -57,9 +59,13 @@ export default class HydrometerCorrection extends React.Component {
     correctedReading: Number.NaN,
   };
 
+  handleExit = () => {
+    this.props.router.goBack();
+  };
+
   handleContinue = () => {
     if (this.state.currentStep === NUMBER_OF_STEPS) {
-      this.props.onExit();
+      this.handleExit();
     } else if (this.state.currentStep === 3) {
       this.setState({
         ...this.state,
@@ -104,7 +110,7 @@ export default class HydrometerCorrection extends React.Component {
   };
 
   render() {
-    const exitLabel = `Back to ${this.props.referrerName}`;
+    const exitLabel = 'Exit';
     const continueLabel = this.state.currentStep === LAST_STEP ? exitLabel : 'Continue';
     const temperatureUnits = this.props.preferences.units.temperature;
     const temperatureParameters = inputParameters[temperatureUnits.key];
@@ -125,8 +131,9 @@ export default class HydrometerCorrection extends React.Component {
         onContinue={this.handleContinue}
         continueLabel={continueLabel}
         canExit
-        onExit={this.props.onExit}
+        onExit={this.handleExit}
         exitLabel={exitLabel}
+        onOpenPreferencesDialog={this.props.openPreferencesDialog}
       >
         {this.state.currentStep === 1 && (
           <div>
@@ -177,3 +184,5 @@ export default class HydrometerCorrection extends React.Component {
     );
   }
 }
+
+export default withRouter(HydrometerCorrection);

@@ -83,7 +83,7 @@ a, a:hover, a:active {
     border-collapse: collapse;
     margin-top: 3em;
     padding: 0.4em 0.2em 0.35em 1.0em;
-    background: gold url("../images/icon-arrow-left-b-128.png") no-repeat center left;
+    background: gold url("/images/icon-arrow-left-b-128.png") no-repeat center left;
     background-size: auto 1.0em;
     cursor: pointer;
 }
@@ -92,7 +92,7 @@ a, a:hover, a:active {
     border-collapse: collapse;
     margin: 0;
     padding: 0.6em 0.2em;
-    background: gold url("../images/icon-arrow-right-b-128.png") no-repeat center right;
+    background: gold url("/images/icon-arrow-right-b-128.png") no-repeat center right;
     background-size: auto 1.5em;
     cursor: pointer;
     width: 100%;
@@ -130,7 +130,7 @@ a, a:hover, a:active {
     height: 1.5em;
 }
 .wizard-progress-not-done {
-    background: gold url("../images/wizard-next.png") no-repeat center right;
+    background: gold url("/images/wizard-next.png") no-repeat center right;
     background-size: auto 1.5em;
 }
 .wizard-progress-done {

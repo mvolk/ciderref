@@ -24,26 +24,14 @@
 
 import { connect } from 'react-redux';
 import HydrometerCorrection from '../components/wizards/HydrometerCorrection';
-import actions from '../actions/actions';
-import places from '../places';
+import { openPreferencesDialog } from '../actions/preferences';
 
 const mapStateToProps = state => ({
   preferences: state.preferences,
-  referrerName: 'Guest Menu',
 });
 
-const mapDispatchToProps = dispatch => ({
-  onExit: () => {
-    dispatch({
-      type: actions.BACK,
-      destination: places.GUEST_MENU,
-    });
+export default connect(mapStateToProps,
+  {
+    openPreferencesDialog,
   },
-});
-
-const HydrometerCorrectionContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps,
 )(HydrometerCorrection);
-
-export default HydrometerCorrectionContainer;

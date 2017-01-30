@@ -24,16 +24,29 @@
 
 import React from 'react';
 import { render } from 'react-dom';
+import Router from 'react-router/lib/Router';
+import Route from 'react-router/lib/Route';
+import browserHistory from 'react-router/lib/browserHistory';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import {
+  HOME,
+  CALC_HYDROMETER,
+} from './routes';
+import GuestMenu from './components/views/GuestMenu';
+import HydrometerCorrectionContainer from './containers/HydrometerCorrectionContainer';
+import NotImplemented from './components/views/NotImplemented';
 
 const store = createStore(rootReducer);
 
 render(
   <Provider store={store}>
-    <AppContainer />
+    <Router history={browserHistory}>
+      <Route path={HOME} component={GuestMenu} />
+      <Route path={CALC_HYDROMETER} component={HydrometerCorrectionContainer} />
+      <Route path="*" component={NotImplemented} />
+    </Router>
   </Provider>,
   document.getElementById('app'),
 );

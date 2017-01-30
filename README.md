@@ -18,8 +18,7 @@ Assuming that you have a recent NodeJS version installed locally:
 
 ## Outstanding tasks
 
-* Establish testing framework and patterns
-* Establish code coverage standards and linting rules
+* Establish code coverage standards
 * Establish state management patterns
 * Design setting UI
 * Design members UI (distant future)

@@ -27,7 +27,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackTemplate = require('html-webpack-template');
-const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 exports.indexTemplate = function indexTemplate(options) {
   return {
@@ -87,20 +86,6 @@ exports.loadFonts = function loadFonts() {
         {
           test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
           loader: 'file-loader',
-        },
-      ],
-    },
-  };
-};
-
-exports.loadIsparta = function loadIsparta(include) {
-  return {
-    module: {
-      preLoaders: [
-        {
-          test: /\.(js|jsx)$/,
-          loaders: ['isparta-instrumenter'],
-          include,
         },
       ],
     },
@@ -255,14 +240,6 @@ exports.extractCSS = function extractCSS(paths) {
     plugins: [
       // Output extracted CSS to a file
       new ExtractTextPlugin('[name].[chunkhash].css'),
-    ],
-  };
-};
-
-exports.npmInstall = function npmInstall(options) {
-  return {
-    plugins: [
-      new NpmInstallPlugin(options || {}),
     ],
   };
 };

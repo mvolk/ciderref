@@ -23,17 +23,20 @@
  */
 
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
 
-const store = createStore(rootReducer);
+const propTypes = {
+  label: React.PropTypes.string.isRequired,
+  onClick: React.PropTypes.func.isRequired,
+};
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+function NavigationItemRow({ label, onClick }) {
+  return (
+    <div className="row">
+      <div className="col-md-12 h4 nav-item" onClick={onClick}>{label}</div>
+    </div>
+  );
+}
+
+NavigationItemRow.propTypes = propTypes;
+
+export default NavigationItemRow;

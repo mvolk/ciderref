@@ -22,18 +22,12 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
-
-const store = createStore(rootReducer);
-
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+/**
+ * Rounds a value to the given resolution. For example, roundToNearest(2.35, 0.5) returns 2.5.
+ * @param value the value to round
+ * @param resolution the value will be rounded to a multiple of this value
+ * @returns {number} the value rounded to the nearest multiple of `resolution`
+ */
+export default function roundToNearest(value, resolution) {
+  return Math.round(value / resolution) * resolution;
+}

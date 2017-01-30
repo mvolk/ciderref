@@ -22,20 +22,18 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import { FAHRENHEIT } from 'ciderlib/units';
+import actions from '../actions/actions';
 
-const propTypes = {
-  name: React.PropTypes.string.isRequired,
+const initialState = {
+  units: {
+    temperature: FAHRENHEIT,
+  },
 };
 
-function WizardHeader({ name }) {
-  return (
-    <div className="row">
-      <div className="col-xs-12 h4 wizard-header">{name}</div>
-    </div>
-  );
+export default function preferences(state = initialState, action) {
+  if (action.type === actions.CHANGE_PREFERENCES) {
+    return action.preferences;
+  }
+  return state;
 }
-
-WizardHeader.propTypes = propTypes;
-
-export default WizardHeader;

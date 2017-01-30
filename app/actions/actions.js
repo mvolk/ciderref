@@ -22,18 +22,20 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import PageFooter from './PageFooter';
+const FORWARD = 'nav-forward';
+const BACK = 'nav-back';
+const HOME = 'nav-home';
 
-function NotImplemented() {
-  return (
-    <div className="wrapper">
-      <PageHeaderContainer />
-      <h1>Not Implemented</h1>
-      <PageFooter />
-    </div>
-  );
-}
+const OPEN_PREFERENCES = 'nav-open-preferences';
+const CLOSE_PREFERENCES = 'nav-close-preferences';
 
-export default NotImplemented;
+const CHANGE_PREFERENCES = 'changePreferences';
+
+export default {
+  FORWARD,
+  BACK,
+  HOME,
+  OPEN_PREFERENCES,
+  CLOSE_PREFERENCES,
+  CHANGE_PREFERENCES,
+};

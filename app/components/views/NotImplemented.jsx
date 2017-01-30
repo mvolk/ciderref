@@ -23,17 +23,14 @@
  */
 
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import Page from '../layout/Page';
 
-const store = createStore(rootReducer);
+function NotImplemented() {
+  return (
+    <Page>
+      <h1>Not Implemented</h1>
+    </Page>
+  );
+}
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+export default NotImplemented;

@@ -23,8 +23,8 @@
  */
 
 import { connect } from 'react-redux';
-import GuestMenu from '../components/GuestMenu';
-import actions from '../actions';
+import GuestMenu from '../components/views/GuestMenu';
+import actions from '../actions/actions';
 import places from '../places';
 
 const mapStateToProps = () => ({});

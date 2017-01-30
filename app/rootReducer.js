@@ -22,42 +22,13 @@
  * SOFTWARE.
  */
 
-import React, { PropTypes } from 'react';
+import { combineReducers } from 'redux';
+import place from './reducers/place';
+import preferences from './reducers/preferences';
+import preferencesDialog from './reducers/preferencesDialog';
 
-const propTypes = {
-  value: PropTypes.number.isRequired,
-  onChange: PropTypes.func.isRequired,
-  autoFocus: PropTypes.bool,
-  minValue: PropTypes.number,
-  maxValue: PropTypes.number,
-  step: PropTypes.number,
-};
-
-const defaultProps = {
-  autoFocus: false,
-  minValue: 0.990,
-  maxValue: 1.100,
-  step: 0.001,
-};
-
-function SpecificGravityInput({ value, onChange, autoFocus, minValue, maxValue, step }) {
-  return (
-    <input
-      type="number"
-      value={value}
-      onChange={(e) => {
-        e.stopPropagation();
-        onChange(Number(e.target.value));
-      }}
-      autoFocus={autoFocus}
-      min={minValue}
-      max={maxValue}
-      step={step}
-    />
-  );
-}
-
-SpecificGravityInput.propTypes = propTypes;
-SpecificGravityInput.defaultProps = defaultProps;
-
-export default SpecificGravityInput;
+export default combineReducers({
+  place,
+  preferences,
+  preferencesDialog,
+});

@@ -23,20 +23,22 @@
  */
 
 import React, { PropTypes } from 'react';
+import { COLUMN_COUNT } from '../../../constants';
 
 const propTypes = {
-  label: PropTypes.string.isRequired,
-  onGoBack: PropTypes.func.isRequired,
+  progressColumns: PropTypes.number.isRequired,
 };
 
-function BackNavigation({ label, onGoBack }) {
+function ProgressRemaining({ progressColumns }) {
+  const className = progressColumns === COLUMN_COUNT
+    ? ''
+    : `col-xs-${COLUMN_COUNT - progressColumns} wizard-progress-remaining`;
+
   return (
-    <div className="row">
-      <div className="col-md-12 h5 nav-back" onClick={onGoBack}>Back to {label}</div>
-    </div>
+    <div className={className} />
   );
 }
 
-BackNavigation.propTypes = propTypes;
+ProgressRemaining.propTypes = propTypes;
 
-export default BackNavigation;
+export default ProgressRemaining;

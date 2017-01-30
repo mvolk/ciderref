@@ -1,4 +1,5 @@
 build/
+coverage/
 images/
 node_modules/
 original-artwork/

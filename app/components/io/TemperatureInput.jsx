@@ -23,36 +23,42 @@
  */
 
 import React, { PropTypes } from 'react';
+import { InputParametersShape, TemperatureUnitsShape } from '../../shapes';
 
-const propTypes = {
-  linkToHome: PropTypes.bool.isRequired,
-  onOpenHome: PropTypes.func.isRequired,
-  onOpenPreferences: PropTypes.func.isRequired,
-};
+export default class TemperatureInput extends React.Component {
+  static propTypes = {
+    value: PropTypes.number.isRequired,
+    units: TemperatureUnitsShape.isRequired,
+    parameters: InputParametersShape.isRequired,
+    onChange: PropTypes.func.isRequired,
+    autoFocus: PropTypes.bool,
+  };
 
-function PageHeader({ linkToHome, onOpenHome, onOpenPreferences }) {
-  return (
-    <div className="row">
-      <div className="col-xs-12 h3 page-header">
-        <img
-          src="images/icon-gear-48.png"
-          className="settings-icon link"
-          onClick={onOpenPreferences}
+  static defaultProps = {
+    autoFocus: false,
+  };
+
+  handleChange = (e) => {
+    e.preventDefault();
+    this.props.onChange({ value: Number(e.target.value), units: this.props.units });
+  };
+
+  render() {
+    const { value, units, parameters, autoFocus } = this.props;
+
+    return (
+      <div>
+        <input
+          type="number"
+          value={value.toFixed(parameters.decimalPlaces)}
+          autoFocus={autoFocus}
+          onChange={this.handleChange}
+          min={parameters.minValue}
+          max={parameters.maxValue}
+          step={parameters.resolution}
         />
-        {linkToHome ? (
-          <div className="link" onClick={onOpenHome}>
-            <img src="images/apple.png" className="logo-icon" />CiderRef
-          </div>
-        ) : (
-          <div>
-            <img src="images/apple.png" className="logo-icon" />CiderRef
-          </div>
-        )}
+        {units.label}
       </div>
-    </div>
-  );
+    );
+  }
 }
-
-PageHeader.propTypes = propTypes;
-
-export default PageHeader;

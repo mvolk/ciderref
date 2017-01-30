@@ -22,14 +22,20 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
-export default function PageFooter() {
+const propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+function Wrapper({ children }) {
   return (
-    <div className="row">
-      <div className="col-xs-12 page-footer">
-        <p>Copyright &copy; 2017 Michael Volk</p>
-      </div>
+    <div className="wrapper">
+      {children}
     </div>
   );
 }
+
+Wrapper.propTypes = propTypes;
+
+export default Wrapper;

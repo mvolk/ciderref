@@ -23,17 +23,14 @@
  */
 
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import Row from '../Row';
 
-const store = createStore(rootReducer);
-
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+export default function Footer() {
+  return (
+    <Row>
+      <div className="col-xs-12 page-footer">
+        <p>Copyright &copy; 2017 Michael Volk</p>
+      </div>
+    </Row>
+  );
+}

@@ -95,6 +95,7 @@ a, a:hover, a:active {
     background: gold url("../images/icon-arrow-right-b-128.png") no-repeat center right;
     background-size: auto 1.5em;
     cursor: pointer;
+    width: 100%;
 }
 .nav-item:hover, .nav-back:hover {
     background-color: #ffed6f;

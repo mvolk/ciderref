@@ -22,18 +22,9 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+// The number of columns in the layout grid
+export const COLUMN_COUNT = 12;
 
-const store = createStore(rootReducer);
-
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+export default {
+  COLUMN_COUNT,
+};

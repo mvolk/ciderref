@@ -23,19 +23,21 @@
  */
 
 import React, { PropTypes } from 'react';
+import Row from '../Row';
 
 const propTypes = {
   label: PropTypes.string.isRequired,
+  onExit: PropTypes.func.isRequired,
 };
 
-function NavigationHeader({ label }) {
+function Exit({ label, onExit }) {
   return (
-    <div className="row">
-      <div className="col-md-12 h4 nav-header">{label}</div>
-    </div>
+    <Row>
+      <div className="col-md-12 h5 nav-back" onClick={onExit}>{label}</div>
+    </Row>
   );
 }
 
-NavigationHeader.propTypes = propTypes;
+Exit.propTypes = propTypes;
 
-export default NavigationHeader;
+export default Exit;

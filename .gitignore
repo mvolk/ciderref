@@ -6,7 +6,10 @@ build/
 coverage/
 .eslintcache
 
+npm-debug.log
+
 # JetBrains IntelliJ IDEA
 .idea/
 
-npm-debug.log
+# MacOS
+.DS_Store

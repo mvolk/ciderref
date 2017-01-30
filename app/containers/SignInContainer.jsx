@@ -23,8 +23,8 @@
  */
 
 import { connect } from 'react-redux';
-import SignIn from '../components/SignIn';
-import actions from '../actions';
+import SignIn from '../components/views/SignIn';
+import actions from '../actions/actions';
 import places from '../places';
 
 const mapStateToProps = () => ({});

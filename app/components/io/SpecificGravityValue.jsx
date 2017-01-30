@@ -22,21 +22,18 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const propTypes = {
-  onClick: React.PropTypes.func.isRequired,
-  label: React.PropTypes.string.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
-function NavigationItem({ onClick, label }) {
+function ResultValue({ value }) {
   return (
-    <div className="row">
-      <div className="col-md-12 h4 nav-item" onClick={onClick}>{label}</div>
-    </div>
+    <p className="h4">{value.toFixed(3)}</p>
   );
 }
 
-NavigationItem.propTypes = propTypes;
+ResultValue.propTypes = propTypes;
 
-export default NavigationItem;
+export default ResultValue;

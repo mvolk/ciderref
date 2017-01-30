@@ -23,32 +23,37 @@
  */
 
 import React, { PropTypes } from 'react';
-import PageHeaderContainer from '../containers/PageHeaderContainer';
-import NavigationHeader from './NavigationHeader';
-import NavigationItem from './NavigationItem';
-import PageFooter from './PageFooter';
+import Row from '../Row';
 
 const propTypes = {
-  onOpenHydrometerCorrection: PropTypes.func.isRequired,
-  onOpenNotImplemented: PropTypes.func.isRequired,
+  linkToHome: PropTypes.bool.isRequired,
+  onOpenHome: PropTypes.func.isRequired,
+  onOpenPreferences: PropTypes.func.isRequired,
 };
 
-function GuestMenu({ onOpenHydrometerCorrection, onOpenNotImplemented }) {
+function Header({ linkToHome, onOpenHome, onOpenPreferences }) {
   return (
-    <div className="wrapper">
-      <PageHeaderContainer />
-      <NavigationHeader label="Calculators:" />
-      <NavigationItem label="Hydrometer Correction" onClick={onOpenHydrometerCorrection} />
-      <NavigationItem label="Sulphite Treatment" onClick={onOpenNotImplemented} />
-      <NavigationItem label="Chaptalization" onClick={onOpenNotImplemented} />
-      <NavigationItem label="Backsweetening" onClick={onOpenNotImplemented} />
-      <NavigationHeader label="Recipes:" />
-      <NavigationItem label="5% Sulphite Solution" onClick={onOpenNotImplemented} />
-      <PageFooter />
-    </div>
+    <Row>
+      <div className="col-xs-12 h3 page-header">
+        <img
+          src="images/icon-gear-48.png"
+          className="settings-icon link"
+          onClick={onOpenPreferences}
+        />
+        {linkToHome ? (
+          <div className="link" onClick={onOpenHome}>
+            <img src="images/apple.png" className="logo-icon" />CiderRef
+          </div>
+        ) : (
+          <div>
+            <img src="images/apple.png" className="logo-icon" />CiderRef
+          </div>
+        )}
+      </div>
+    </Row>
   );
 }
 
-GuestMenu.propTypes = propTypes;
+Header.propTypes = propTypes;
 
-export default GuestMenu;
+export default Header;

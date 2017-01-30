@@ -22,18 +22,41 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import React, { PropTypes } from 'react';
+import { InputParametersShape } from '../../shapes';
+import inputParameters from '../../helpers/inputParameters';
 
-const store = createStore(rootReducer);
+export default class SpecificGravityInput extends React.Component {
+  static propTypes = {
+    value: PropTypes.number.isRequired,
+    onChange: PropTypes.func.isRequired,
+    autoFocus: PropTypes.bool,
+    parameters: InputParametersShape,
+  };
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+  static defaultProps = {
+    autoFocus: false,
+    parameters: inputParameters.specificGravity,
+  };
+
+  handleChange = (e) => {
+    e.preventDefault();
+    this.props.onChange(Number(e.target.value));
+  };
+
+  render() {
+    const { value, autoFocus, parameters } = this.props;
+
+    return (
+      <input
+        type="number"
+        value={value.toFixed(parameters.decimalPlaces)}
+        onChange={this.handleChange}
+        autoFocus={autoFocus}
+        min={parameters.minValue}
+        max={parameters.maxValue}
+        step={parameters.resolution}
+      />
+    );
+  }
+}

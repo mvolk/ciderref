@@ -22,18 +22,21 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import React, { PropTypes } from 'react';
+import Row from '../layout/Row';
 
-const store = createStore(rootReducer);
+const propTypes = {
+  label: PropTypes.string.isRequired,
+};
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+function NavigationHeaderRow({ label }) {
+  return (
+    <Row>
+      <div className="col-md-12 h4 nav-header">{label}</div>
+    </Row>
+  );
+}
+
+NavigationHeaderRow.propTypes = propTypes;
+
+export default NavigationHeaderRow;

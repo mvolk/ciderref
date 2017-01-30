@@ -22,23 +22,14 @@
  * SOFTWARE.
  */
 
-import React, { PropTypes } from 'react';
+import actions from '../actions/actions';
 
-const propTypes = {
-  label: PropTypes.string.isRequired,
-  onContinue: PropTypes.func.isRequired,
-};
-
-function WizardContinue({ label, onContinue }) {
-  return (
-    <div className="row">
-      <div className="col-xs-12 wizard-nav">
-        <input type="submit" value={label} onClick={onContinue} />
-      </div>
-    </div>
-  );
+export default function preferencesDialog(state = false, action) {
+  if (action.type === actions.OPEN_PREFERENCES) {
+    return true;
+  }
+  if (action.type === actions.OPEN_PREFERENCES) {
+    return false;
+  }
+  return state;
 }
-
-WizardContinue.propTypes = propTypes;
-
-export default WizardContinue;

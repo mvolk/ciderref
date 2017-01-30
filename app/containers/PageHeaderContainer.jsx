@@ -23,8 +23,8 @@
  */
 
 import { connect } from 'react-redux';
-import PageHeader from '../components/PageHeader';
-import actions from '../actions';
+import PageHeader from '../components/layout/Page/Header';
+import actions from '../actions/actions';
 import places from '../places';
 
 const mapStateToProps = state => ({

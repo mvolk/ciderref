@@ -22,46 +22,25 @@
  * SOFTWARE.
  */
 
-import React, { PropTypes } from 'react';
-import Temperature from '../Temperature';
+import { CELSIUS, FAHRENHEIT } from 'ciderlib/units';
 
-const propTypes = {
-  value: PropTypes.number.isRequired,
-  units: PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    minValue: PropTypes.number.isRequired,
-    maxValue: PropTypes.number.isRequired,
-    step: PropTypes.number.isRequired,
-  }).isRequired,
-  onChange: PropTypes.func.isRequired,
-  autoFocus: PropTypes.bool,
+export default {
+  [CELSIUS.key]: {
+    minValue: 0,
+    maxValue: 100,
+    resolution: 0.5,
+    decimalPlaces: 1,
+  },
+  [FAHRENHEIT.key]: {
+    minValue: 32,
+    maxValue: 212,
+    resolution: 1,
+    decimalPlaces: 0,
+  },
+  specificGravity: {
+    minValue: 0.990,
+    maxValue: 1.100,
+    resolution: 0.001,
+    decimalPlaces: 3,
+  },
 };
-
-const defaultProps = {
-  autoFocus: false,
-};
-
-function TemperatureInput({ value, units, onChange, autoFocus }) {
-  return (
-    <div>
-      <input
-        type="number"
-        value={value}
-        autoFocus={autoFocus}
-        onChange={(e) => {
-          e.stopPropagation();
-          onChange(new Temperature(Number(e.target.value), units));
-        }}
-        min={units.minValue}
-        max={units.maxValue}
-        step={units.step}
-      />
-      {units.label}
-    </div>
-  );
-}
-
-TemperatureInput.propTypes = propTypes;
-TemperatureInput.defaultProps = defaultProps;
-
-export default TemperatureInput;

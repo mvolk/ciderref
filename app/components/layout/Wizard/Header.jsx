@@ -23,17 +23,19 @@
  */
 
 import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
 
-const store = createStore(rootReducer);
+const propTypes = {
+  name: React.PropTypes.string.isRequired,
+};
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+function Header({ name }) {
+  return (
+    <div className="row">
+      <div className="col-xs-12 h4 wizard-header">{name}</div>
+    </div>
+  );
+}
+
+Header.propTypes = propTypes;
+
+export default Header;

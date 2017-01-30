@@ -25,15 +25,20 @@
 import React, { PropTypes } from 'react';
 
 const propTypes = {
-  value: PropTypes.number.isRequired,
+  label: PropTypes.string.isRequired,
+  onContinue: PropTypes.func.isRequired,
 };
 
-function ResultValue({ value }) {
+function Continue({ label, onContinue }) {
   return (
-    <p className="h4">{value}</p>
+    <div className="row">
+      <div className="col-xs-12 wizard-nav">
+        <input type="submit" value={label} onClick={onContinue} />
+      </div>
+    </div>
   );
 }
 
-ResultValue.propTypes = propTypes;
+Continue.propTypes = propTypes;
 
-export default ResultValue;
+export default Continue;

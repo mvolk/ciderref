@@ -74,11 +74,9 @@ switch (TARGET) {
     );
     break;
   case 'test':
-  case 'test:tdd':
     config = merge(
       common,
       { devtool: 'inline-source-map' },
-      parts.loadIsparta(PATHS.app),
       parts.loadJSX(PATHS.test)
     );
     break;
@@ -96,8 +94,7 @@ switch (TARGET) {
         port: process.env.PORT,
         poll: ENABLE_POLLING
       }),
-      parts.enableReactPerformanceTools(),
-      parts.npmInstall()
+      parts.enableReactPerformanceTools()
     );
 }
 

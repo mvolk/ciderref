@@ -1,0 +1,21 @@
+{
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "app/**/*.{js,jsx}"
+  ],
+  "coverageDirectory": "./coverage",
+  "coverageThreshold": {
+    "global": {
+      "branches": 0,
+      "functions": 0,
+      "lines": 0,
+      "statements": 0
+    }
+  },
+  "globals": {},
+  "moduleFileExtensions": ["jsx", "js"],
+  "resetMocks": true,
+  "resetModules": true,
+  "testPathDirs": ["test", "app"],
+  "verbose": true
+}

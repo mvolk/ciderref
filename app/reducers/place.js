@@ -22,28 +22,19 @@
  * SOFTWARE.
  */
 
-const FORWARD = 'nav-forward';
-const NEXT = 'nav-next';
-const BACK = 'nav-back';
-const HOME = 'nav-home';
+import actions from '../actions/actions';
+import places from '../places';
 
-const OPEN_PREFERENCES = 'nav-open-preferences';
-const CLOSE_PREFERENCES = 'nav-close-preferences';
-const CHANGE_PREFERENCES = 'changePreferences';
-
-const CHANGE_HYDROMETER_READING = 'changeHydrometerReading';
-const CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE = 'changeHydrometerCalibrationTemperature';
-const CHANGE_TEMPERATURE = 'changeTemperature';
-
-export default {
-  FORWARD,
-  NEXT,
-  BACK,
-  HOME,
-  OPEN_PREFERENCES,
-  CLOSE_PREFERENCES,
-  CHANGE_PREFERENCES,
-  CHANGE_HYDROMETER_READING,
-  CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE,
-  CHANGE_TEMPERATURE,
+const initialState = {
+  name: places.SIGN_IN,
 };
+
+export default function place(state = initialState, action) {
+  if (action.type === actions.BACK || action.type === actions.FORWARD) {
+    return { name: action.destination };
+  }
+  if (action.type === actions.HOME) {
+    return { name: places.GUEST_MENU };
+  }
+  return state;
+}

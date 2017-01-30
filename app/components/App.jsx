@@ -27,31 +27,23 @@ import places from '../places';
 import SignInContainer from '../containers/SignInContainer';
 import GuestMenuContainer from '../containers/GuestMenuContainer';
 import HydrometerCorrectionContainer from '../containers/HydrometerCorrectionContainer';
-import PreferencesDialogContainer from '../containers/PreferencesDialogContainer';
-import NotImplemented from './NotImplemented';
+import NotImplemented from './views/NotImplemented';
 
 const propTypes = {
   placeName: PropTypes.string.isRequired,
 };
 
 function App({ placeName }) {
-  return (
-    <div className="container">
-      {(() => {
-        switch (placeName) {
-          case places.GUEST_MENU:
-            return <GuestMenuContainer />;
-          case places.HYDROMETER_CORRECTION:
-            return <HydrometerCorrectionContainer />;
-          case places.NOT_IMPLEMENTED:
-            return <NotImplemented />;
-          default:
-            return <SignInContainer />;
-        }
-      })()}
-      <PreferencesDialogContainer />
-    </div>
-  );
+  switch (placeName) {
+    case places.GUEST_MENU:
+      return <GuestMenuContainer />;
+    case places.HYDROMETER_CORRECTION:
+      return <HydrometerCorrectionContainer />;
+    case places.NOT_IMPLEMENTED:
+      return <NotImplemented />;
+    default:
+      return <SignInContainer />;
+  }
 }
 
 App.propTypes = propTypes;

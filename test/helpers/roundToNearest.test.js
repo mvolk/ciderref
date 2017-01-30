@@ -1,7 +1,7 @@
 /**
  * The MIT License (MIT)
  *
- * Copyright (c) 2016 Michael Volk (michael@volksys.com)
+ * Copyright (c) 2017 Michael Volk (michael@volksys.com)
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -22,18 +22,26 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import roundToNearest from '../../app/helpers/roundToNearest';
 
-const store = createStore(rootReducer);
+describe('roundToNearest(value, resolution)', () => {
+  it('rounds 1 to 1 with resolution 0.5', () => {
+    expect(roundToNearest(1, 0.5)).toBe(1);
+  });
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+  it('rounds 1.24 to 1 with resolution 0.5', () => {
+    expect(roundToNearest(1.24, 0.5)).toBe(1);
+  });
+
+  it('rounds 1.25 to 1.5 with resolution 0.5', () => {
+    expect(roundToNearest(1.25, 0.5)).toBe(1.5);
+  });
+
+  it('rounds 1.25 to 1 with resolution 1', () => {
+    expect(roundToNearest(1.25, 1)).toBe(1);
+  });
+
+  it('rounds 1.55 to 2 with resolution 1', () => {
+    expect(roundToNearest(1.55, 1)).toBe(2);
+  });
+});

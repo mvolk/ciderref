@@ -22,14 +22,25 @@
  * SOFTWARE.
  */
 
-const measuredSpecificGravity = 1;
-const measuredTemperature = 2;
-const calibrationTemperature = 3;
-const result = 4;
+import React, { PropTypes } from 'react';
+import { COLUMN_COUNT } from '../../../constants';
 
-export default {
-  measuredSpecificGravity,
-  measuredTemperature,
-  calibrationTemperature,
-  result,
+const propTypes = {
+  progressColumns: PropTypes.number.isRequired,
+  progressPercent: PropTypes.number.isRequired,
 };
+
+function ProgressMade({ progressColumns, progressPercent }) {
+  const className =
+    progressColumns === COLUMN_COUNT ? 'wizard-progress-done' : 'wizard-progress-not-done';
+
+  return (
+    <div className={`col-xs-${progressColumns} wizard-progress-so-far ${className}`}>
+      {progressPercent}%
+    </div>
+  );
+}
+
+ProgressMade.propTypes = propTypes;
+
+export default ProgressMade;

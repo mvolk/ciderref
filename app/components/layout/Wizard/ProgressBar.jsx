@@ -22,18 +22,26 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import React, { PropTypes } from 'react';
+import { COLUMN_COUNT } from '../../../constants';
+import ProgressMade from './ProgressMade';
+import ProgressRemaining from './ProgressRemaining';
 
-const store = createStore(rootReducer);
+const propTypes = {
+  progressPercent: PropTypes.number.isRequired,
+};
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+function ProgressBar({ progressPercent }) {
+  const progressColumns = Math.round((progressPercent / 100) * COLUMN_COUNT);
+
+  return (
+    <div className="row">
+      <ProgressMade progressColumns={progressColumns} progressPercent={progressPercent} />
+      <ProgressRemaining progressColumns={progressColumns} />
+    </div>
+  );
+}
+
+ProgressBar.propTypes = propTypes;
+
+export default ProgressBar;

@@ -23,42 +23,16 @@
  */
 
 import { connect } from 'react-redux';
-import HydrometerCorrection from '../components/HydrometerCorrection';
-import actions from '../actions';
+import HydrometerCorrection from '../components/wizards/HydrometerCorrection';
+import actions from '../actions/actions';
 import places from '../places';
 
 const mapStateToProps = state => ({
-  currentStep: state.place.step,
-  exitLabel: 'Guest Menu',
-  reading: state.hydrometerCorrection.reading,
-  temperature: state.hydrometerCorrection.temperature,
-  calibrationTemperature: state.hydrometerCorrection.calibrationTemperature,
-  correctedReading: state.hydrometerCorrection.correctedReading,
-  preferredTemperatureUnits: state.preferences.units.temperature,
+  preferences: state.preferences,
+  referrerName: 'Guest Menu',
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChangeReading: (sg) => {
-    dispatch({
-      type: actions.CHANGE_HYDROMETER_READING,
-      specificGravity: sg,
-    });
-  },
-  onChangeTemperature: (t) => {
-    dispatch({
-      type: actions.CHANGE_TEMPERATURE,
-      temperature: t,
-    });
-  },
-  onChangeCalibrationTemperature: (t) => {
-    dispatch({
-      type: actions.CHANGE_HYDROMETER_CALIBRATION_TEMPERATURE,
-      temperature: t,
-    });
-  },
-  onContinue: () => {
-    dispatch({ type: actions.NEXT });
-  },
   onExit: () => {
     dispatch({
       type: actions.BACK,

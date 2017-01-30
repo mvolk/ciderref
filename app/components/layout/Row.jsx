@@ -22,18 +22,26 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import React, { PropTypes } from 'react';
 
-const store = createStore(rootReducer);
+const propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
+};
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+const defaultProps = {
+  className: '',
+};
+
+function Row({ className, children }) {
+  return (
+    <div className={`row ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+Row.propTypes = propTypes;
+Row.defaultProps = defaultProps;
+
+export default Row;

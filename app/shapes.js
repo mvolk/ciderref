@@ -22,18 +22,29 @@
  * SOFTWARE.
  */
 
-import React from 'react';
-import { render } from 'react-dom';
-import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './rootReducer';
-import AppContainer from './containers/AppContainer';
+import { PropTypes } from 'react';
 
-const store = createStore(rootReducer);
+export const TemperatureUnitsShape = PropTypes.shape({
+  key: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+});
 
-render(
-  <Provider store={store}>
-    <AppContainer />
-  </Provider>,
-  document.getElementById('app'),
-);
+export const PreferencesShape = PropTypes.shape({
+  units: PropTypes.shape({
+    temperature: TemperatureUnitsShape.isRequired,
+  }),
+});
+
+export const InputParametersShape = PropTypes.shape({
+  minValue: PropTypes.number.isRequired,
+  maxValue: PropTypes.number.isRequired,
+  resolution: PropTypes.number.isRequired,
+  decimalPlaces: PropTypes.number.isRequired,
+});
+
+export default {
+  TemperatureUnitsShape,
+  PreferencesShape,
+  InputParametersShape,
+};

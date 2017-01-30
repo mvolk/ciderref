@@ -23,42 +23,29 @@
  */
 
 import React, { PropTypes } from 'react';
-import Temperature from '../Temperature';
+import NavigationHeaderRow from '../navigation/NavigationHeaderRow';
+import NavigationItemRow from '../navigation/NavigationItemRow';
+import Page from '../layout/Page';
 
 const propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  temperatureUnits: PropTypes.shape().isRequired,
-  onTemperatureUnitsChange: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
+  onOpenHydrometerCorrection: PropTypes.func.isRequired,
+  onOpenNotImplemented: PropTypes.func.isRequired,
 };
 
-function PreferencesDialog({ isOpen, temperatureUnits, onTemperatureUnitsChange, onClose }) {
-  if (isOpen) {
-    const celsius = Temperature.units.celsius;
-    const fahrenheit = Temperature.units.fahrenheit;
-
-    return (
-      <div className="modal-backdrop">
-        <div className="prefs">
-          <span className="prefs-close" onClick={onClose}>x</span>
-          <label>Temperature Units:</label>
-          <select
-            value={temperatureUnits.key} onChange={(e) => {
-              e.stopPropagation();
-              onTemperatureUnitsChange(Temperature.units[e.target.value]);
-            }}
-          >
-            <option value={celsius.key}> {celsius.label}</option>
-            <option value={fahrenheit.key}>{fahrenheit.label}</option>
-          </select>
-        </div>
-      </div>
-    );
-  }
-
-  return <span />;
+function GuestMenu({ onOpenHydrometerCorrection, onOpenNotImplemented }) {
+  return (
+    <Page>
+      <NavigationHeaderRow label="Calculators:" />
+      <NavigationItemRow label="Hydrometer Correction" onClick={onOpenHydrometerCorrection} />
+      <NavigationItemRow label="Sulphite Treatment" onClick={onOpenNotImplemented} />
+      <NavigationItemRow label="Chaptalization" onClick={onOpenNotImplemented} />
+      <NavigationItemRow label="Backsweetening" onClick={onOpenNotImplemented} />
+      <NavigationHeaderRow label="Recipes:" />
+      <NavigationItemRow label="5% Sulphite Solution" onClick={onOpenNotImplemented} />
+    </Page>
+  );
 }
 
-PreferencesDialog.propTypes = propTypes;
+GuestMenu.propTypes = propTypes;
 
-export default PreferencesDialog;
+export default GuestMenu;

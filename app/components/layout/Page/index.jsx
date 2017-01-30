@@ -23,50 +23,28 @@
  */
 
 import React, { PropTypes } from 'react';
-
-const COLUMN_COUNT = 12;
+import Wrapper from '../Wrapper';
+import PageHeaderContainer from '../../../containers/PageHeaderContainer';
+import PageFooter from './Footer';
+import PreferencesDialogContainer from '../../../containers/PreferencesDialogContainer';
 
 const propTypes = {
-  progressRender: PropTypes.number.isRequired,
-  progressPercent: PropTypes.number.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
-function ProgressElement({ progressRender, progressPercent }) {
-  const className =
-    progressRender === COLUMN_COUNT ? 'wizard-progress-done' : 'wizard-progress-not-done';
-
+function Page({ children }) {
   return (
-    <div className={`col-xs-${progressRender} wizard-progress-so-far ${className}`}>
-      {progressPercent}%
+    <div className="container">
+      <Wrapper>
+        <PageHeaderContainer />
+        {children}
+        <PageFooter />
+      </Wrapper>
+      <PreferencesDialogContainer />
     </div>
   );
 }
 
-ProgressElement.propTypes = propTypes;
+Page.propTypes = propTypes;
 
-function ProgressRemainingElement({ progressRender }) {
-  const className = progressRender === COLUMN_COUNT
-    ? ''
-    : `col-xs-${COLUMN_COUNT - progressRender} wizard-progress-remaining`;
-
-  return (
-    <div className={className} />
-  );
-}
-
-ProgressRemainingElement.propTypes = {
-  progressRender: PropTypes.number.isRequired,
-};
-
-function WizardProgressBar({ progressRender, progressPercent }) {
-  return (
-    <div className="row">
-      <ProgressElement progressRender={progressRender} progressPercent={progressPercent} />
-      <ProgressRemainingElement progressRender={progressRender} />
-    </div>
-  );
-}
-
-WizardProgressBar.propTypes = propTypes;
-
-export default WizardProgressBar;
+export default Page;

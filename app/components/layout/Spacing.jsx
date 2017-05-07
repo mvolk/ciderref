@@ -23,20 +23,38 @@
  */
 
 import React, { PropTypes } from 'react';
-import Row from '../layout/Row';
 
 const propTypes = {
-  label: PropTypes.string.isRequired,
+  top: PropTypes.number,
+  bottom: PropTypes.number,
+  left: PropTypes.number,
+  right: PropTypes.number,
+  inline: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 };
 
-function NavigationHeaderRow({ label }) {
+const defaultProps = {
+  top: 0,
+  bottom: 0,
+  left: 0,
+  right: 0,
+  inline: false,
+};
+
+function Spacing({ top, bottom, left, right, inline, children }) {
   return (
-    <Row>
-      <div className="col-md-12 h4 nav-header">{label}</div>
-    </Row>
+    <div
+      style={{
+        padding: `${top}px ${right}px ${bottom}px ${left}px`,
+        display: inline ? 'inline-block' : 'block',
+      }}
+    >
+      {children}
+    </div>
   );
 }
 
-NavigationHeaderRow.propTypes = propTypes;
+Spacing.propTypes = propTypes;
+Spacing.defaultProps = defaultProps;
 
-export default NavigationHeaderRow;
+export default Spacing;

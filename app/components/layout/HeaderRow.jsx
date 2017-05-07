@@ -22,13 +22,21 @@
  * SOFTWARE.
  */
 
-import { connect } from 'react-redux';
-import Page from '../components/layout/Page';
-import { openPreferencesDialog } from '../actions/preferences';
+import React, { PropTypes } from 'react';
+import Row from '../layout/Row';
 
-export default connect(
-  () => ({}),
-  {
-    openPreferencesDialog,
-  },
-)(Page);
+const propTypes = {
+  label: PropTypes.string.isRequired,
+};
+
+function HeaderRow({ label }) {
+  return (
+    <Row>
+      <div className="col-md-12 h4 nav-header">{label}</div>
+    </Row>
+  );
+}
+
+HeaderRow.propTypes = propTypes;
+
+export default HeaderRow;

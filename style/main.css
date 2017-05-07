@@ -27,7 +27,7 @@
 body {
     background-color: #FFFFDD;
 }
-.wrapper {
+div {
     margin: 0;
     padding: 0;
     border-style: none;
@@ -150,4 +150,7 @@ a, a:hover, a:active {
 }
 .link {
     cursor: pointer;
+}
+label {
+  margin-right: 10px;
 }

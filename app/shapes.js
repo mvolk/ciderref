@@ -30,6 +30,11 @@ export const TemperatureUnitsShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
 });
 
+export const TemperatureShape = PropTypes.shape({
+  value: PropTypes.number.isRequired,
+  units: TemperatureUnitsShape.isRequired,
+});
+
 export const PreferencesShape = PropTypes.shape({
   units: PropTypes.shape({
     temperature: TemperatureUnitsShape.isRequired,

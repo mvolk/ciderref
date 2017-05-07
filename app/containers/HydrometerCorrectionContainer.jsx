@@ -24,14 +24,9 @@
 
 import { connect } from 'react-redux';
 import HydrometerCorrection from '../components/wizards/HydrometerCorrection';
-import { openPreferencesDialog } from '../actions/preferences';
 
 const mapStateToProps = state => ({
   preferences: state.preferences,
 });
 
-export default connect(mapStateToProps,
-  {
-    openPreferencesDialog,
-  },
-)(HydrometerCorrection);
+export default connect(mapStateToProps, {})(HydrometerCorrection);

@@ -23,7 +23,7 @@
  */
 
 import { FAHRENHEIT } from 'ciderlib/units';
-import { CHANGE_PREFERENCES } from '../actions/preferences';
+import { SET_PREFERENCES } from '../actions/preferences';
 
 const initialState = {
   units: {
@@ -32,7 +32,7 @@ const initialState = {
 };
 
 export default function preferences(state = initialState, action) {
-  if (action.type === CHANGE_PREFERENCES) {
+  if (action.type === SET_PREFERENCES) {
     return action.preferences;
   }
   return state;

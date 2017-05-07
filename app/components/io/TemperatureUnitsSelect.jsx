@@ -24,50 +24,37 @@
 
 import React, { PropTypes } from 'react';
 import units, { CELSIUS, FAHRENHEIT } from 'ciderlib/units';
-import { PreferencesShape } from '../../shapes';
 
-const propTypes = {
-  visible: PropTypes.bool.isRequired,
-  preferences: PreferencesShape.isRequired,
-  changePreferences: PropTypes.func.isRequired,
-  closePreferencesDialog: PropTypes.func.isRequired,
-};
+import { TemperatureUnitsShape } from '../../shapes';
 
-class PreferencesDialog extends React.Component {
+export default class TemperatureUnitsSelect extends React.Component {
+  static propTypes = {
+    value: TemperatureUnitsShape.isRequired,
+    onChange: PropTypes.func.isRequired,
+    autoFocus: PropTypes.bool,
+  };
 
-  handleTemperatureUnitsChange = (e) => {
-    e.stopPropagation();
-    this.props.changePreferences({
-      ...this.props.preferences,
-      units: {
-        ...this.props.preferences.units,
-        temperature: units[e.target.value],
-      },
-    });
+  static defaultProps = {
+    autoFocus: false,
+  };
+
+  handleChange = (e) => {
+    e.preventDefault();
+    this.props.onChange(units[e.target.value]);
   };
 
   render() {
-    const { visible, preferences, closePreferencesDialog } = this.props;
+    const { value, autoFocus } = this.props;
 
-    return visible && (
-      <div className="modal-backdrop">
-        <div className="prefs">
-          <span className="prefs-close" onClick={closePreferencesDialog}>x</span>
-          <h4>Units of Measurement:</h4>
-          <label>Temperature:</label>
-          <select
-            value={preferences.units.temperature.key}
-            onChange={this.handleTemperatureUnitsChange}
-          >
-            <option value={CELSIUS.key}>{CELSIUS.name}</option>
-            <option value={FAHRENHEIT.key}>{FAHRENHEIT.name}</option>
-          </select>
-        </div>
-      </div>
+    return (
+      <select
+        value={value.key}
+        onChange={this.handleChange}
+        autoFocus={autoFocus}
+      >
+        <option value={CELSIUS.key}>{CELSIUS.label}</option>
+        <option value={FAHRENHEIT.key}>{FAHRENHEIT.label}</option>
+      </select>
     );
   }
 }
-
-PreferencesDialog.propTypes = propTypes;
-
-export default PreferencesDialog;

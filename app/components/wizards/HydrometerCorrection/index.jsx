@@ -22,14 +22,14 @@
  * SOFTWARE.
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import withRouter from 'react-router/lib/withRouter';
 import { routerShape } from 'react-router/lib/PropTypes';
 import { Hydrometer } from 'ciderlib';
 import units, { CELSIUS, FAHRENHEIT } from 'ciderlib/units';
 import { PreferencesShape } from '../../../shapes';
 import inputParameters from '../../../helpers/inputParameters';
-import roundToNearest from '../../../helpers/roundToNearest';
+import convert from '../../../helpers/convert';
 import Wizard from '../../layout/Wizard';
 import SpecificGravityInput from '../../io/SpecificGravityInput';
 import TemperatureInput from '../../io/TemperatureInput';
@@ -38,26 +38,46 @@ import SpecificGravityValue from '../../io/SpecificGravityValue';
 const NUMBER_OF_STEPS = 4;
 const LAST_STEP = NUMBER_OF_STEPS;
 
+// TODO make calibration temperatures something that get set up in preferences - discrete list
+// TODO use redux for state
+const initialState = {
+  currentStep: 1,
+  specificGravityReading: 1.040,
+  temperatureReading: {
+    value: 68,
+    units: FAHRENHEIT,
+  },
+  calibrationTemperature: {
+    value: 68,
+    units: FAHRENHEIT,
+  },
+  correctedReading: Number.NaN,
+};
+
 class HydrometerCorrection extends React.Component {
   static propTypes = {
     preferences: PreferencesShape.isRequired,
-    openPreferencesDialog: PropTypes.func.isRequired,
     router: routerShape.isRequired,
   };
 
-  state = {
-    currentStep: 1,
-    specificGravityReading: 1.040,
-    temperatureReading: {
-      value: 68,
-      units: FAHRENHEIT,
-    },
-    calibrationTemperature: {
-      value: 68,
-      units: FAHRENHEIT,
-    },
-    correctedReading: Number.NaN,
-  };
+  constructor(props) {
+    super(props);
+    const preferredUnitsOfTemperature = props.preferences.units.temperature;
+    const resolution = inputParameters[preferredUnitsOfTemperature.key].resolution;
+    this.state = {
+      ...initialState,
+      temperatureReading: convert(
+        initialState.temperatureReading,
+        preferredUnitsOfTemperature,
+        resolution,
+      ),
+      calibrationTemperature: convert(
+        initialState.calibrationTemperature,
+        preferredUnitsOfTemperature,
+        resolution,
+      ),
+    };
+  }
 
   handleExit = () => {
     this.props.router.goBack();
@@ -112,9 +132,8 @@ class HydrometerCorrection extends React.Component {
   render() {
     const exitLabel = 'Exit';
     const continueLabel = this.state.currentStep === LAST_STEP ? exitLabel : 'Continue';
-    const temperatureUnits = this.props.preferences.units.temperature;
+    const temperatureUnits = this.state.temperatureReading.units;
     const temperatureParameters = inputParameters[temperatureUnits.key];
-    const resolution = temperatureParameters.resolution;
     const {
       specificGravityReading,
       temperatureReading,
@@ -133,7 +152,6 @@ class HydrometerCorrection extends React.Component {
         canExit
         onExit={this.handleExit}
         exitLabel={exitLabel}
-        onOpenPreferencesDialog={this.props.openPreferencesDialog}
       >
         {this.state.currentStep === 1 && (
           <div>
@@ -149,11 +167,8 @@ class HydrometerCorrection extends React.Component {
           <div>
             <p>What is the temperature of your juice?</p>
             <TemperatureInput
-              value={
-                roundToNearest(units.convert(temperatureReading).to(temperatureUnits), resolution)
-              }
+              temperature={temperatureReading}
               autoFocus
-              units={temperatureUnits}
               parameters={temperatureParameters}
               onChange={this.handleTemperatureReadingChange}
             />
@@ -163,12 +178,8 @@ class HydrometerCorrection extends React.Component {
           <div>
             <p>What is the calibration temperature of your hydrometer?</p>
             <TemperatureInput
-              value={
-                roundToNearest(
-                  units.convert(calibrationTemperature).to(temperatureUnits), resolution)
-              }
+              temperature={calibrationTemperature}
               autoFocus
-              units={temperatureUnits}
               parameters={temperatureParameters}
               onChange={this.handleCalibrationTemperatureChange}
             />

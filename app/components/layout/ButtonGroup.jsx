@@ -24,32 +24,28 @@
 
 import React, { PropTypes } from 'react';
 
-import Header from './Header';
-import Footer from './Footer';
+import Spacing from './Spacing';
 
-class Page extends React.Component {
-  static propTypes = {
-    withHomeOption: PropTypes.bool,
-    withPreferencesOption: PropTypes.bool,
-    children: PropTypes.node.isRequired,
-  };
+const propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
-  static defaultProps = {
-    withHomeOption: true,
-    withPreferencesOption: true,
-  };
+function ButtonGroup({ children }) {
+  return (
+    <div>
+      {React.Children.map(children, (child, i) => {
+        if (i === 0) return child;
 
-  render() {
-    const { withHomeOption, withPreferencesOption, children } = this.props;
-
-    return (
-      <div className="container">
-        <Header withHomeOption={withHomeOption} withPreferencesOption={withPreferencesOption} />
-        {children}
-        <Footer />
-      </div>
-    );
-  }
+        return (
+          <Spacing left={5} inline>
+            {child}
+          </Spacing>
+        );
+      })}
+    </div>
+  );
 }
 
-export default Page;
+ButtonGroup.propTypes = propTypes;
+
+export default ButtonGroup;

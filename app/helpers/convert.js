@@ -22,20 +22,13 @@
  * SOFTWARE.
  */
 
-import React, { PropTypes } from 'react';
+import units from 'ciderlib/units';
 
-const propTypes = {
-  children: PropTypes.node.isRequired,
-};
+import roundToNearest from './roundToNearest';
 
-function Wrapper({ children }) {
-  return (
-    <div className="wrapper">
-      {children}
-    </div>
-  );
+export default function convert(propertyWithUnits, newUnits, resolution) {
+  return {
+    value: roundToNearest(units.convert(propertyWithUnits).to(newUnits), resolution),
+    units: newUnits,
+  };
 }
-
-Wrapper.propTypes = propTypes;
-
-export default Wrapper;

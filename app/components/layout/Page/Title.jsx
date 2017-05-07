@@ -22,21 +22,20 @@
  * SOFTWARE.
  */
 
-import { connect } from 'react-redux';
-import PreferencesDialog from '../components/dialogs/PreferencesDialog';
-import { closePreferencesDialog, changePreferences } from '../actions/preferences';
+import React from 'react';
 
-const mapStateToProps = state => ({
-  visible: state.preferencesDialog,
-  preferences: state.preferences,
-});
+const propTypes = {
+  name: React.PropTypes.string.isRequired,
+};
 
-const PreferencesDialogContainer = connect(
-  mapStateToProps,
-  {
-    closePreferencesDialog,
-    changePreferences,
-  },
-)(PreferencesDialog);
+function Title({ name }) {
+  return (
+    <div className="row">
+      <div className="col-xs-12 h4 wizard-header">{name}</div>
+    </div>
+  );
+}
 
-export default PreferencesDialogContainer;
+Title.propTypes = propTypes;
+
+export default Title;

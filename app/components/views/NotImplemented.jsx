@@ -23,13 +23,14 @@
  */
 
 import React from 'react';
-import PageContainer from '../../containers/PageContainer';
+
+import Page from '../../components/layout/Page';
 
 function NotImplemented() {
   return (
-    <PageContainer>
+    <Page>
       <h1>Not Implemented</h1>
-    </PageContainer>
+    </Page>
   );
 }
 

@@ -22,14 +22,30 @@
  * SOFTWARE.
  */
 
-import { OPEN_PREFERENCES_DIALOG, CLOSE_PREFERENCES_DIALOG } from '../actions/preferences';
+import React from 'react';
 
-export default function preferencesDialog(state = false, action) {
-  if (action.type === OPEN_PREFERENCES_DIALOG) {
-    return true;
-  }
-  if (action.type === CLOSE_PREFERENCES_DIALOG) {
-    return false;
-  }
-  return state;
+import HeaderRow from '../layout/HeaderRow';
+import Page from '../layout/Page';
+import Spacing from '../layout/Spacing';
+
+function SulphiteSolutionRecipe() {
+  // TODO add a calculator that determines how much solution to add to a given volume to get a
+  // TODO  given concentration (in 25 ppm increments)
+  return (
+    <Page>
+      <HeaderRow label="5% Sulphite Solution" />
+      <Spacing top={10}>
+        <p>
+          In a 100 ml glass or plastic graduated cylinder, add enough water to 10 grams of
+          Potassium Metabisulphite (K<sub>2</sub>S<sub>2</sub>O<sub>5</sub>) to make 100 ml of
+          solution after the solids have completely dissolved.
+        </p>
+        <p>
+          Add 1 ml of this solution to 1 liter of juice to get 50 ppm of SO<sub>2</sub>.
+        </p>
+      </Spacing>
+    </Page>
+  );
 }
+
+export default SulphiteSolutionRecipe;

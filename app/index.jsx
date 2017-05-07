@@ -29,12 +29,17 @@ import Route from 'react-router/lib/Route';
 import browserHistory from 'react-router/lib/browserHistory';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+
 import rootReducer from './rootReducer';
 import {
   HOME,
   CALC_HYDROMETER,
+  RECIPE_5PCT_SULPHITE_SOLN,
+  PREFERENCES,
 } from './routes';
 import GuestMenu from './components/views/GuestMenu';
+import SulphiteSolutionRecipe from './components/views/SulphiteSolutionRecipe';
+import Preferences from './containers/Preferences';
 import HydrometerCorrectionContainer from './containers/HydrometerCorrectionContainer';
 import NotImplemented from './components/views/NotImplemented';
 
@@ -44,7 +49,9 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path={HOME} component={GuestMenu} />
+      <Route path={PREFERENCES} component={Preferences} />
       <Route path={CALC_HYDROMETER} component={HydrometerCorrectionContainer} />
+      <Route path={RECIPE_5PCT_SULPHITE_SOLN} component={SulphiteSolutionRecipe} />
       <Route path="*" component={NotImplemented} />
     </Router>
   </Provider>,

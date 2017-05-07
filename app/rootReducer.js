@@ -24,9 +24,7 @@
 
 import { combineReducers } from 'redux';
 import preferences from './reducers/preferences';
-import preferencesDialog from './reducers/preferencesDialog';
 
 export default combineReducers({
   preferences,
-  preferencesDialog,
 });

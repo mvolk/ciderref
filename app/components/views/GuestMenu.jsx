@@ -31,9 +31,9 @@ import {
   CALC_BACKSWEETENING,
   RECIPE_5PCT_SULPHITE_SOLN,
 } from '../../routes';
-import NavigationHeaderRow from '../navigation/NavigationHeaderRow';
+import HeaderRow from '../layout/HeaderRow';
 import NavigationItemRow from '../navigation/NavigationItemRow';
-import PageContainer from '../../containers/PageContainer';
+import Page from '../layout/Page';
 
 const propTypes = {
   router: routerShape.isRequired,
@@ -41,8 +41,8 @@ const propTypes = {
 
 function GuestMenu({ router }) {
   return (
-    <PageContainer>
-      <NavigationHeaderRow label="Calculators:" />
+    <Page>
+      <HeaderRow label="Calculators:" />
       <NavigationItemRow
         label="Hydrometer Correction"
         onClick={() => router.push(CALC_HYDROMETER)}
@@ -59,12 +59,12 @@ function GuestMenu({ router }) {
         label="Backsweetening"
         onClick={() => router.push(CALC_BACKSWEETENING)}
       />
-      <NavigationHeaderRow label="Recipes:" />
+      <HeaderRow label="Recipes:" />
       <NavigationItemRow
         label="5% Sulphite Solution"
         onClick={() => router.push(RECIPE_5PCT_SULPHITE_SOLN)}
       />
-    </PageContainer>
+    </Page>
   );
 }
 

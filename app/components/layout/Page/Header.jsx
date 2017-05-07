@@ -25,37 +25,55 @@
 import React, { PropTypes } from 'react';
 import withRouter from 'react-router/lib/withRouter';
 import { routerShape } from 'react-router/lib/PropTypes';
-import { HOME } from '../../../routes';
+import { HOME, PREFERENCES } from '../../../routes';
 import Row from '../Row';
 
-const propTypes = {
-  onOpenPreferencesDialog: PropTypes.func.isRequired,
-  router: routerShape.isRequired,
-};
+class Header extends React.Component {
+  static propTypes = {
+    withHomeOption: PropTypes.bool,
+    withPreferencesOption: PropTypes.bool,
+    router: routerShape.isRequired,
+  };
 
-function Header({ onOpenPreferencesDialog, router }) {
-  return (
-    <Row>
-      <div className="col-xs-12 h3 page-header">
-        <img
-          src="/images/icon-gear-48.png"
-          className="settings-icon link"
-          onClick={onOpenPreferencesDialog}
-        />
-        {router.isActive(HOME, true) ? (
-          <div>
-            <img src="/images/apple.png" className="logo-icon" />CiderRef
-          </div>
-        ) : (
-          <div className="link" onClick={() => { router.push(HOME); }}>
-            <img src="/images/apple.png" className="logo-icon" />CiderRef
-          </div>
-        )}
-      </div>
-    </Row>
-  );
+  static defaultProps = {
+    withHomeOption: true,
+    withPreferencesOption: true,
+  };
+
+  handleOpenHome = () => {
+    this.props.router.push(HOME);
+  };
+
+  handleOpenPreferences = () => {
+    this.props.router.push(PREFERENCES);
+  };
+
+  render() {
+    const { withHomeOption, withPreferencesOption, router } = this.props;
+
+    return (
+      <Row>
+        <div className="col-xs-12 h3 page-header">
+          {withPreferencesOption && (
+            <img
+              src="/images/icon-gear-48.png"
+              className="settings-icon link"
+              onClick={this.handleOpenPreferences}
+            />
+          )}
+          {!withHomeOption || router.isActive(HOME, true) ? (
+            <div>
+              <img src="/images/apple.png" className="logo-icon" />CiderRef
+            </div>
+          ) : (
+            <div className="link" onClick={this.handleOpenHome}>
+              <img src="/images/apple.png" className="logo-icon" />CiderRef
+            </div>
+          )}
+        </div>
+      </Row>
+    );
+  }
 }
-
-Header.propTypes = propTypes;
 
 export default withRouter(Header);

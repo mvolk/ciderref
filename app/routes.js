@@ -24,9 +24,11 @@
 
 export const HOME = '/';
 
-export const CALC_HYDROMETER = '/calc/hydrometer';
-export const CALC_SULPHITE = '/calc/sulphite';
-export const CALC_CHAPTALIZATION = '/calc/chaptalization';
-export const CALC_BACKSWEETENING = '/calc/backsweetening';
+export const PREFERENCES = '/preferences';
 
-export const RECIPE_5PCT_SULPHITE_SOLN = '/recipe/5pct_so2';
+export const CALC_HYDROMETER = '/calc-hydrometer';
+export const CALC_SULPHITE = '/calc-sulphite';
+export const CALC_CHAPTALIZATION = '/calc-chaptalization';
+export const CALC_BACKSWEETENING = '/calc-backsweetening';
+
+export const RECIPE_5PCT_SULPHITE_SOLN = '/recipe-5pct_so2';

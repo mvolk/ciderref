@@ -23,12 +23,15 @@
  */
 
 import React, { PropTypes } from 'react';
-import { InputParametersShape, TemperatureUnitsShape } from '../../shapes';
+
+import convert from '../../helpers/convert';
+import { InputParametersShape, TemperatureShape } from '../../shapes';
+import Spacing from '../layout/Spacing';
+import TemperatureUnitsSelect from './TemperatureUnitsSelect';
 
 export default class TemperatureInput extends React.Component {
   static propTypes = {
-    value: PropTypes.number.isRequired,
-    units: TemperatureUnitsShape.isRequired,
+    temperature: TemperatureShape.isRequired,
     parameters: InputParametersShape.isRequired,
     onChange: PropTypes.func.isRequired,
     autoFocus: PropTypes.bool,
@@ -38,26 +41,37 @@ export default class TemperatureInput extends React.Component {
     autoFocus: false,
   };
 
-  handleChange = (e) => {
+  handleValueChangeEvent = (e) => {
     e.preventDefault();
-    this.props.onChange({ value: Number(e.target.value), units: this.props.units });
+    this.props.onChange({ value: Number(e.target.value), units: this.props.temperature.units });
+  };
+
+  handleUnitsChange = (newUnits) => {
+    this.props.onChange(
+      convert(this.props.temperature, newUnits, this.props.parameters.resolution),
+    );
   };
 
   render() {
-    const { value, units, parameters, autoFocus } = this.props;
+    const { temperature, parameters, autoFocus } = this.props;
 
     return (
       <div>
         <input
           type="number"
-          value={value.toFixed(parameters.decimalPlaces)}
+          value={temperature.value.toFixed(parameters.decimalPlaces)}
           autoFocus={autoFocus}
-          onChange={this.handleChange}
+          onChange={this.handleValueChangeEvent}
           min={parameters.minValue}
           max={parameters.maxValue}
           step={parameters.resolution}
         />
-        {units.label}
+        <Spacing left={6} inline>
+          <TemperatureUnitsSelect
+            value={temperature.units}
+            onChange={this.handleUnitsChange}
+          />
+        </Spacing>
       </div>
     );
   }

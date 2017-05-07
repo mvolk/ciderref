@@ -22,20 +22,29 @@
  * SOFTWARE.
  */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
+import classNames from 'classnames';
 
 const propTypes = {
-  name: React.PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  secondary: PropTypes.bool,
+  children: PropTypes.node.isRequired,
 };
 
-function Header({ name }) {
+const defaultProps = {
+  onClick: () => {},
+  secondary: false,
+};
+
+function Button({ onClick, secondary, children }) {
   return (
-    <div className="row">
-      <div className="col-xs-12 h4 wizard-header">{name}</div>
-    </div>
+    <button className={classNames({ primary: !secondary, secondary })} onClick={onClick}>
+      {children}
+    </button>
   );
 }
 
-Header.propTypes = propTypes;
+Button.propTypes = propTypes;
+Button.defaultProps = defaultProps;
 
-export default Header;
+export default Button;

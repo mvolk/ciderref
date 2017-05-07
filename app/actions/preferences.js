@@ -22,21 +22,11 @@
  * SOFTWARE.
  */
 
-export const OPEN_PREFERENCES_DIALOG = 'preferences/open';
-export const CLOSE_PREFERENCES_DIALOG = 'preferences/close';
-export const CHANGE_PREFERENCES = 'preferences/change';
+export const SET_PREFERENCES = 'preferences/set';
 
-export function openPreferencesDialog() {
-  return { type: OPEN_PREFERENCES_DIALOG };
-}
-
-export function closePreferencesDialog() {
-  return { type: CLOSE_PREFERENCES_DIALOG };
-}
-
-export function changePreferences(newPreferences) {
+export function setPreferences(preferences) {
   return {
-    type: CHANGE_PREFERENCES,
-    preferences: newPreferences,
+    type: SET_PREFERENCES,
+    preferences,
   };
 }

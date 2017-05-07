@@ -22,34 +22,16 @@
  * SOFTWARE.
  */
 
-import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import Preferences from '../components/views/Preferences';
+import { setPreferences } from '../actions/preferences';
 
-import Header from './Header';
-import Footer from './Footer';
+const mapStateToProps = state => ({
+  preferences: state.preferences,
+});
 
-class Page extends React.Component {
-  static propTypes = {
-    withHomeOption: PropTypes.bool,
-    withPreferencesOption: PropTypes.bool,
-    children: PropTypes.node.isRequired,
-  };
+const PreferencesContainer = connect(mapStateToProps, {
+  setPreferences,
+})(Preferences);
 
-  static defaultProps = {
-    withHomeOption: true,
-    withPreferencesOption: true,
-  };
-
-  render() {
-    const { withHomeOption, withPreferencesOption, children } = this.props;
-
-    return (
-      <div className="container">
-        <Header withHomeOption={withHomeOption} withPreferencesOption={withPreferencesOption} />
-        {children}
-        <Footer />
-      </div>
-    );
-  }
-}
-
-export default Page;
+export default PreferencesContainer;
